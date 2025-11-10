@@ -1,0 +1,21 @@
+import Hero from '../components/Hero';
+import Features from '../components/Features';
+import Services from '../components/Services';
+import Pricing from '../components/Pricing';
+import Testimonials from '../components/Testimonials';
+import CaseStudies from '../components/CaseStudies';
+
+function Home() {
+  return (
+    <>
+      <Hero />
+      <Features />
+      <Services />
+      <Pricing />
+      <Testimonials />
+      <CaseStudies />
+    </>
+  );
+}
+
+export default Home;
