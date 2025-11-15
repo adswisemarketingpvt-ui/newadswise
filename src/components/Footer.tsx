@@ -6,21 +6,29 @@ function Footer() {
 
   const footerLinks = {
     company: [
-      { label: 'About Us', to: '/about' },
+      { label: 'About Us', to: '/about-us' },
       { label: 'Services', to: '/services' },
       { label: 'Case Studies', to: '/case-studies' },
       { label: 'Blog', to: '/blog' }
     ],
     services: [
-      { label: 'SEO Optimization', to: '/services' },
-      { label: 'Content Marketing', to: '/services' },
-      { label: 'Social Media', to: '/services' },
-      { label: 'PPC Advertising', to: '/services' }
+      { label: 'Strategy Consulting', to: '/services/strategy-consulting' },
+      { label: 'Performance Marketing', to: '/services/performance-marketing' },
+      { label: 'Social Media Marketing', to: '/services/social-media-marketing' },
+      { label: 'Website Development', to: '/services/website-development' },
+      { label: 'Video Production', to: '/services/video-production' },
+      { label: 'E-Commerce', to: '/services/ecommerce-development' },
+      { label: 'Graphics Designing', to: '/services/graphics-designing' },
+      { label: 'SEO', to: '/services/search-engine-optimization' },
+      { label: 'Answer Engine Optimization', to: '/services/answer-engine-optimization' },
+      { label: 'Platform Listing Optimization', to: '/services/Platform-Listing-Optimization' },
+      { label: 'Media Buying & Planning', to: '/services/media-buying-planning' },
+
     ],
     support: [
       { label: 'Contact', to: '/contact' },
-      { label: 'Pricing', to: '/pricing' },
-      { label: 'FAQ', to: '/faq' },
+      // { label: 'Pricing', to: '/pricing' },
+      // { label: 'FAQ', to: '/faq' },
       { label: 'Privacy Policy', to: '/privacy' }
     ]
   };
@@ -48,18 +56,18 @@ function Footer() {
               <div className="flex items-center">
                 <Mail className="w-5 h-5 mr-3 text-blue-500" />
                 <a href="mailto:hello@magemarketer.com" className="hover:text-white transition-colors">
-                  hello@magemarketer.com
+                  adswisemarketing.pvt@gmail.com
                 </a>
               </div>
               <div className="flex items-center">
                 <Phone className="w-5 h-5 mr-3 text-blue-500" />
                 <a href="tel:+15551234567" className="hover:text-white transition-colors">
-                  +1 (555) 123-4567
+                  +91 9730266648
                 </a>
               </div>
               <div className="flex items-center">
                 <MapPin className="w-5 h-5 mr-3 text-blue-500" />
-                <span>San Francisco, CA 94102</span>
+                <span>Pune , Maharashtra</span>
               </div>
             </div>
           </div>
@@ -107,7 +115,7 @@ function Footer() {
         <div className="border-t border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm mb-4 md:mb-0">
-              © {currentYear} MageMarketer. All rights reserved.
+              © {currentYear} AdswiseMarketing. All rights reserved.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social, index) => (

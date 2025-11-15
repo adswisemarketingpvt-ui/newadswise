@@ -42,8 +42,8 @@ const logos: Logo[] = [
   },
   { id: "logo5", src: "https://adswisemarketing.com//client2jpg", alt: "Client 5" },
   { id: "logo6", src: "https://adswisemarketing.com//client.jpg", alt: "Client 6" },
-  { id: "logo7", src: "/logos/logo7.png", alt: "Client 7" },
-  { id: "logo8", src: "/logos/logo8.png", alt: "Client 8" },
+  // { id: "logo7", src: "/logos/logo7.png", alt: "Client 7" },
+  // { id: "logo8", src: "/logos/logo8.png", alt: "Client 8" },
 ];
 
 export default function ClientsSection(): JSX.Element {
