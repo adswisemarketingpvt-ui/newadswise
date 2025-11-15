@@ -1,124 +1,204 @@
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Play } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Settings, Video, TrendingUp, Code } from 'lucide-react';
 
-function Hero() {
+// Single-file Hero component with integrated animated logo (Framer Motion + TailwindCSS)
+export default function Hero() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // simple entrance trigger
+    setIsVisible(true);
+  }, []);
+
+  const services = [
+    { icon: Settings, title: 'Smart', subtitle: 'Strategy' },
+    { icon: Video, title: 'Content', subtitle: 'Creation' },
+    { icon: TrendingUp, title: 'Growth', subtitle: 'Marketing' },
+    { icon: Code, title: 'Design And', subtitle: 'Development' }
+  ];
+
+  // Animated logo component (local subcomponent)
+  const ModernMotionLogo = ({ className = 'w-48 h-auto' }) => {
+    return (
+      <div className={`flex items-center justify-center ${className} rounded-xl`}>
+        <motion.img
+          src="https://adswisemarketing.com/logo.png"
+          alt="Adswise Marketing"
+          className="w-[80%] object-contain mt-2"
+
+          // Initial State
+          initial={{ y: 0, opacity: 0 }}
+
+          // Animation Loop
+          animate={{
+            y: [-8, 8, -8],
+            opacity: 1,
+            filter: [
+              'drop-shadow(0 0 0px rgba(56, 189, 248, 0))',
+              'drop-shadow(0 0 20px rgba(56, 189, 248, 0.5))', // Blue glow pulse
+              'drop-shadow(0 0 0px rgba(56, 189, 248, 0))'
+            ]
+          }}
+
+          // Transition Settings
+          transition={{
+            duration: 4,
+            ease: 'easeInOut',
+            repeat: Infinity
+          }}
+
+          // Hover Interaction
+          whileHover={{
+            scale: 1.06,
+            rotate: 4,
+            filter: 'drop-shadow(0 0 25px rgba(255, 255, 255, 0.85))'
+          }}
+
+          onError={(e) => {
+            // graceful fallback if image fails
+            e.currentTarget.style.display = 'none';
+          }}
+        />
+      </div>
+    );
+  };
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-600 via-cyan-500 to-blue-700">
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIxLTEuNzktNC00LTRzLTQgMS43OS00IDQgMS43OSA0IDQgNCA0LTEuNzkgNC00em0wLTEwYzAtMi4yMS0xLjc5LTQtNC00cy00IDEuNzktNCA0IDEuNzkgNCA0IDQgNC0xLjc5IDQtNHptMC0xMGMwLTIuMjEtMS43OS00LTQtNHMtNCAxLjc5LTQgNCAxLjc5IDQgNCA0IDQtMS43OSA0LTR6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
+    <div className="min-h-screen bg-black text-white overflow-hidden">
+      {/* Main Container - Mobile First */}
+      <div className="min-h-screen flex flex-col lg:flex-row items-center justify-center lg:justify-between px-6 md:px-20 py-20 md:py-12">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-white"
+        {/* Mobile/Tablet: Centered Vertical Layout */}
+        <div className="lg:hidden flex flex-col items-center text-center w-full max-w-md">
+          {/* Logo (animated) */}
+          <div
+            className={`mb-8 transition-all duration-1000 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+            style={{ transitionDelay: '200ms' }}
           >
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-semibold mb-6"
-            >
-              🚀 Transform Your Digital Presence
-            </motion.div>
+            <ModernMotionLogo className="w-48 h-auto mx-auto animate-float" />
+          </div>
 
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Grow Your Business with{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-400">
-                Smart Marketing
+          {/* Title */}
+          <h1
+            className={`text-5xl font-bold leading-tight mb-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+            style={{ transitionDelay: '400ms' }}
+          >
+            <span className="inline-block animate-text-gradient bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 bg-clip-text text-transparent">Adswise</span>
+            <br />
+            <span className="inline-block animate-text-gradient bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 bg-clip-text text-transparent inline-block">Marketing</span>
+          </h1>
+
+          {/* Subtitle */}
+          <p
+            className={`text-lg font-light leading-relaxed mb-10 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+            style={{ transitionDelay: '600ms' }}
+          >
+            The last digital marketing agency,
+            <br />
+            You'll ever need.
+          </p>
+
+          {/* Services */}
+          <div
+            className={`grid grid-cols-4 gap-4 w-full transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+            style={{ transitionDelay: '800ms' }}
+          >
+            {services.map((service, index) => (
+              <div key={index} className="flex flex-col items-center group cursor-pointer">
+                <div className="w-12 h-12 mb-2 flex items-center justify-center text-orange-500 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
+                  <service.icon size={32} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xs font-semibold leading-tight">{service.title}</h3>
+                <p className="text-xs font-normal leading-tight">{service.subtitle}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop: Side-by-side Layout */}
+        <div className="hidden lg:flex flex-1 max-w-2xl pl-10 border-l-4 border-orange-500 mt-10 lg:mt-0">
+          <div className=" mt-10 lg:mt-10">
+            <h1
+              className={`text-6xl font-bold leading-tight mb-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              style={{ transitionDelay: '0ms' }}
+            >
+              <span className="inline-block animate-text-gradient bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 bg-clip-text text-transparent bg-[length:200%_auto]">ADSWISE</span>
+              <br />
+              <span className="inline-block animate-text-gradient bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 bg-clip-text text-transparent bg-[length:200%_auto]" style={{ animationDelay: '0.2s' }}>
+                MARKETING
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl mb-8 text-blue-100 leading-relaxed">
-              Data-driven strategies that deliver measurable results. We help businesses scale with cutting-edge digital marketing solutions.
+            <p
+              className={`text-2xl font-light leading-relaxed mb-10 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              style={{ transitionDelay: '300ms' }}
+            >
+              The last digital marketing agency,
+              <br />
+              You'll ever need.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                to="/contact"
-                className="group inline-flex items-center justify-center px-8 py-4 bg-white text-blue-600 rounded-full font-bold text-lg hover:bg-blue-50 hover:shadow-2xl transition-all duration-300 hover:scale-105"
-              >
-                Get Started Free
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-
-              <button className="group inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300">
-                <Play className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
-                Watch Demo
-              </button>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-12 flex items-center space-x-8"
+            <div
+              className={`flex gap-12 flex-wrap transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              style={{ transitionDelay: '600ms' }}
             >
-              <div>
-                <div className="text-4xl font-bold">500+</div>
-                <div className="text-blue-100">Happy Clients</div>
-              </div>
-              <div className="w-px h-12 bg-white/30"></div>
-              <div>
-                <div className="text-4xl font-bold">95%</div>
-                <div className="text-blue-100">Success Rate</div>
-              </div>
-              <div className="w-px h-12 bg-white/30"></div>
-              <div>
-                <div className="text-4xl font-bold">10+</div>
-                <div className="text-blue-100">Years Experience</div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative hidden lg:block"
-          >
-            <div className="relative">
-              <motion.div
-                animate={{ y: [0, -20, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-4 -right-4 w-72 h-72 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full blur-3xl opacity-60"
-              ></motion.div>
-              <motion.div
-                animate={{ y: [0, 20, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-4 -left-4 w-72 h-72 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full blur-3xl opacity-60"
-              ></motion.div>
-
-              <div className="relative bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl">
-                <img
-                  src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Marketing Dashboard"
-                  loading="eager"
-                  className="rounded-lg shadow-2xl"
-                />
-              </div>
+              {services.map((service, index) => (
+                <div key={index} className="text-center flex flex-col items-center group cursor-pointer">
+                  <div className="w-20 h-20 mb-4 flex items-center justify-center text-orange-500 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
+                    <service.icon size={48} strokeWidth={1.5} />
+                  </div>
+                  <h3 className="text-sm font-semibold leading-tight">{service.title}</h3>
+                  <p className="text-sm font-normal leading-tight">{service.subtitle}</p>
+                </div>
+              ))}
             </div>
-          </motion.div>
+          </div>
+        </div>
+
+        {/* Desktop: Logo on Right (animated) */}
+        <div
+          className={`hidden lg:flex flex-1 items-center justify-center transition-all pt-5 duration-1000 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-80'}`}
+          style={{ transitionDelay: '400ms' }}
+        >
+          <div className="max-w-xl w-full">
+            <ModernMotionLogo className="max-w-xl w-[85%] h-auto animate-float" />
+          </div>
         </div>
       </div>
 
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      {/* WhatsApp Button */}
+      <a
+        href="https://wa.me/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 w-14 h-14 md:w-16 md:h-16 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all duration-300 hover:scale-110 z-50"
+        aria-label="Open WhatsApp chat"
       >
-        <div className="w-6 h-10 border-2 border-white rounded-full flex items-start justify-center p-2">
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-1.5 h-1.5 bg-white rounded-full"
-          ></motion.div>
-        </div>
-      </motion.div>
-    </section>
+        <svg viewBox="0 0 24 24" fill="white" className="w-8 h-8 md:w-9 md:h-9">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+      </a>
+
+      <style>{`
+        @keyframes text-gradient {
+          0%, 100% { background-position: 0% center; }
+          50% { background-position: 100% center; }
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+
+        .animate-text-gradient { animation: text-gradient 3s ease infinite; }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+
+        /* ensure the logo container is visually centered on very small screens */
+        @media (max-width: 420px) {
+          .animate-float { animation-duration: 5.5s; }
+        }
+      `}</style>
+    </div>
   );
 }
-
-export default Hero;

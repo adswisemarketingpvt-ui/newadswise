@@ -33,15 +33,13 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-black text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center">
-                <Zap className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl font-bold text-white">MageMarketer</span>
+              <img className="h-10 w-10" src="https://adswisemarketing.com/logo.png" alt="" />
+              <span className="text-2xl font-bold text-white">Adswise Marketing</span>
             </Link>
             <p className="text-gray-400 mb-6 max-w-md">
               Transform your digital presence with data-driven marketing strategies that deliver measurable results.
