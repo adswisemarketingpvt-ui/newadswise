@@ -523,8 +523,8 @@ const SEOService: React.FC<SEOServiceProps> = ({
       <DeliverablesSection />
       <TruthsSection />
       <FAQSection />
-      <ContactSection />
-      <Footer />
+      {/* <ContactSection />
+      <Footer /> */}
     </div>
   );
 };

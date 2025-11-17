@@ -95,7 +95,7 @@ export default function ServicesHome() {
                 tabIndex={0}
                 onKeyDown={(e)=> { if (e.key === 'Enter' || e.key === ' ') openFeatured(index); }}
                 className={`
-                  bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105
+                  bg-white p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105
                   ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-95'}
                   ${hideWhileActive ? 'opacity-0 pointer-events-none' : ''}
                   cursor-pointer
@@ -106,7 +106,7 @@ export default function ServicesHome() {
                 }}
               >
                 <div
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transform transition-transform duration-300 hover:scale-110 hover:rotate-6"
+                  className="w-16 h-16 rounded-full flex items-center justify-center mb-6 transform transition-transform duration-300 hover:scale-110 hover:rotate-6"
                   style={{ backgroundColor: service.color }}
                 >
                   <Icon size={32} className="text-white" strokeWidth={2} />

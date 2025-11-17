@@ -5,6 +5,7 @@ import Services from "../homepages/ServicesHome";
 import ClientsSection from "../homepages/ClientsSection";
 import StatsSection from "../homepages/StatsSection";
 import Team from "../homepages/Team";
+import Project from "../homepages/Project";
 
 
 function Home() {
@@ -15,6 +16,7 @@ function Home() {
       <StatsSection />
       <Services />
       <ClientsSection />
+      <Project />
       <Team />
       <CaseStudies />
     </>

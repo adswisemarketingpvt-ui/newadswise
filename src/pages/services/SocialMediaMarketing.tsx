@@ -335,7 +335,7 @@ const SocialMediaMarketing: React.FC<SocialMediaMarketingProps> = ({
                         </div>
                     </div>
                     <div className="md:w-1/2 bg-slate-800 relative min-h-[300px] flex items-center justify-center">
-                        
+                      
                         <div className="absolute bottom-6 bg-black/60 backdrop-blur-md px-6 py-3 rounded-full border border-slate-600">
                             <p className="text-white text-sm font-semibold">"That’s not luck. That’s structured strategy."</p>
                         </div>

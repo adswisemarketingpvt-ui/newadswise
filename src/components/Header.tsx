@@ -47,6 +47,7 @@ export default function Header() {
     { to: '/services/answer-engine-optimization', label: 'Answer Engine Optimization' },
     { to: '/services/Platform-Listing-Optimization', label: 'Platform Listing Optimization' },
     { to: '/services/media-buying-planning', label: 'Media Buying & Planning' },
+    { to : '/services/email-whatsapp-marketing' , label : 'Email & Whatsapp Marketing' },
 
   ];
 
@@ -214,7 +215,7 @@ export default function Header() {
                   <p>
                     Call us:{' '}
                     <a href="tel:+1234567890" className="text-yellow-500">
-                      +1 234 567 890
+                      +91 9730266648
                     </a>
                   </p>
                 </div>

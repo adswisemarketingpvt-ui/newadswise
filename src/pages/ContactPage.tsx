@@ -86,12 +86,12 @@ const ContactPage = () => {
     <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Decorative blocks */}
       <div className="absolute top-32 right-0 w-48 h-32 bg-orange-500 opacity-80 animate-pulse"></div>
-      <div
+      {/* <div
         className="absolute bottom-0 left-0 w-64 h-48 bg-yellow-400 opacity-80 animate-pulse"
         style={{ animationDelay: "1s" }}
-      ></div>
+      ></div> */}
       <div className="absolute top-0 left-0 w-48 h-12 bg-orange-600 opacity-60"></div>
-      <div className="absolute bottom-20 right-20 w-32 h-32 bg-yellow-300 opacity-60 hidden lg:block"></div>
+      {/* <div className="absolute bottom-20 right-20 w-32 h-32 bg-yellow-300 opacity-60 hidden lg:block"></div> */}
 
       <div
         className={`container mx-auto px-4 py-8 transition-all duration-1000 ${

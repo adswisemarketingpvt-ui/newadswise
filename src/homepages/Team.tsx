@@ -53,7 +53,7 @@ const Team = () => {
                 animation: `slideUp 0.6s ease-out ${index * 0.15}s both`
               }}
             >
-              <div className="relative aspect-[3/4] overflow-hidden rounded-lg">
+              <div className="relative aspect-[3/4] overflow-hidden ">
                 <img
                   src={member.image}
                   alt={member.name}

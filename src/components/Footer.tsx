@@ -23,6 +23,7 @@ function Footer() {
       { label: 'Answer Engine Optimization', to: '/services/answer-engine-optimization' },
       { label: 'Platform Listing Optimization', to: '/services/Platform-Listing-Optimization' },
       { label: 'Media Buying & Planning', to: '/services/media-buying-planning' },
+      { label : 'Email & watsapp Marketing' , to : '/services/email-whatsapp-marketing' },
 
     ],
     support: [
@@ -34,10 +35,10 @@ function Footer() {
   };
 
   const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' }
+    { icon: Facebook, href: 'https://www.facebook.com/61578110506688', label: 'Facebook' },
+    // { icon: Twitter, href: '#', label: 'Twitter' },
+    { icon: Instagram, href: 'https://www.instagram.com/reel/DQZNxBniIGH/', label: 'Instagram' },
+    { icon: Linkedin, href: 'https://in.linkedin.com/company/adswise-marketing', label: 'LinkedIn' }
   ];
 
   return (
@@ -123,7 +124,7 @@ function Footer() {
                   key={index}
                   href={social.href}
                   aria-label={social.label}
-                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors duration-300"
+                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors duration-300"
                 >
                   <social.icon className="w-5 h-5" />
                 </a>

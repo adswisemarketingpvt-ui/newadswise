@@ -229,49 +229,74 @@ const GraphicsDesigning: React.FC<GraphicsDesigningProps> = ({
 
     return (
         <section className="py-20 bg-black">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
-                    <AnimatedSection>
-                        <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
-                            Core Design Services
-                        </h2>
-                        <p className="text-slate-400 mb-8">
-                            We don’t just design visuals; we design assets that work for your business ecosystem.
-                        </p>
-                        <div className="space-y-6">
-                            {services.map((service, idx) => (
-                                <div key={idx} className="flex gap-4">
-                                    <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-slate-900 flex items-center justify-center text-orange-500 border border-slate-800">
-                                        {service.icon}
-                                    </div>
-                                    <div>
-                                        <h4 className="text-white font-bold text-lg">{service.title}</h4>
-                                        <p className="text-slate-500">{service.desc}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </AnimatedSection>
-                    
-                    <AnimatedSection delay={0.3}>
-                        <div className="grid grid-cols-2 gap-4">
-                             <div className="bg-slate-900 rounded-2xl h-64 border border-slate-800 flex items-center justify-center overflow-hidden">
-                                
-                             </div>
-                             <div className="bg-slate-900 rounded-2xl h-64 border border-slate-800 flex items-center justify-center overflow-hidden mt-8">
-                                
-                             </div>
-                             <div className="bg-slate-900 rounded-2xl h-64 border border-slate-800 flex items-center justify-center overflow-hidden -mt-8">
-                                
-                             </div>
-                             <div className="bg-slate-900 rounded-2xl h-64 border border-slate-800 flex items-center justify-center overflow-hidden">
-                                
-                             </div>
-                        </div>
-                    </AnimatedSection>
-                </div>
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid lg:grid-cols-2 gap-12 items-center">
+
+      <AnimatedSection>
+        <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
+          Core Design Services
+        </h2>
+
+        <p className="text-slate-400 mb-8">
+          We don’t just design visuals; we design assets that work for your business ecosystem.
+        </p>
+
+        <div className="space-y-6">
+          {services.map((service, idx) => (
+            <div key={idx} className="flex gap-4">
+              <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-slate-900 flex items-center justify-center text-orange-500 border border-slate-800">
+                {service.icon}
+              </div>
+              <div>
+                <h4 className="text-white font-bold text-lg">{service.title}</h4>
+                <p className="text-slate-500">{service.desc}</p>
+              </div>
             </div>
-        </section>
+          ))}
+        </div>
+      </AnimatedSection>
+
+      <AnimatedSection delay={0.3}>
+        <div className="grid grid-cols-2 gap-4">
+
+          <div className="bg-slate-900 rounded-2xl h-64 border border-slate-800 overflow-hidden">
+            <img
+              src="https://i.pinimg.com/736x/0c/a2/c9/0ca2c9097cfc17a2e82abeaaaa2966ee.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div className="bg-slate-900 rounded-2xl h-64 border border-slate-800 overflow-hidden mt-8">
+            <img
+              src="https://i.pinimg.com/736x/ab/6b/04/ab6b0470b7dbfe643b9b0c1cbd3afc98.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div className="bg-slate-900 rounded-2xl h-64 border border-slate-800 overflow-hidden -mt-8">
+            <img
+              src="https://i.pinimg.com/1200x/8d/13/9f/8d139fe354e47ef199668c3eae352212.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div className="bg-slate-900 rounded-2xl h-64 border border-slate-800 overflow-hidden">
+            <img
+              src="https://i.pinimg.com/1200x/6b/89/15/6b8915e21710a652b2ba873016a4062e.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+        </div>
+      </AnimatedSection>
+
+    </div>
+  </div>
+</section>
     );
   };
 

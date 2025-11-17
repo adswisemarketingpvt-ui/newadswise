@@ -13,6 +13,7 @@ import StrategyConsulting from "./strategy-consulting";
 import AEOptimization from "./AEOptimization";
 import PlatformListingOptimization from "./PLO";
 import MediaBuyingPlanning from "./MediaBuyingPlanning";
+import EmailWhatsAppMarketing from "./EmailWhatsAppMarketing";
 const ServiceRouter: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
 
@@ -39,6 +40,8 @@ const ServiceRouter: React.FC = () => {
       return <PlatformListingOptimization />;
     case "media-buying-planning":
       return <MediaBuyingPlanning />;
+    case "email-whatsapp-marketing":
+      return <EmailWhatsAppMarketing />;
     default:
       return <NotFoundService />;
   }
