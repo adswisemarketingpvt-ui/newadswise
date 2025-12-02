@@ -19,11 +19,11 @@ function Footer() {
       { label: 'Video Production', to: '/services/video-production' },
       { label: 'E-Commerce', to: '/services/ecommerce-development' },
       { label: 'Graphics Designing', to: '/services/graphics-designing' },
-      { label: 'SEO', to: '/services/search-engine-optimization' },
+      { label: 'SEO ', to: '/services/search-engine-optimization' },
       { label: 'Answer Engine Optimization', to: '/services/answer-engine-optimization' },
       { label: 'Platform Listing Optimization', to: '/services/Platform-Listing-Optimization' },
       { label: 'Media Buying & Planning', to: '/services/media-buying-planning' },
-      { label : 'Email & watsapp Marketing' , to : '/services/email-whatsapp-marketing' },
+      { label : 'Email & Watsapp Marketing' , to : '/services/email-whatsapp-marketing' },
 
     ],
     support: [

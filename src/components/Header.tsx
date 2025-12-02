@@ -7,9 +7,13 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
-  // New states for dropdowns
+  // Services Dropdown States
   const [isServicesHovered, setIsServicesHovered] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+
+  // Industry Dropdown States (NEW)
+  const [isIndustryHovered, setIsIndustryHovered] = useState(false);
+  const [isMobileIndustryOpen, setIsMobileIndustryOpen] = useState(false);
 
   const location = useLocation();
 
@@ -19,20 +23,27 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // close mobile menu when route changes
+  // Close mobile menu and reset dropdowns when route changes
   useEffect(() => {
     setIsMobileMenuOpen(false);
-    setIsMobileServicesOpen(false); // Reset mobile accordion
-    setIsServicesHovered(false);    // Reset desktop hover
+    
+    // Reset Mobile Accordions
+    setIsMobileServicesOpen(false);
+    setIsMobileIndustryOpen(false); 
+    
+    // Reset Desktop Hovers
+    setIsServicesHovered(false);
+    setIsIndustryHovered(false);
   }, [location]);
 
   const navLinks = [
     { to: '/', label: 'Home' }, 
     { to: '/about-us', label: 'About' },
-    { to: '/services', label: 'Services' }, // We will intercept this label in the map loop
+    { to: '/services', label: 'Services' }, 
+    { to: '/industry', label: 'Industry' }, // This label triggers the dropdown logic below
     { to: '/contact', label: 'Contact' },
     { to: '/case-studies', label: 'Case Studies' },
-    { to: '/blog', label: 'Blog' }
+    { to: '/blog', label: 'Blog' },
   ];
 
   const serviceDropdownLinks = [
@@ -48,7 +59,15 @@ export default function Header() {
     { to: '/services/Platform-Listing-Optimization', label: 'Platform Listing Optimization' },
     { to: '/services/media-buying-planning', label: 'Media Buying & Planning' },
     { to : '/services/email-whatsapp-marketing' , label : 'Email & Whatsapp Marketing' },
+  ];
 
+  // New Industry Dropdown Links
+  const industryDropdownLinks = [
+    { to: '/industries/real-estate', label: 'Real Estate' },
+    { to: '/industries/manufacturing', label: 'Manufacturing' },
+    { to: '/industries/interior-design', label: 'Interior Design' },
+    { to: '/industries/healthcare', label: 'Healthcare Industry' },
+    { to: '/industries/education', label: 'Education' },
   ];
 
   return (
@@ -68,11 +87,13 @@ export default function Header() {
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => {
+                
+                // --- SERVICES DROPDOWN LOGIC ---
                 if (link.label === 'Services') {
                   return (
                     <div 
                       key={link.to}
-                      className="relative h-20 flex items-center" // Match header height to make hover area comfortable
+                      className="relative h-20 flex items-center"
                       onMouseEnter={() => setIsServicesHovered(true)}
                       onMouseLeave={() => setIsServicesHovered(false)}
                     >
@@ -84,7 +105,6 @@ export default function Header() {
                         <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isServicesHovered ? 'rotate-180' : ''}`} />
                       </Link>
 
-                      {/* Desktop Dropdown */}
                       <AnimatePresence>
                         {isServicesHovered && (
                           <motion.div
@@ -111,7 +131,52 @@ export default function Header() {
                     </div>
                   );
                 }
+
+                // --- INDUSTRY DROPDOWN LOGIC (NEW) ---
+                if (link.label === 'Industry') {
+                    return (
+                      <div 
+                        key={link.to}
+                        className="relative h-20 flex items-center"
+                        onMouseEnter={() => setIsIndustryHovered(true)}
+                        onMouseLeave={() => setIsIndustryHovered(false)}
+                      >
+                        <Link
+                          to={link.to}
+                          className="flex items-center gap-1 font-medium text-white/90 hover:text-yellow-300"
+                        >
+                          {link.label}
+                          <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isIndustryHovered ? 'rotate-180' : ''}`} />
+                        </Link>
+  
+                        <AnimatePresence>
+                          {isIndustryHovered && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 10 }}
+                              transition={{ duration: 0.2 }}
+                              className="absolute top-[80%] -left-4 w-64 pt-2"
+                            >
+                              <div className="bg-white rounded-lg shadow-xl overflow-hidden py-2">
+                                {industryDropdownLinks.map((industry) => (
+                                  <Link
+                                    key={industry.to}
+                                    to={industry.to}
+                                    className="block px-4 py-3 text-sm text-slate-800 hover:bg-yellow-50 hover:text-yellow-600 transition-colors"
+                                  >
+                                    {industry.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    );
+                  }
                 
+                // --- STANDARD LINKS ---
                 return (
                   <Link
                     key={link.to}
@@ -158,6 +223,8 @@ export default function Header() {
               <div className="px-4 pt-4 pb-6 h-[80vh] overflow-y-auto">
 
                 {navLinks.map((link) => {
+                  
+                  // --- MOBILE SERVICES ---
                   if (link.label === 'Services') {
                     return (
                       <div key={link.to} className="block">
@@ -193,6 +260,43 @@ export default function Header() {
                     );
                   }
 
+                  // --- MOBILE INDUSTRY (NEW) ---
+                  if (link.label === 'Industry') {
+                    return (
+                      <div key={link.to} className="block">
+                        <button
+                          onClick={() => setIsMobileIndustryOpen(!isMobileIndustryOpen)}
+                          className="flex items-center justify-between w-full px-3 py-3 text-slate-800 font-medium"
+                        >
+                          {link.label}
+                          <ChevronDown className={`w-5 h-5 transition-transform duration-200 ${isMobileIndustryOpen ? 'rotate-180' : ''}`} />
+                        </button>
+                        
+                        <AnimatePresence>
+                          {isMobileIndustryOpen && (
+                            <motion.div
+                              initial={{ height: 0 }}
+                              animate={{ height: 'auto' }}
+                              exit={{ height: 0 }}
+                              className="overflow-hidden bg-slate-50 rounded-md"
+                            >
+                              {industryDropdownLinks.map((industry) => (
+                                <Link
+                                  key={industry.to}
+                                  to={industry.to}
+                                  className="block px-6 py-3 text-sm text-slate-600 hover:text-yellow-600 border-l-2 border-transparent hover:border-yellow-400"
+                                >
+                                  {industry.label}
+                                </Link>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    );
+                  }
+
+                  // --- MOBILE STANDARD LINKS ---
                   return (
                     <Link
                       key={link.to}

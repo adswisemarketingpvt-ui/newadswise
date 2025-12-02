@@ -3,7 +3,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { 
   Smartphone, Share2, Heart, Users, MessageCircle, 
   BarChart2, TrendingUp, Repeat, Globe, Plus, Minus, 
-  Send, ThumbsUp, Video
+  Send, ThumbsUp, Video ,Layers,
 } from 'lucide-react';
 
 // ============================================================================

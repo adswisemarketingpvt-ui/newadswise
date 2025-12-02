@@ -1,37 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
-import { useRef } from "react";
+import FallBeamBackground from "../components/FallBeamBackground";
 
 // --- Helper Component: Animated Counter ---
 const Counter = ({
   value,
+  start = false,
   direction = "up",
 }: {
   value: number;
+  start?: boolean;
   direction?: "up" | "down";
 }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const motionValue = useMotionValue(direction === "down" ? value : 0);
   const springValue = useSpring(motionValue, { damping: 50, stiffness: 100 });
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   useEffect(() => {
-    if (isInView) {
+    if (start) {
       motionValue.set(direction === "down" ? 0 : value);
     }
-  }, [isInView, motionValue, direction, value]);
+  }, [start, motionValue, direction, value]);
 
   useEffect(() => {
-    springValue.on("change", (latest) => {
+    const unsub = springValue.on("change", (latest) => {
       if (ref.current) {
+        // keep number stable width by using Intl and floor
         ref.current.textContent = Intl.NumberFormat("en-US").format(
           Math.floor(latest)
         );
       }
     });
+    return () => unsub();
   }, [springValue]);
 
-  return <span ref={ref} />;
+  return (
+    // inline-block + min width prevents the span from collapsing on mobile
+    <span ref={ref} className="inline-block min-w-[3ch] text-right" />
+  );
 };
 
 // --- Helper Component: Typewriter Effect ---
@@ -42,7 +48,7 @@ const TypewriterText = ({ text }: { text: string }) => {
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
       opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.04 * i },
+      transition: { staggerChildren: 0.04, delayChildren: 0.02 * i },
     }),
   };
 
@@ -94,17 +100,24 @@ const TypewriterText = ({ text }: { text: string }) => {
 };
 
 const StatsSection = () => {
+  // Observe the whole stats grid area once; when it enters viewport start all counters
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-120px" });
+
   return (
     <section className="bg-black text-white py-16 px-6 md:px-12 lg:px-24 overflow-hidden">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        
         {/* LEFT COLUMN: Text Content */}
         <div className="space-y-6">
+          
           <div>
             <h3 className="text-xl md:text-2xl font-medium text-gray-200 mb-2">
               Your Brand Deserves More
             </h3>
-            <div className="text-5xl md:text-6xl lg:text-7xl font-bold text-orange-500 h-20 md:h-24 pb-3 flex ">
-              <TypewriterText text="Recognition" />
+            <div className="text-5xl md:text-6xl lg:text-7xl font-bold text-orange-500 h-20 md:h-24 pb-3 flex">
+              Recognition
             </div>
           </div>
 
@@ -115,28 +128,23 @@ const StatsSection = () => {
             viewport={{ once: true }}
             className="text-gray-300 leading-relaxed text-lg text-justify"
           >
-            At <strong className="text-white">Adswise Marketing</strong>, we
-            believe your brand deserves more than just visibility — it deserves
-            real, measurable growth. We combine creativity, strategic thinking,
-            and modern technology to build campaigns that truly connect with the
-            right audience. Every solution we create is powered by data-driven
-            insights, innovative ideas, and a deep understanding of how people
-            behave online. From boosting engagement to increasing brand
-            recognition, we ensure your business stands out in today’s
-            competitive digital world.
+            At <strong className="text-white">Adswise Marketing</strong>,your brand gets more than visibility — it gets measurable growth. We blend creativity, strategy, and technology to build campaigns that genuinely connect with the right audience. With data-driven insights and a clear understanding of online behavior, we help your business stand out in today’s competitive digital space.
             <br />
-            With <strong className="text-white">Adswise Marketing as your partner, success isn’t just a target
-            — it becomes a predictable, consistent result.</strong>
+            With <strong className="text-white"> Adswise Marketing as your partner, success becomes consistent and predictable.</strong>
           </motion.p>
         </div>
 
         {/* RIGHT COLUMN: Statistics Grid */}
-        <div className="grid grid-cols-2 gap-x-8 gap-y-12">
+        <div
+          ref={containerRef}
+          className="grid grid-cols-2 gap-x-8 gap-y-12"
+          aria-hidden={false}
+        >
           {/* Stat 1 */}
           <div className="flex flex-col">
-            <div className="text-5xl md:text-6xl font-bold text-white mb-2 flex items-baseline">
-              <Counter value={3} />
-              <span>+</span>
+            <div className="text-5xl md:text-6xl font-bold text-white mb-2 flex items-baseline gap-2">
+              <Counter value={3} start={isInView} />
+              <span className="text-white">+</span>
             </div>
             <p className="text-orange-500 text-lg md:text-xl font-medium">
               Years of Experience
@@ -145,9 +153,9 @@ const StatsSection = () => {
 
           {/* Stat 2 */}
           <div className="flex flex-col">
-            <div className="text-5xl md:text-6xl font-bold text-white mb-2 flex items-baseline">
-              <Counter value={700} />
-              <span>+</span>
+            <div className="text-5xl md:text-6xl font-bold text-white mb-2 flex items-baseline gap-2">
+              <Counter value={700} start={isInView} />
+              <span className="text-white">+</span>
             </div>
             <p className="text-orange-500 text-lg md:text-xl font-medium">
               Successful Projects
@@ -156,9 +164,9 @@ const StatsSection = () => {
 
           {/* Stat 3 */}
           <div className="flex flex-col">
-            <div className="text-5xl md:text-6xl font-bold text-white mb-2 flex items-baseline">
-              <Counter value={450} />
-              <span>+</span>
+            <div className="text-5xl md:text-6xl font-bold text-white mb-2 flex items-baseline gap-2">
+              <Counter value={450} start={isInView} />
+              <span className="text-white">+</span>
             </div>
             <p className="text-orange-500 text-lg md:text-xl font-medium">
               Brands Transformed
@@ -167,9 +175,9 @@ const StatsSection = () => {
 
           {/* Stat 4 */}
           <div className="flex flex-col">
-            <div className="text-5xl md:text-6xl font-bold text-white mb-2 flex items-baseline">
-              <Counter value={1010} />
-              <span>+</span>
+            <div className="text-5xl md:text-6xl font-bold text-white mb-2 flex items-baseline gap-2">
+              <Counter value={1010} start={isInView} />
+              <span className="text-white">+</span>
             </div>
             <p className="text-orange-500 text-lg md:text-xl font-medium">
               Campaigns Launched

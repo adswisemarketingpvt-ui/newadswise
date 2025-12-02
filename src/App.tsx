@@ -12,7 +12,10 @@ import AboutUs from './components/AboutUs';
 import ServicesPage from './pages/ServicesPage';
 import ServiceRouter from './pages/services/ServiceRouter';
 import { Navigate } from 'react-router-dom';
-
+// import Campaign from './components/Campaign';
+import { ThemeProvider } from './homepages/ThemeProvider';
+import Industry from './pages/Industry';
+import IndustryRouter from './pages/industry/IndustryRouter';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -26,6 +29,7 @@ function ScrollToTop() {
 
 function App() {
   return (
+    
     <Router>
       <ScrollToTop />
       <div className="min-h-screen">
@@ -41,11 +45,20 @@ function App() {
             <Route path="/services" element={<ServicesPage />} />
               <Route path="/services/:slug" element={<ServiceRouter />} />
                <Route path="*" element={<Navigate to="/services" replace />} />
+             
+             <Route path="/industry" element={<Industry />} />
+
+        {/* Dynamic Route for all industries */}
+        {/* This captures /industries/real-estate, /industries/manufacturing, etc. */}
+        <Route path="/industries/:slug" element={<IndustryRouter />} />
+              
+
             {/* <Route path="/pricing" element={<PricingPage />} /> */}
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/case-studies" element={<CaseStudiesPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            {/* <Route path="/campaign" element={<Campaign />} /> */}
           </Routes>
         </main>
         <Footer />

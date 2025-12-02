@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Mail, Phone, Facebook, Twitter, Instagram } from "lucide-react";
+import { Mail, Phone, Facebook,  Instagram, Linkedin } from "lucide-react";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -43,8 +43,8 @@ const ContactPage = () => {
         user_id: "8Z9vTXA5d-P-_FP4i",
 
         template_params: {
-          name: formData.name,     // maps to {{name}}
-          email: formData.email,   // maps to {{email}}
+          name: formData.name, // maps to {{name}}
+          email: formData.email, // maps to {{email}}
           number: formData.number, // maps to {{number}}
           message: formData.message, // maps to {{message}}
         },
@@ -101,7 +101,6 @@ const ContactPage = () => {
         <div className="max-w-7xl mx-auto my-8 md:my-16">
           <div className="bg-neutral-950 text-white shadow-2xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 px-6 md:px-12 py-12 md:py-20 relative">
-              
               {/* Left Content */}
               <div className="relative z-10 space-y-10">
                 <div
@@ -153,10 +152,22 @@ const ContactPage = () => {
                       : "opacity-0 translate-y-10"
                   }`}
                 >
-                  {[Facebook, Twitter, Instagram].map((Icon, i) => (
+                  {[
+                    {
+                      icon: Facebook,
+                      url: "https://www.facebook.com/61578110506688",
+                    },
+                    { icon: Linkedin, url: "https://in.linkedin.com/company/adswise-marketing" },
+                    {
+                      icon: Instagram,
+                      url: "https://www.instagram.com/reel/DQZNxBniIGH/",
+                    },
+                  ].map(({ icon: Icon, url }, i) => (
                     <a
                       key={i}
-                      href="#"
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-10 h-10 border border-gray-700 hover:border-yellow-400 hover:bg-yellow-400 hover:text-black transition-all flex items-center justify-center"
                     >
                       <Icon size={18} />
@@ -174,7 +185,6 @@ const ContactPage = () => {
                 }`}
               >
                 <div className="relative border-2 border-orange-500 p-1">
-                  
                   {/* Corners */}
                   <div className="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-orange-500"></div>
                   <div className="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-orange-500"></div>
