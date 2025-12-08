@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Mail, Phone, Facebook,  Instagram, Linkedin } from "lucide-react";
+import SEO from "../components/SEO";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -85,6 +86,12 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Decorative blocks */}
+      <SEO
+  title="Contact Us | AdsWise Marketing"
+  description="Contact AdsWise Marketing for advertising, branding and digital marketing solutions."
+  url="https://www.adswisemarketing.com/contact"
+/>
+
       <div className="absolute top-32 right-0 w-48 h-32 bg-orange-500 opacity-80 animate-pulse"></div>
       {/* <div
         className="absolute bottom-0 left-0 w-64 h-48 bg-yellow-400 opacity-80 animate-pulse"

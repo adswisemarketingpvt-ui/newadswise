@@ -56,7 +56,6 @@ const VideoProduction: React.FC<VideoProductionProps> = ({
   const accentColor = '#FF6B35'; // Adswise Orange
   const recColor = '#ef4444'; // Recording Red
   
-  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const [formData, setFormData] = useState<FormData>({
     name: '', email: '', videoType: '', message: ''
   });
@@ -81,8 +80,10 @@ const VideoProduction: React.FC<VideoProductionProps> = ({
       <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]"></div>
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-red-600/10 rounded-full blur-[120px]"></div>
       
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 pb-12 lg:pb-0">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
+          
+          {/* Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -114,34 +115,48 @@ const VideoProduction: React.FC<VideoProductionProps> = ({
             </div>
           </motion.div>
           
+          {/* Video Visual - Fully Responsive */}
           <motion.div
              initial={{ opacity: 0, scale: 0.9 }}
              animate={{ opacity: 1, scale: 1 }}
              transition={{ duration: 0.8, delay: 0.2 }}
-             className="relative hidden lg:block"
+             className="relative w-full mt-8 lg:mt-0"
           >
-             <div className="relative rounded-2xl overflow-hidden border border-slate-800 shadow-2xl shadow-red-900/10">
-                 {/* Abstract representation of a camera view */}
-                 <div className="aspect-video bg-slate-900 relative flex items-center justify-center">
-                    <div className="absolute inset-0 border-[20px] border-black/50 pointer-events-none"></div>
-                    <div className="absolute top-8 right-8 text-green-500 font-mono text-xs">BAT 98%</div>
-                    <div className="absolute top-8 left-8 text-white font-mono text-xs">ISO 800</div>
-                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white font-mono text-xs">REC 00:00:14</div>
+             <div className="relative rounded-2xl overflow-hidden border border-slate-800 shadow-2xl shadow-red-900/10 bg-slate-900">
+                 
+                 {/* Video Container with Aspect Ratio */}
+                 <div className="aspect-video relative w-full h-full flex items-center justify-center overflow-hidden">
                     
-                    <div className="text-slate-600">
-                        
+                    {/* The Background Video */}
+                    <video 
+                      className="absolute inset-0 w-full h-full object-cover opacity-90"
+                      src="https://adswisemarketing.com//Animated_Logo.mp4"
+                      autoPlay 
+                      loop 
+                      muted 
+                      playsInline
+                    />
+
+                    {/* Camera UI Overlays (Kept on top of video) */}
+                    <div className="absolute inset-0 bg-black/10 z-10 pointer-events-none"></div> {/* Slight darkening for text readability */}
+                    <div className="absolute inset-0 border-[10px] sm:border-[20px] border-black/20 pointer-events-none z-20"></div>
+                    
+                    <div className="absolute top-6 right-6 lg:top-8 lg:right-8 text-green-500 font-mono text-xs z-30 font-bold bg-black/50 px-2 rounded">BAT 98%</div>
+                    <div className="absolute top-6 left-6 lg:top-8 lg:left-8 text-white font-mono text-xs z-30 font-bold bg-black/50 px-2 rounded">ISO 800</div>
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 lg:bottom-8 text-white font-mono text-xs z-30 flex items-center gap-2 bg-black/50 px-3 py-1 rounded-full">
+                        <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                        REC 00:00:14
                     </div>
-                    <Clapperboard className="absolute text-slate-700 w-32 h-32 opacity-20" />
                  </div>
              </div>
              
-             {/* Floating Elements */}
-             <div className="absolute -bottom-6 -right-6 bg-slate-900 border border-slate-700 p-4 rounded-xl shadow-xl">
+             {/* Floating Badge */}
+             <div className="absolute -bottom-6 -right-2 lg:-right-6 bg-slate-900 border border-slate-700 p-4 rounded-xl shadow-xl z-40">
                 <div className="flex items-center gap-3">
                     <MonitorPlay className="text-orange-500" />
                     <div>
-                        <p className="font-bold text-white">4K Ready</p>
-                        <p className="text-sm text-slate-400">Cinema Quality</p>
+                        <p className="font-bold text-white text-sm lg:text-base">4K Ready</p>
+                        <p className="text-xs lg:text-sm text-slate-400">Cinema Quality</p>
                     </div>
                 </div>
              </div>
@@ -466,7 +481,8 @@ const VideoProduction: React.FC<VideoProductionProps> = ({
       <ServicesSection />
       <CaseStudy />
       <FAQSection />
-      
+      {/* <ContactSection />
+      <Footer /> */}
     </div>
   );
 };

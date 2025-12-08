@@ -34,10 +34,12 @@ function App() {
       <ScrollToTop />
       <div className="min-h-screen">
         <SEO
-          title="Adswise Marketing - Digital Marketing Solutions"
-          description="Transform your digital presence with data-driven marketing strategies. SEO, PPC, Content Marketing, Social Media, and more."
-          keywords="digital marketing, SEO, PPC, content marketing, social media marketing"
-        />
+            title="AdsWise Marketing | Advertising, Branding & Digital Growth"
+            description="We help brands grow through creative advertising, digital marketing, social media strategy and high-impact campaigns."
+            url="https://www.adswisemarketing.com/"
+            image="https://www.adswisemarketing.com/og-image.jpg"
+            keywords="digital marketing, SEO, PPC, content marketing, social media marketing"
+          />
         <Header />
         <main>
           <Routes>

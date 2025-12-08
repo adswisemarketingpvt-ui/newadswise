@@ -17,6 +17,7 @@ import {
   MailCheck,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import SEO from "../components/SEO";
 
 type IconComponent = React.ComponentType<any>;
 
@@ -173,6 +174,13 @@ export default function ServicesPage(): JSX.Element {
 
   return (
     <div className="min-h-screen bg-black from-[#4D6473] via-[#2C4657] to-[#172531] py-20 px-6 md:px-12 relative">
+
+      <SEO
+  title="Our Services | AdsWise Marketing"
+  description="AdsWise Marketing offers branding, ad films, digital marketing, social media management and performance campaigns."
+  url="https://www.adswisemarketing.com/services"
+/>
+
       {/* ========================
           Inserted "How We Help" Section
           (kept original structure + included a style tag so it renders correctly)

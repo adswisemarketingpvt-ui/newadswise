@@ -1,4 +1,5 @@
+
 User-agent: *
 Allow: /
 
-Sitemap: https://adswisemarketing.com/sitemap.xml
+Sitemap: https://www.adswisemarketing.com/sitemap.xml

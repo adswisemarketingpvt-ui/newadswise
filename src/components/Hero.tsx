@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Settings, Video, TrendingUp, Code } from 'lucide-react';
 import FallBeamBackground from './FallBeamBackground'; // ⬅️ import your background component
+import SEO from './SEO';
 
 // Single-file Hero component with integrated animated logo (Framer Motion + TailwindCSS)
 export default function Hero() {
@@ -62,6 +63,12 @@ export default function Hero() {
 
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
+      <SEO
+        title="AdsWise Marketing | Advertising, Branding & Digital Growth"
+        description="We help brands grow through creative advertising, digital marketing, social media strategy and high-impact campaigns."
+        url="https://www.adswisemarketing.com/"
+      />
+
       {/* Falling beam animated background (behind everything) */}
       {/* <FallBeamBackground
         lineCount={24}
