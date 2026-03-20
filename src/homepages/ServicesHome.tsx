@@ -1,7 +1,18 @@
 // ServicesPage.jsx
-import React, { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { BarChart3, Instagram, Palette, Video, TrendingUp, Globe, ShoppingCart, Search, ArrowRight, X } from 'lucide-react';
+import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  BarChart3,
+  Instagram,
+  Palette,
+  Video,
+  TrendingUp,
+  Globe,
+  ShoppingCart,
+  Search,
+  ArrowRight,
+  X,
+} from "lucide-react";
 
 export default function ServicesHome() {
   const [visibleCards, setVisibleCards] = useState(new Set());
@@ -16,15 +27,15 @@ export default function ServicesHome() {
           if (entry.isIntersecting) {
             const index = cardRefs.current.indexOf(entry.target);
             if (index !== -1) {
-              setVisibleCards(prev => new Set([...prev, index]));
+              setVisibleCards((prev) => new Set([...prev, index]));
             }
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.12 },
     );
 
-    cardRefs.current.forEach(ref => {
+    cardRefs.current.forEach((ref) => {
       if (ref) observer.observe(ref);
     });
 
@@ -32,51 +43,105 @@ export default function ServicesHome() {
   }, []);
 
   const services = [
-    { icon: BarChart3, title: 'Strategy & Consulting', description: 'Expert business strategies and consulting to drive success', color: '#C7843B', slug: 'strategy-consulting' },
-    { icon: Instagram, title: 'Social Media Marketing', description: 'Boost brand engagement with powerful social media campaigns', color: '#F3BD68', slug: 'social-media-marketing' },
-    { icon: Palette, title: 'Graphics Designing', description: 'Creative graphic designs that strengthen brand identity', color: '#C7843B', slug: 'graphics-designing' },
-    { icon: Video, title: 'Video Production', description: "Professional video production telling your brand's unique story", color: '#F3BD68', slug: 'video-production' },
-    { icon: TrendingUp, title: 'Performance Marketing', description: 'Targeted campaigns that deliver measurable business growth', color: '#C7843B', slug: 'performance-marketing' },
-    { icon: Globe, title: 'Website Development', description: 'Responsive websites built to match business objectives', color: '#F3BD68', slug: 'website-development' },
-    { icon: ShoppingCart, title: 'E-Commerce Development', description: 'Seamless e-commerce solutions helping brands sell online', color: '#C7843B', slug: 'ecommerce-development' },
-    { icon: Search, title: 'Search Engine Optimization', description: 'Boost online presence with expert SEO optimization services', color: '#F3BD68', slug: 'search-engine-optimization' }
+    {
+      icon: BarChart3,
+      title: "Strategy & Consulting",
+      description:
+        "We audit your current digital presence, competitors, and customer journey, then create a practical growth plan covering positioning, channels, content, ad funnels, and measurement to ensure a scalable roadmap for your business.",
+      color: "#536186",
+      slug: "strategy-consulting",
+    },
+    {
+      icon: Instagram,
+      title: "Social Media Marketing",
+      description:
+        "Beyond just posting, we build data-driven social strategies that foster community and brand loyalty. We manage content curation, community engagement, and platform-specific storytelling to keep your brand at the center of the conversation.",
+      color: "#536186",
+      slug: "social-media-marketing",
+    },
+    {
+      icon: Palette,
+      title: "Graphics Designing",
+      description:
+        "We develop a cohesive visual language that goes beyond aesthetics. From premium brand identities and logos to high-converting marketing collateral, we ensure every touchpoint reflects your brand’s authority and professionalism.",
+      color: "#536186",
+      slug: "graphics-designing",
+    },
+    {
+      icon: Video,
+      title: "Video Production",
+      description:
+        "High-impact video storytelling designed for the modern buyer. We produce professional commercial shoots, motion graphics, and short-form content (Reels/TikToks) that capture attention within seconds and drive meaningful action.",
+      color: "#536186",
+      slug: "video-production",
+    },
+    {
+      icon: TrendingUp,
+      title: "Performance Marketing",
+      description:
+        "Aggressive, ROI-focused advertising across Google, Meta, and LinkedIn. We optimize every stage of the funnel—from precise audience targeting to A/B testing—ensuring your ad spend translates into qualified leads and revenue.",
+      color: "#536186",
+      slug: "performance-marketing",
+    },
+    {
+      icon: Globe,
+      title: "Industrial & Corporate Website Development",
+      description:
+        "We build high-performance digital sales engines. Our websites are fast, mobile-responsive, and engineered to answer buyer objections, establish trust through UX design, and convert anonymous visitors into high-intent inquiries.",
+      color: "#536186",
+      slug: "website-development",
+    },
+    {
+      icon: ShoppingCart,
+      title: "E-Commerce Development",
+      description:
+        "End-to-end e-commerce solutions built for scale. We focus on seamless checkout experiences, robust inventory management, and secure payment integrations to minimize cart abandonment and maximize your online sales potential.",
+      color: "#536186",
+      slug: "ecommerce-development",
+    },
+    {
+      icon: Search,
+      title: "Search Engine Optimization",
+      description:
+        "Sustainable organic growth driven by technical SEO, in-depth keyword research, and high-authority link building. We ensure your brand dominates search results for the terms that actually move the needle for your bottom line.",
+      color: "#536186",
+      slug: "search-engine-optimization",
+    },
   ];
 
   const openFeatured = (index) => {
     setActiveIndex(index);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   };
 
   const closeFeatured = () => {
     setActiveIndex(null);
-    document.body.style.overflow = '';
+    document.body.style.overflow = "";
   };
 
   // navigate to service detail page
   const goToService = (service) => {
     // close overlay and restore scroll before navigation
     setActiveIndex(null);
-    document.body.style.overflow = '';
+    document.body.style.overflow = "";
     navigate(`/services/${service.slug}`);
   };
 
   return (
-    <div className="min-h-screen bg-black from-[#4D6473] via-[#2C4657] to-[#172531] py-10 px-6 md:px-12 relative">
+    <div className="min-h-screen bg-[#D3D3D3] from-[#4D6473] via-[#2C4657] to-[#172531] py-10 px-6 md:px-12 relative">
       <div className="max-w-7xl mx-auto relative z-10">
-
-        
         {/* Header Section */}
         <div className="text-center mb-16 animate-fade-in">
-          <h1 className="text-4xl md:text-6xl lg:text-4xl font-bold text-white mb-4">
-            Our <span className="text-yellow-500">Services</span>
-          </h1>
-          <h1 className="text-sm md:text-lg font-bold text-white mb-6">
-            Strategic Services Designed to Elevate Your Brand
-          </h1>
-          <p className="text-[#B9C7CE] text-sm md:text-lg max-w-4xl mx-auto leading-relaxed">
-            We understand that the digital landscape is constantly evolving and we are here to guide you through it.
-            With our comprehensive range of digital marketing services, we can assist you in achieving your online goals
-            and growing your business.
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#363636] mb-4 text-center">
+            Our <span className="text-[#536186]">Services</span>
+          </h2>
+
+          <h2 className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl font-bold text-[#363636] mb-6 text-center leading-tight">
+            COMPREHENSIVE B2B MARKETING — FROM STRATEGY TO SCALABLE GROWTH
+          </h2>
+          <p className="text-[#536186] text-sm md:text-lg max-w-4xl mx-auto leading-relaxed">
+            We bring strategy, creative, and technology together to build a
+            predictable digital growth engine for your business.​
           </p>
         </div>
 
@@ -85,24 +150,27 @@ export default function ServicesHome() {
           {services.map((service, index) => {
             const Icon = service.icon;
             const isVisible = visibleCards.has(index);
-            const hideWhileActive = activeIndex !== null && activeIndex === index;
+            const hideWhileActive =
+              activeIndex !== null && activeIndex === index;
             return (
               <div
                 key={index}
-                ref={el => cardRefs.current[index] = el}
+                ref={(el) => (cardRefs.current[index] = el)}
                 onClick={() => openFeatured(index)}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e)=> { if (e.key === 'Enter' || e.key === ' ') openFeatured(index); }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") openFeatured(index);
+                }}
                 className={`
                   bg-white p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105
-                  ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-95'}
-                  ${hideWhileActive ? 'opacity-0 pointer-events-none' : ''}
+                  ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-95"}
+                  ${hideWhileActive ? "opacity-0 pointer-events-none" : ""}
                   cursor-pointer
                 `}
                 style={{
                   transitionDelay: `${(index % 4) * 80}ms`,
-                  animationDelay: `${(index % 4) * 80}ms`
+                  animationDelay: `${(index % 4) * 80}ms`,
                 }}
               >
                 <div
@@ -127,7 +195,10 @@ export default function ServicesHome() {
 
                 <div className="flex items-center gap-2 text-[#172531] font-semibold hover:text-[#C7843B] transition-colors duration-300 group">
                   <button
-                    onClick={(e) => { e.stopPropagation(); goToService(service); }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      goToService(service);
+                    }}
                     className="flex items-center gap-2 focus:outline-none"
                     aria-label={`Learn more about ${service.title}`}
                   >
@@ -148,15 +219,15 @@ export default function ServicesHome() {
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div
           className="absolute top-20 left-10 w-64 h-64 rounded-full opacity-5 blur-3xl animate-float"
-          style={{ backgroundColor: '#C7843B' }}
+          style={{ backgroundColor: "#C7843B" }}
         />
         <div
           className="absolute bottom-20 right-10 w-96 h-96 rounded-full opacity-5 blur-3xl animate-float-delayed"
-          style={{ backgroundColor: '#F3BD68' }}
+          style={{ backgroundColor: "#F3BD68" }}
         />
         <div
           className="absolute top-1/2 left-1/2 w-80 h-80 rounded-full opacity-5 blur-3xl animate-float-slow"
-          style={{ backgroundColor: '#4D6473' }}
+          style={{ backgroundColor: "#4D6473" }}
         />
       </div>
 
@@ -188,16 +259,23 @@ export default function ServicesHome() {
             <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
               <div
                 className="w-28 h-28 rounded-3xl flex items-center justify-center flex-shrink-0 transform transition-transform duration-500"
-                style={{ backgroundColor: 'rgba(0,0,0,0.12)' }}
+                style={{ backgroundColor: "rgba(0,0,0,0.12)" }}
               >
-                {React.createElement(services[activeIndex].icon, { size: 44, className: 'text-white' , strokeWidth:2 })}
+                {React.createElement(services[activeIndex].icon, {
+                  size: 44,
+                  className: "text-white",
+                  strokeWidth: 2,
+                })}
               </div>
 
               <div className="flex-1 text-white">
                 <h2 className="text-2xl md:text-3xl font-extrabold leading-tight mb-2">
                   {services[activeIndex].title}
                 </h2>
-                <div className="w-20 h-1 mb-4" style={{ backgroundColor: 'rgba(0,0,0,0.12)' }} />
+                <div
+                  className="w-20 h-1 mb-4"
+                  style={{ backgroundColor: "rgba(0,0,0,0.12)" }}
+                />
                 <p className="mb-6 text-white/90">
                   {services[activeIndex].description}
                 </p>

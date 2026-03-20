@@ -1,35 +1,51 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 
 interface SEOProps {
   title?: string;
   description?: string;
   url?: string;
   image?: string;
+  canonical?: string;
 }
 
 const siteName = "AdsWise Marketing";
-const defaultUrl = "https://www.adswisemarketing.com/";
-const defaultImage = "https://www.adswisemarketing.com/og-image.jpg";
+const baseDomain = "https://www.adswisemarketing.com";
+const defaultImage = `${baseDomain}/og-image.jpg`;
 
 const SEO = ({
   title = "AdsWise Marketing | Creative Advertising & Digital Agency",
   description = "AdsWise Marketing is a full-service advertising and digital marketing agency offering branding, creative ads, social media and performance marketing.",
-  url = defaultUrl,
+  url,
   image = defaultImage,
+  canonical,
 }: SEOProps) => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  let finalCanonical = canonical || currentPath;
+  if (finalCanonical.startsWith("/")) {
+    finalCanonical = `${baseDomain}${finalCanonical}`;
+  }
+
+  let finalUrl = url || currentPath;
+  if (finalUrl.startsWith("/")) {
+    finalUrl = `${baseDomain}${finalUrl}`;
+  }
+
   return (
     <Helmet>
       {/* Basic Meta */}
       <title>{title}</title>
       <meta name="description" content={description} />
-      <link rel="canonical" href={url} />
+      <link rel="canonical" href={finalCanonical} />
 
       {/* Open Graph */}
       <meta property="og:site_name" content={siteName} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content={url} />
+      <meta property="og:url" content={finalUrl} />
       <meta property="og:image" content={image} />
 
       {/* Twitter */}
@@ -44,13 +60,13 @@ const SEO = ({
           "@context": "https://schema.org",
           "@type": "Organization",
           name: siteName,
-          url: defaultUrl,
-          logo: "https://www.adswisemarketing.com/logo.png",
+          url: baseDomain,
+          logo: `${baseDomain}/logo.png`,
           description: description,
           sameAs: [
             "https://www.instagram.com/adswisemarketing",
             "https://www.facebook.com/adswisemarketing",
-            "https://www.linkedin.com/company/adswisemarketing"
+            "https://www.linkedin.com/company/adswisemarketing",
           ],
           address: {
             "@type": "PostalAddress",

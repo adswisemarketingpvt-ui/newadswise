@@ -1,32 +1,34 @@
-import React, { useState, useRef } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import Header from '../../components/Header'; // Assuming you have this
-import { 
-  MapPin, Layout, Share2, Target, Monitor, 
-  CheckCircle2, BarChart3, Users, Building, 
-  Home, ArrowRight, Key, TrendingUp, Building2,
-  Phone, Globe, Search
-} from 'lucide-react';
-
-// ============================================================================
-// ASSETS & CONFIG
-// ============================================================================
-
-const IMAGES = {
-  hero: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop", // Skyscraper/Modern
-  meeting: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1973&auto=format&fit=crop", // Real Estate Meeting
-  interior: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop", // Luxury Interior
-  texture: "https://www.transparenttextures.com/patterns/carbon-fibre.png"
-};
+import React, { useState, useRef } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
+import {
+  Building2,
+  ArrowRight,
+  Target,
+  MapPin,
+  Search,
+  Smartphone,
+  BarChart3,
+  Settings,
+  ShieldCheck,
+  RefreshCw,
+  TrendingUp,
+  CheckCircle,
+  Plus,
+  Minus,
+  MessageSquare,
+} from "lucide-react";
+import SEO from "../../components/SEO"; // Using the SEO component
 
 // ============================================================================
 // ANIMATION WRAPPERS
 // ============================================================================
 
-const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
-  children, className = '', delay = 0 
-}) => {
+const AnimatedSection: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}> = ({ children, className = "", delay = 0 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
@@ -43,59 +45,45 @@ const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string;
   );
 };
 
-const ParallaxImage: React.FC<{ src: string; alt: string; className?: string }> = ({ src, alt, className = "" }) => {
-    const ref = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"]
-    });
-    const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
-
-    return (
-        <div ref={ref} className={`overflow-hidden relative ${className}`}>
-            <motion.img 
-                style={{ y, scale: 1.15 }}
-                src={src} 
-                alt={alt} 
-                className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/30"></div>
-        </div>
-    );
-};
-
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
 
 const RealEstatePage = () => {
   return (
-    <div className="min-h-screen font-sans text-slate-900 bg-white selection:bg-yellow-400 selection:text-black">
-      
-      {/* 1. Global Header */}
-      <Header />
+    <div className="min-h-screen font-sans text-[#363636] bg-[#F8F9FA] selection:bg-[#536186] selection:text-white">
+      <SEO
+        title="Real Estate Digital Marketing Services | Adswise Marketing"
+        description="Get targeted real estate digital marketing services — SEO, PPC, listings for higher-quality leads. Book a free strategy call and start scaling today."
+        canonicalUrl="/industry/real-estate-marketing"
+      />
 
-      {/* 2. HERO SECTION */}
+      {/* 1. HERO SECTION */}
       <HeroSection />
 
-      {/* 3. STATS BANNER */}
-      <StatsBanner />
+      {/* 2. THE PROBLEM */}
+      <ProblemSection />
 
-      {/* 4. SERVICES SUITE */}
+      {/* 3. TAILORED SERVICES */}
       <ServicesSection />
 
-      {/* 5. STRATEGY / WHY US */}
-      <StrategySection />
+      {/* 4. HOW WE WORK */}
+      <ProcessSection />
 
-      {/* 6. RESULTS CASE STUDY */}
-      <ResultsSection />
+      {/* 5. PROOF - CASE STUDY */}
+      <CaseStudySection />
 
-      {/* 7. AUDIENCE GRID */}
-      <AudienceSection />
+      {/* 6. BENEFITS & MEASURABLE OUTCOMES */}
+      <BenefitsSection />
 
-      {/* 8. CTA */}
+      {/* 7. KPIs WE TRACK */}
+      <KPISection />
+
+      {/* 8. FAQs */}
+      <FAQSection />
+
+      {/* 9. CTA */}
       <CTASection />
-
     </div>
   );
 };
@@ -105,357 +93,637 @@ const RealEstatePage = () => {
 // ============================================================================
 
 const HeroSection = () => {
-    return (
-        <section className="relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-black text-white pt-20">
-            {/* Parallax Background */}
-            <div className="absolute inset-0 z-0">
-                 <ParallaxImage src={IMAGES.hero} alt="Modern Real Estate" className="w-full h-full" />
-                 {/* Gradient Overlay for Readability */}
-                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/30 z-10"></div>
+  return (
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#536186] text-white pt-24 pb-12">
+      {/* Abstract Background Elements */}
+      <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#536186] rounded-full blur-[150px] opacity-40"></div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-block px-4 py-2 bg-[#536186]/30 border border-[#B0C4DE]/30 rounded-full text-sm font-semibold text-[#B0C4DE] mb-6 flex items-center gap-2 w-max shadow-lg backdrop-blur-sm">
+              <Building2 size={16} /> Real Estate Marketing
             </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+              Real Estate Digital <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#B0C4DE] to-[#D3D3D3]">
+                Marketing Services
+              </span>
+            </h1>
+            <p className="text-lg md:text-xl text-[#D3D3D3] mb-8 leading-relaxed">
+              Supply your real estate developer / builder property project with
+              steady leads and quicker sales. Adswise Marketing are a
+              results-driven marketing firm, offering a complete suite of
+              solutions for developers, brokers and product technology brands in
+              performance-oriented marketing. Using a combination of real estate
+              digital marketing with search ads, social media ads, listing
+              optimization and automation, we convert online interest into site
+              visits and convert site visits into bookings.
+            </p>
 
-            <div className="relative z-20 container mx-auto px-4 text-center max-w-5xl">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                >
-                    <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-yellow-400/20 text-yellow-400 border border-yellow-400/30 text-xs md:text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md">
-                        <Building2 size={14} /> Industry Solutions
-                    </span>
-                </motion.div>
-
-                <motion.h1 
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4, duration: 0.8 }}
-                    className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-tight"
-                >
-                    Real Estate Marketing <br className="hidden md:block" />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600">
-                        That Sells Lifestyles.
-                    </span>
-                </motion.h1>
-
-                <motion.p 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.6 }}
-                    className="max-w-2xl mx-auto text-lg md:text-xl text-slate-300 mb-10 leading-relaxed font-light"
-                >
-                    From locality domination to high-intent lead generation. We build the digital infrastructure that turns "Looking" into "Booking".
-                </motion.p>
-
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8 }}
-                    className="flex flex-col sm:flex-row gap-4 justify-center"
-                >
-                    <Link 
-                        to="/contact" 
-                        className="px-8 py-4 rounded-lg bg-yellow-400 text-black font-bold text-lg hover:bg-yellow-300 transition transform hover:-translate-y-1 shadow-[0_0_20px_rgba(250,204,21,0.4)] flex items-center justify-center gap-2"
-                    >
-                        Book Strategy Call <ArrowRight size={20} />
-                    </Link>
-                    <Link 
-                        to="/case-studies" 
-                        className="px-8 py-4 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold text-lg hover:bg-white/20 transition flex items-center justify-center gap-2"
-                    >
-                        View Case Studies
-                    </Link>
-                </motion.div>
+            <div className="flex flex-col sm:flex-row gap-4 mb-4">
+              <Link
+                to="/contact"
+                className="px-8 py-4 rounded-lg bg-white text-[#363636] font-bold text-lg hover:bg-[#D3D3D3] transition transform hover:-translate-y-1 shadow-xl flex items-center justify-center gap-2 group"
+              >
+                Get a Free Strategy Call{" "}
+                <ArrowRight
+                  size={20}
+                  className="group-hover:translate-x-1 transition-transform"
+                />
+              </Link>
             </div>
-        </section>
-    );
+            <p className="text-sm text-[#B0C4DE] font-semibold">
+              See a 90-day plan for your projects. No long contracts •
+              Month-to-month options
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative hidden lg:block"
+          >
+            <div className="rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border-4 border-[#536186]/50 h-[600px] w-full relative">
+              <img
+                src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80"
+                alt="Aerial view of a residential project and sales pavilion."
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#363636] via-transparent to-transparent"></div>
+
+              <div className="absolute bottom-6 left-6 right-6 bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl shadow-xl">
+                <div className="flex items-center gap-4 text-white">
+                  <div className="w-12 h-12 bg-[#536186] rounded-full flex items-center justify-center flex-shrink-0">
+                    <TrendingUp size={24} />
+                  </div>
+                  <div>
+                    <p className="font-bold text-lg">Predictable Leads</p>
+                    <p className="text-[#D3D3D3] text-sm">
+                      Scale your real estate bookings.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
-const StatsBanner = () => (
-    <div className="bg-yellow-400 py-6 relative z-30">
-        <div className="container mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 divide-x divide-black/10">
-                {[
-                    { label: "Site Visits Generated", val: "12k+" },
-                    { label: "Properties Sold", val: "850+" },
-                    { label: "Leads Qualified", val: "45k+" },
-                    { label: "Ad Spend Managed", val: "₹5Cr+" }
-                ].map((stat, i) => (
-                    <motion.div 
-                        key={i}
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ delay: i * 0.1 }}
-                        className="text-center"
-                    >
-                        <div className="text-2xl md:text-3xl font-black text-black">{stat.val}</div>
-                        <div className="text-xs md:text-sm font-bold text-black/70 uppercase tracking-wide">{stat.label}</div>
-                    </motion.div>
-                ))}
-            </div>
+const ProblemSection = () => {
+  const problems = [
+    {
+      icon: Target,
+      title: "Broad Audience Targeting",
+      desc: "Ads target a broad audience while producing poor quality leads.",
+    },
+    {
+      icon: Search,
+      title: "Poor Search Visibility",
+      desc: "Project pages do not perform well in the search engines for localities and floor plans.",
+    },
+    {
+      icon: RefreshCw,
+      title: "Outdated Listings",
+      desc: "Real estate listings are not updated or tracked from portal to portal.",
+    },
+    {
+      icon: MessageSquare,
+      title: "Slow Response Times",
+      desc: "Slow response times lead to lost walk-ins and unclaimed Reservations.",
+    },
+  ];
+
+  return (
+    <section className="py-24 bg-[#F8F9FA] relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-[#536186] font-bold tracking-wider text-sm uppercase mb-2 block">
+              The Problem
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-[#363636]">
+              Why Real Estate Marketing Underperforms
+            </h2>
+            <p className="text-lg text-[#363636]/80 leading-relaxed">
+              Today's real estate buyer moves quickly and is looking for clarity
+              in the purchasing process. All of these factors lead to wasted
+              advertising dollars, extended sales cycles, and stress for the
+              closing teams. We can solve these problems through the alignment
+              of creative strategy, targeting strategy, and Sales Process.
+            </p>
+          </div>
+        </AnimatedSection>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {problems.map((prob, i) => (
+            <AnimatedSection key={i} delay={i * 0.1}>
+              <div className="bg-white p-8 rounded-2xl shadow-lg border border-[#D3D3D3] hover:border-[#536186] transition-colors h-full flex flex-col items-center text-center group">
+                <div className="w-16 h-16 rounded-full bg-[#F8F9FA] text-[#536186] flex items-center justify-center mb-6 group-hover:bg-[#536186] group-hover:text-white transition-colors duration-300">
+                  <prob.icon size={32} />
+                </div>
+                <h3 className="text-lg font-bold text-[#363636] mb-3">
+                  {prob.title}
+                </h3>
+                <p className="text-[#363636]/70 text-sm leading-relaxed flex-grow">
+                  {prob.desc}
+                </p>
+              </div>
+            </AnimatedSection>
+          ))}
         </div>
-    </div>
-);
+      </div>
+    </section>
+  );
+};
 
 const ServicesSection = () => {
-    const services = [
-        {
-            icon: MapPin, title: "Hyperlocal SEO",
-            desc: "Dominating 'Near Me' searches. We optimize your Google Maps and location pages to capture demand in specific neighborhoods like 'Wakad' or 'Baner'.",
-            tags: ["GMB Ranking", "Location Pages"]
-        },
-        {
-            icon: Layout, title: "Portal Optimization",
-            desc: "Stop wasting money on portals. We optimize your MagicBricks and Housing.com listings with high-CTR visuals and copy.",
-            tags: ["99acres", "MagicBricks", "Housing"]
-        },
-        {
-            icon: Target, title: "High-Intent Ads",
-            desc: "We filter out the 'window shoppers'. Our Google & Meta ad funnels target HNI audiences with actual buying intent.",
-            tags: ["Google Ads", "Lead Qualification"]
-        },
-        {
-            icon: Share2, title: "Social Storytelling",
-            desc: "Selling the dream. Drone shots, walkthrough reels, and lifestyle content that creates emotional connection before the site visit.",
-            tags: ["Reels", "Drone Shoots"]
-        },
-        {
-            icon: Monitor, title: "Conversion Web Design",
-            desc: "Websites that act as virtual sales offices. Featuring EMI calculators, brochure downloads, and instant WhatsApp chat.",
-            tags: ["Landing Pages", "CRM Integration"]
-        },
-        {
-            icon: Key, title: "CRM Automation",
-            desc: "Speed to lead is everything. We set up automated WhatsApp & Email sequences to nurture leads instantly 24/7.",
-            tags: ["WhatsApp API", "Email Nurture"]
-        }
-    ];
+  return (
+    <section className="py-24 bg-white border-y border-[#D3D3D3]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <AnimatedSection>
+            <span className="text-[#536186] font-bold tracking-wider text-sm uppercase mb-2 block">
+              Our Solutions
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-[#363636]">
+              Tailored Services for Property Brands
+            </h2>
+            <p className="text-lg text-[#363636]/80">
+              Our program is designed to fit your needs whether it be for one
+              single floor studio or an entire township launch.
+            </p>
+          </AnimatedSection>
+        </div>
 
-    return (
-        <section className="py-20 bg-slate-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <AnimatedSection>
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-slate-900">
-                            The 360° Real Estate Ecosystem
-                        </h2>
-                        <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                            Standalone ads don't work anymore. You need a connected system that attracts, educates, and converts homebuyers.
-                        </p>
-                    </div>
-                </AnimatedSection>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {services.map((s, i) => (
-                        <AnimatedSection key={i} delay={i * 0.1}>
-                            <motion.div 
-                                whileHover={{ y: -5 }}
-                                className="bg-white rounded-2xl p-8 shadow-lg border border-slate-100 hover:shadow-2xl hover:border-yellow-400 transition-all duration-300 group h-full flex flex-col"
-                            >
-                                <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 bg-slate-900 text-white group-hover:bg-yellow-400 group-hover:text-black transition-colors duration-300">
-                                    <s.icon size={28} />
-                                </div>
-                                <h3 className="text-xl font-bold mb-3 text-slate-900">{s.title}</h3>
-                                <p className="text-slate-600 mb-6 text-sm leading-relaxed flex-grow">{s.desc}</p>
-                                <div className="flex gap-2 flex-wrap mt-auto">
-                                    {s.tags.map((t, idx) => (
-                                        <span key={idx} className="text-[10px] uppercase font-bold px-2 py-1 bg-slate-100 text-slate-500 rounded border border-slate-200">
-                                            {t}
-                                        </span>
-                                    ))}
-                                </div>
-                            </motion.div>
-                        </AnimatedSection>
-                    ))}
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="space-y-12">
+            <AnimatedSection delay={0.1}>
+              <div className="flex gap-4">
+                <div className="mt-1 flex-shrink-0 w-12 h-12 rounded-xl bg-[#536186]/10 text-[#536186] flex items-center justify-center">
+                  <MapPin size={24} />
                 </div>
+                <div>
+                  <h3 className="text-xl font-bold text-[#363636] mb-2">
+                    Local Search and SEO
+                  </h3>
+                  <p className="text-[#363636]/70 leading-relaxed">
+                    Keyword optimized project pages, structured sitemaps, set up
+                    GBP for your location. Micro market landing sites and
+                    medium/large locality pages.
+                  </p>
+                </div>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.2}>
+              <div className="flex gap-4">
+                <div className="mt-1 flex-shrink-0 w-12 h-12 rounded-xl bg-[#536186]/10 text-[#536186] flex items-center justify-center">
+                  <Target size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-[#363636] mb-2">
+                    Paid Media PPC & Social Media PPC
+                  </h3>
+                  <p className="text-[#363636]/70 leading-relaxed">
+                    High quality intent search campaigns on google, dynamic
+                    remarketing campaigns using hyper local social media ads,
+                    lead form campaigns and open house traffic generation
+                    campaigns.
+                  </p>
+                </div>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.3}>
+              <div className="flex gap-4">
+                <div className="mt-1 flex-shrink-0 w-12 h-12 rounded-xl bg-[#536186]/10 text-[#536186] flex items-center justify-center">
+                  <Settings size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-[#363636] mb-2">
+                    Exposure, Content & Pictures
+                  </h3>
+                  <p className="text-[#363636]/70 leading-relaxed">
+                    Maximize the title and photo synergies with all leading
+                    online property sites. Conduct A/B testing on pricing,
+                    headlines, and call-to-action buttons. Quick reference
+                    videos, EMI calculators, and clear floor plan pictures
+                    answering buyer questions (carpet area, amenities,
+                    possession date).
+                  </p>
+                </div>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.4}>
+              <div className="flex gap-4">
+                <div className="mt-1 flex-shrink-0 w-12 h-12 rounded-xl bg-[#536186]/10 text-[#536186] flex items-center justify-center">
+                  <Smartphone size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-[#363636] mb-2">
+                    Automation, Nurturing & Analytics (CRO)
+                  </h3>
+                  <p className="text-[#363636]/70 leading-relaxed">
+                    Quickly respond via WhatsApp/SMS, and set up email sequences
+                    and broker dashboards easily. Use lead scoring, heatmaps,
+                    form analysis, and conversion testing to help reduce
+                    friction. We combine these all into one comprehensive
+                    measurable program.
+                  </p>
+                </div>
+              </div>
+            </AnimatedSection>
+          </div>
+
+          <AnimatedSection delay={0.3} className="relative hidden lg:block">
+            <div className="rounded-3xl overflow-hidden shadow-2xl bg-[#D3D3D3] relative h-[700px]">
+              <img
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80"
+                alt="Search ad and mobile property listing demonstrating digital marketing services."
+                className="w-full h-full object-cover opacity-90"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#536186]/90 via-[#363636]/40 to-transparent"></div>
+
+              <div className="absolute bottom-10 left-10 right-10 flex flex-col gap-4">
+                <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl flex items-start gap-4 transform translate-y-4">
+                  <div className="w-10 h-10 bg-[#536186] rounded-full flex items-center justify-center text-white flex-shrink-0">
+                    <Search size={20} />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-[#536186] uppercase mb-1">
+                      Google Search Ad
+                    </p>
+                    <div className="h-2 w-24 bg-[#D3D3D3] rounded mb-2"></div>
+                    <div className="h-2 w-48 bg-[#D3D3D3] rounded"></div>
+                  </div>
+                </div>
+
+                <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl flex items-start gap-4 ml-8 transform -translate-y-4">
+                  <div className="w-10 h-10 bg-[#363636] rounded-full flex items-center justify-center text-white flex-shrink-0">
+                    <Smartphone size={20} />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-[#363636] uppercase mb-1">
+                      Mobile Property Listing
+                    </p>
+                    <div className="h-2 w-32 bg-[#D3D3D3] rounded mb-2"></div>
+                    <Link
+                      to="/contact"
+                      className="inline-block mt-2 px-4 py-1.5 bg-[#536186] text-white text-xs font-bold rounded-lg shrink-0"
+                    >
+                      Contact Now
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
-        </section>
-    );
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+  );
 };
 
-const StrategySection = () => (
-    <section className="py-20 bg-black text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-repeat" style={{ backgroundImage: `url(${IMAGES.texture})` }}></div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-                <AnimatedSection>
-                    <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                        Why Developers Trust <span className="text-yellow-400">Adswise</span>
-                    </h2>
-                    <p className="text-lg text-slate-400 mb-8 leading-relaxed">
-                        Real estate marketing isn't about getting cheap leads. It's about getting *site visits*. We reverse-engineer the buyer journey to filter out time-wasters and deliver qualified prospects to your sales team.
-                    </p>
-                    
-                    <div className="space-y-6">
-                        {[
-                            { title: "Market Research First", desc: "We analyze locality demand and competitor pricing before spending a rupee." },
-                            { title: "No Junk Leads", desc: "Strict OTP verification and intent-based forms to ensure data quality." },
-                            { title: "Transparent Reporting", desc: "Live dashboards showing Cost Per Site Visit, not just Cost Per Lead." }
-                        ].map((item, i) => (
-                            <div key={i} className="flex gap-4">
-                                <div className="mt-1">
-                                    <div className="w-6 h-6 rounded-full bg-yellow-400 flex items-center justify-center text-black text-xs font-bold">✓</div>
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-lg mb-1 text-white">{item.title}</h4>
-                                    <p className="text-slate-400 text-sm">{item.desc}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </AnimatedSection>
-                
-                <AnimatedSection delay={0.2}>
-                    <div className="relative">
-                         <div className="absolute -inset-2 bg-gradient-to-tr from-yellow-400 to-yellow-600 rounded-2xl blur-lg opacity-40"></div>
-                         <div className="relative bg-zinc-900 border border-zinc-800 p-8 rounded-2xl">
-                             <h3 className="text-2xl font-bold mb-6 text-white border-b border-zinc-800 pb-4">The Sales Funnel</h3>
-                             <div className="space-y-4">
-                                 {[
-                                     { step: "01", title: "Awareness", sub: "Ads, SEO, Social" },
-                                     { step: "02", title: "Capture", sub: "Landing Pages & Portals" },
-                                     { step: "03", title: "Nurture", sub: "Auto-WhatsApp & Email" },
-                                     { step: "04", title: "Conversion", sub: "Site Visit & Booking" }
-                                 ].map((s, i) => (
-                                     <div key={i} className="flex items-center p-4 rounded-xl bg-black border border-zinc-800 hover:border-yellow-500/50 transition-colors group">
-                                         <span className="text-3xl font-black text-zinc-700 group-hover:text-yellow-500 transition-colors mr-6">{s.step}</span>
-                                         <div>
-                                             <h5 className="font-bold text-white text-lg">{s.title}</h5>
-                                             <p className="text-xs text-zinc-400 uppercase tracking-wider">{s.sub}</p>
-                                         </div>
-                                     </div>
-                                 ))}
-                             </div>
-                         </div>
-                    </div>
-                </AnimatedSection>
-            </div>
+const ProcessSection = () => {
+  const steps = [
+    {
+      num: "01",
+      title: "Find and Assess",
+      desc: "We will assess your web-site, your listings, your advertisement accounts, and your existing customer journey. We'll map the point(s) where customers leave your site.",
+    },
+    {
+      num: "02",
+      title: "Create and Launch",
+      desc: "We carry out your SEO fixes, create conversion oriented landing pages, and create advertisement sets using targeted audience split.",
+    },
+    {
+      num: "03",
+      title: "Refine and Scale",
+      desc: "Weekly Optimizing loops and Creative Refreshment and Budget shifting based on performance. Each sprint has distinct deliverables and a Dashboard so that you always have visibility on your ROI.",
+    },
+  ];
+
+  return (
+    <section className="py-24 bg-[#D3D3D3] relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <AnimatedSection>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-[#363636]">
+              How We Work — A Simple 3-Step Process
+            </h2>
+          </div>
+        </AnimatedSection>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {steps.map((step, i) => (
+            <AnimatedSection key={i} delay={i * 0.1}>
+              <div className="bg-white p-10 rounded-3xl shadow-lg relative h-full group hover:-translate-y-2 transition duration-300">
+                <div className="text-6xl font-black text-[#F8F9FA] absolute top-6 right-6 transition duration-300 group-hover:text-[#B0C4DE]/30">
+                  {step.num}
+                </div>
+                <h3 className="text-2xl font-bold text-[#363636] mb-6 relative z-10">
+                  {step.title}
+                </h3>
+                <p className="text-[#363636]/70 leading-relaxed relative z-10">
+                  {step.desc}
+                </p>
+              </div>
+            </AnimatedSection>
+          ))}
         </div>
+      </div>
     </section>
-);
+  );
+};
 
-const ResultsSection = () => (
-    <section className="bg-slate-50 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 flex flex-col md:flex-row">
-                
-                {/* Text Content */}
-                <div className="md:w-1/2 p-10 md:p-16 flex flex-col justify-center">
-                    <AnimatedSection>
-                        <div className="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase tracking-wide mb-4">Case Study: Baner Project</div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Turning Clicks into Keys</h2>
-                        <p className="text-slate-600 mb-10 leading-relaxed">
-                            A mid-sized developer in Pune was struggling with high CPL and low site visit ratios. We revamped their landing pages and implemented WhatsApp automation.
-                        </p>
-                        
-                        <div className="space-y-6">
-                            {[
-                                { label: "Quality Leads", val: "630", width: "75%" },
-                                { label: "Site Visits Scheduled", val: "71", width: "50%" },
-                                { label: "Confirmed Bookings", val: "09", width: "35%" }
-                            ].map((stat, i) => (
-                                <div key={i}>
-                                    <div className="flex justify-between text-sm font-bold text-slate-700 mb-2">
-                                        <span>{stat.label}</span>
-                                        <span className="text-black">{stat.val}</span>
-                                    </div>
-                                    <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
-                                        <motion.div 
-                                            initial={{ width: 0 }}
-                                            whileInView={{ width: stat.width }}
-                                            transition={{ duration: 1.5, delay: i * 0.2 }}
-                                            className="h-full bg-yellow-400"
-                                        />
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </AnimatedSection>
-                </div>
+const CaseStudySection = () => {
+  return (
+    <section className="py-24 bg-[#363636] text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <AnimatedSection>
+            <span className="text-[#B0C4DE] font-bold tracking-wider text-sm uppercase mb-2 block">
+              Case Example
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-6">
+              Proof: Bhumkar Realty Township
+            </h2>
+            <p className="text-[#D3D3D3] text-lg leading-relaxed mb-8">
+              An illustrative example of a project we completed was one for a
+              new township development (client example: Bhumkar Realty). We
+              created and executed focused social media and search engine
+              advertising, as well as an individualised land to funnel visitors.
+            </p>
+            <p className="text-[#D3D3D3] text-lg leading-relaxed mb-10">
+              This project achieved qualified leads going to site and increased
+              booking rates through an automated follow up process.
+            </p>
 
-                {/* Visual Side */}
-                <div className="md:w-1/2 relative min-h-[400px]">
-                    <ParallaxImage src={IMAGES.interior} alt="Luxury Interior" className="absolute inset-0 w-full h-full" />
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                        <motion.div 
-                            whileHover={{ scale: 1.05 }}
-                            className="bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl max-w-xs text-center"
-                        >
-                            <TrendingUp className="w-10 h-10 text-green-600 mx-auto mb-2" />
-                            <div className="text-4xl font-black text-slate-900 mb-1">9.2x</div>
-                            <div className="text-sm font-bold text-slate-500 uppercase">ROI on Ad Spend</div>
-                        </motion.div>
-                    </div>
-                </div>
+            <blockquote className="border-l-4 border-[#B0C4DE] pl-6 py-2">
+              <p className="text-xl font-medium italic text-white mb-4">
+                "We've experienced a reduction in wasted ad spend as well as
+                received walk-in leads each week."
+              </p>
+              <footer className="text-[#B0C4DE] font-bold">
+                — Adswise marketing Client
+              </footer>
+            </blockquote>
+          </AnimatedSection>
 
+          <AnimatedSection delay={0.3}>
+            <div className="rounded-3xl overflow-hidden relative shadow-2xl h-[500px]">
+              <img
+                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80"
+                alt="Open-house event with visitors and branded marketing materials."
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-blue-900/20 mix-blend-overlay"></div>
             </div>
+          </AnimatedSection>
         </div>
+      </div>
     </section>
-);
+  );
+};
 
-const AudienceSection = () => {
-    const audiences = [
-        { icon: Building, title: "Residential Developers" },
-        { icon: Home, title: "Luxury Villa Projects" },
-        { icon: Layout, title: "Redevelopment" },
-        { icon: BarChart3, title: "Commercial Spaces" },
-        { icon: Users, title: "Co-Working Hubs" },
-        { icon: Target, title: "Channel Partners" }
-    ];
+const BenefitsSection = () => {
+  const benefits = [
+    "More qualified leads generated by Intent Based Search and Targeted Social Media Ads.",
+    "Fewer Sales Cycles From Automated Nurture Sequences.",
+    "Better Visibility for Each Project and Locality Page.",
+    "Less Waste Through More Precise Audience Segmentation.",
+  ];
 
-    return (
-        <section className="py-20 bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <AnimatedSection>
-                    <h2 className="text-3xl font-bold text-center mb-12 text-slate-900">
-                        Who We Partner With
-                    </h2>
-                </AnimatedSection>
-                
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                    {audiences.map((a, i) => (
-                        <AnimatedSection key={i} delay={i * 0.05}>
-                            <div className="p-6 rounded-xl border border-slate-100 hover:border-yellow-400 hover:bg-yellow-50 transition-all duration-300 text-center group cursor-default">
-                                <div className="text-slate-400 group-hover:text-yellow-600 transition-colors mb-3 flex justify-center">
-                                    <a.icon size={32} />
-                                </div>
-                                <h4 className="font-bold text-sm text-slate-700 group-hover:text-slate-900">{a.title}</h4>
-                            </div>
-                        </AnimatedSection>
-                    ))}
-                </div>
+  return (
+    <section className="py-20 bg-white border-b border-[#D3D3D3]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636]">
+              Benefits & Measurable Outcomes
+            </h2>
+          </div>
+        </AnimatedSection>
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {benefits.map((benefit, i) => (
+            <AnimatedSection key={i} delay={i * 0.1}>
+              <div className="flex items-start gap-4 p-6 bg-[#F8F9FA] rounded-xl border border-[#D3D3D3]">
+                <ShieldCheck
+                  className="text-[#536186] flex-shrink-0 mt-1"
+                  size={24}
+                />
+                <p className="text-[#363636]/80 font-medium leading-relaxed">
+                  {benefit}
+                </p>
+              </div>
+            </AnimatedSection>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const KPISection = () => {
+  const kpis = [
+    "Lead Sources and Projects' Metrics (MQL/SQL)",
+    "Cost Per Lead (CPL) & Cost Per Booking (CPB)",
+    "Lead → Visit | Visit → Booking Conversion Rate",
+    "Impressions, Click Through Rate(CTR), Average Position",
+    "Organic Traffic & Keyword Rankings for Project Pages",
+    "Return on Advertising (ROA) & Life Time Value (LTV)",
+  ];
+
+  return (
+    <section className="py-20 bg-[#F8F9FA]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <AnimatedSection>
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-[#363636]">
+              KPIs We Track
+            </h2>
+            <p className="text-lg text-[#363636]/80 mb-8 leading-relaxed">
+              These targets will serve as our baseline metrics. We will evolve &
+              continue to improve our performance throughout each sprint by
+              gathering data against these metrics and adjusting our strategy
+              based on our progress.
+            </p>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.2}>
+            <div className="bg-[#536186] p-8 rounded-3xl text-white shadow-xl">
+              <ul className="space-y-4">
+                {kpis.map((kpi, i) => (
+                  <li
+                    key={i}
+                    className="flex items-center gap-4 border-b border-[#B0C4DE]/20 pb-4 last:border-0 last:pb-0"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-[#B0C4DE]/20 flex items-center justify-center flex-shrink-0">
+                      <BarChart3 size={16} className="text-[#B0C4DE]" />
+                    </div>
+                    <span className="text-[#D3D3D3] font-medium">{kpi}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-        </section>
-    );
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const FAQSection = () => {
+  const [openFAQ, setOpenFAQ] = useState<number | null>(0);
+  const faqs = [
+    {
+      q: "How fast will campaigns produce leads?",
+      a: "Paid campaigns start producing leads in 7–14 days; organic gains typically take 2–3 months.",
+    },
+    {
+      q: "Can you work with our CRM and sales team?",
+      a: "Yes. We integrate with popular CRMs and set up webhook flows for instant lead delivery.",
+    },
+    {
+      q: "Do you manage listings on property portals?",
+      a: "Yes — we handle syndication, creative titles, and lead form optimization.",
+    },
+    {
+      q: "Will you run multiple projects simultaneously?",
+      a: "Yes. We segment campaigns by project and provide dedicated reporting.",
+    },
+    {
+      q: "Are there long contracts?",
+      a: "No long contracts — month-to-month options available.",
+    },
+  ];
+
+  return (
+    <section className="py-24 bg-white border-t border-[#D3D3D3]">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-4">
+              FAQs — Quick Answers
+            </h2>
+          </div>
+        </AnimatedSection>
+
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <AnimatedSection key={index} delay={index * 0.1}>
+              <div
+                className={`bg-[#F8F9FA] rounded-2xl border transition-all duration-300 ${openFAQ === index ? "border-[#536186] shadow-md" : "border-[#D3D3D3] hover:border-[#B0C4DE]"}`}
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
+                  className="w-full px-8 py-6 text-left flex justify-between items-center focus:outline-none"
+                >
+                  <span
+                    className={`font-bold text-lg pr-8 ${openFAQ === index ? "text-[#536186]" : "text-[#363636]"}`}
+                  >
+                    {faq.q}
+                  </span>
+                  <div
+                    className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${openFAQ === index ? "bg-[#536186] text-white" : "bg-[#D3D3D3] text-[#363636]"}`}
+                  >
+                    {openFAQ === index ? (
+                      <Minus size={18} />
+                    ) : (
+                      <Plus size={18} />
+                    )}
+                  </div>
+                </button>
+                <AnimatePresence>
+                  {openFAQ === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-8 pb-6 text-[#363636]/80 leading-relaxed pt-2">
+                        <span className="font-semibold text-[#536186]">
+                          A:{" "}
+                        </span>
+                        {faq.a}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </AnimatedSection>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 const CTASection = () => (
-    <section className="py-24 bg-yellow-400 text-black text-center relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-        
-        <div className="max-w-3xl mx-auto px-4 relative z-10">
-            <AnimatedSection>
-                <h2 className="text-3xl md:text-5xl font-extrabold mb-6">Ready to Scale Your Sales?</h2>
-                <p className="text-lg md:text-xl font-medium mb-10 opacity-90 max-w-2xl mx-auto">
-                    Stop relying on random leads. Build a predictable, automated sales engine with Adswise.
-                </p>
-                <div className="flex flex-col sm:flex-row justify-center gap-4">
-                    <Link 
-                        to="/contact" 
-                        className="inline-block px-10 py-4 rounded-lg bg-black text-white font-bold text-lg shadow-xl hover:scale-105 hover:shadow-2xl transition duration-300"
-                    >
-                        Get Your Proposal
-                    </Link>
-                    <a 
-                        href="tel:+910000000000"
-                        className="inline-flex items-center justify-center px-10 py-4 rounded-lg border-2 border-black text-black font-bold text-lg hover:bg-black hover:text-white transition duration-300"
-                    >
-                        <Phone className="mr-2" size={20} /> Call Now
-                    </a>
-                </div>
-            </AnimatedSection>
+  <section className="py-24 bg-[#536186] relative overflow-hidden text-center text-white">
+    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+    <div className="max-w-4xl mx-auto px-4 relative z-10">
+      <AnimatedSection>
+        <h2 className="text-4xl sm:text-5xl font-extrabold mb-8">
+          Are you prepared to grow your bookings faster and reduce wasted
+          spending?
+        </h2>
+        <p className="text-xl text-[#B0C4DE] mb-12">
+          Schedule a complimentary strategy consultation with us and get a
+          customized 90-day launch plan.
+        </p>
+        <Link
+          to="/contact"
+          className="inline-flex items-center justify-center px-10 py-5 rounded-xl bg-white text-[#536186] font-bold text-lg shadow-2xl hover:bg-[#D3D3D3] transition transform hover:-translate-y-1 gap-3"
+        >
+          Start a Free Strategy Call
+          <ArrowRight size={20} />
+        </Link>
+        <p className="mt-8 text-sm text-[#D3D3D3] font-medium flex items-center justify-center gap-4 flex-wrap">
+          <span>
+            <CheckCircle size={16} className="inline mr-2 text-[#B0C4DE]" />{" "}
+            Begins Converting Immediately
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span>
+            <CheckCircle size={16} className="inline mr-2 text-[#B0C4DE]" /> No
+            long-term contracts
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span>
+            <CheckCircle size={16} className="inline mr-2 text-[#B0C4DE]" />{" "}
+            Assigned Account Manager
+          </span>
+        </p>
+
+        {/* Internal Links Block as requested */}
+        <div className="mt-16 pt-8 border-t border-[#B0C4DE]/20 flex flex-wrap justify-center gap-8 text-sm font-semibold text-[#B0C4DE]">
+          <Link to="/services" className="hover:text-white transition">
+            Our Services
+          </Link>
+          <Link to="/case-studies" className="hover:text-white transition">
+            Case Studies
+          </Link>
+          <Link to="/contact" className="hover:text-white transition">
+            Contact Adswise
+          </Link>
         </div>
-    </section>
+      </AnimatedSection>
+    </div>
+  </section>
 );
 
 export default RealEstatePage;

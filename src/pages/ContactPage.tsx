@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Mail, Phone, Facebook,  Instagram, Linkedin } from "lucide-react";
+import { Mail, Phone, Facebook, Instagram, Linkedin } from "lucide-react";
 import SEO from "../components/SEO";
 
 const ContactPage = () => {
@@ -18,14 +18,16 @@ const ContactPage = () => {
     setIsVisible(true);
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (!formData.name || !formData.email || !formData.message) {
@@ -57,7 +59,7 @@ const ContactPage = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
-        }
+        },
       );
 
       const text = await response.text();
@@ -84,20 +86,24 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
+    <div
+      id="/contact"
+      className="min-h-screen bg-[#D3D3D3] relative overflow-hidden"
+    >
       {/* Decorative blocks */}
       <SEO
-  title="Contact Us | AdsWise Marketing"
-  description="Contact AdsWise Marketing for advertising, branding and digital marketing solutions."
-  url="https://www.adswisemarketing.com/contact"
-/>
+        title="Contact AdsWise Marketing | Full-Service Marketing Experts"
+        description="Contact AdsWise Marketing for advertising, branding and digital marketing solutions."
+        url="https://www.adswisemarketing.com/contact"
+        canonical="/contact"
+      />
 
-      <div className="absolute top-32 right-0 w-48 h-32 bg-orange-500 opacity-80 animate-pulse"></div>
+      <div className="absolute top-32 right-0 w-48 h-32 bg-[#B0C4DE] opacity-80 animate-pulse"></div>
       {/* <div
         className="absolute bottom-0 left-0 w-64 h-48 bg-yellow-400 opacity-80 animate-pulse"
         style={{ animationDelay: "1s" }}
       ></div> */}
-      <div className="absolute top-0 left-0 w-48 h-12 bg-orange-600 opacity-60"></div>
+      <div className="absolute top-0 left-0 w-48 h-12 bg-[#536186] opacity-60"></div>
       {/* <div className="absolute bottom-20 right-20 w-32 h-32 bg-yellow-300 opacity-60 hidden lg:block"></div> */}
 
       <div
@@ -106,7 +112,7 @@ const ContactPage = () => {
         }`}
       >
         <div className="max-w-7xl mx-auto my-8 md:my-16">
-          <div className="bg-neutral-950 text-white shadow-2xl overflow-hidden">
+          <div className="bg-white text-[#363636] shadow-2xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 px-6 md:px-12 py-12 md:py-20 relative">
               {/* Left Content */}
               <div className="relative z-10 space-y-10">
@@ -118,19 +124,19 @@ const ContactPage = () => {
                   }`}
                 >
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2">
-                    Contact Us<span className="text-orange-500">.</span>
+                    Contact Us<span className="text-[#536186]">.</span>
                   </h1>
                 </div>
 
                 <div
-                  className={`border-l-4 border-orange-500 pl-6 space-y-6 transition-all duration-700 delay-500 ${
+                  className={`border-l-4 border-[#536186] pl-6 space-y-6 transition-all duration-700 delay-500 ${
                     isVisible
                       ? "opacity-100 translate-x-0"
                       : "opacity-0 -translate-x-10"
                   }`}
                 >
                   <div>
-                    <h3 className="text-sm text-gray-400 mb-3">Address</h3>
+                    <h3 className="text-sm text-[#536186] mb-3">Address</h3>
                     <div className="space-y-1 text-base md:text-lg">
                       <p className="font-semibold">Thergaon</p>
                       <p>Pune, Maharashtra</p>
@@ -139,12 +145,12 @@ const ContactPage = () => {
                   </div>
 
                   <div>
-                    <h3 className="text-sm text-gray-400 mb-3">Contacts</h3>
+                    <h3 className="text-sm text-[#536186] mb-3">Contacts</h3>
                     <div className="space-y-2">
-                      <p className="flex items-center gap-2 hover:text-orange-400 transition-colors">
+                      <p className="flex items-center gap-2 hover:text-[#536186] transition-colors">
                         <Mail size={16} /> office@adswisemarketing.com
                       </p>
-                      <p className="flex items-center gap-2 hover:text-orange-400 transition-colors">
+                      <p className="flex items-center gap-2 hover:text-[#536186] transition-colors">
                         <Phone size={16} /> +91 9730266648
                       </p>
                     </div>
@@ -164,7 +170,10 @@ const ContactPage = () => {
                       icon: Facebook,
                       url: "https://www.facebook.com/61578110506688",
                     },
-                    { icon: Linkedin, url: "https://in.linkedin.com/company/adswise-marketing" },
+                    {
+                      icon: Linkedin,
+                      url: "https://in.linkedin.com/company/adswise-marketing",
+                    },
                     {
                       icon: Instagram,
                       url: "https://www.instagram.com/reel/DQZNxBniIGH/",
@@ -175,7 +184,7 @@ const ContactPage = () => {
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-10 h-10 border border-gray-700 hover:border-yellow-400 hover:bg-yellow-400 hover:text-black transition-all flex items-center justify-center"
+                      className="w-10 h-10 border border-[#536186] hover:border-[#536186] hover:bg-[#536186] hover:text-white transition-all flex items-center justify-center"
                     >
                       <Icon size={18} />
                     </a>
@@ -191,21 +200,21 @@ const ContactPage = () => {
                     : "opacity-0 translate-x-10"
                 }`}
               >
-                <div className="relative border-2 border-orange-500 p-1">
+                <div className="relative border-2 border-[#536186] p-1">
                   {/* Corners */}
-                  <div className="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-orange-500"></div>
-                  <div className="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-orange-500"></div>
-                  <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-orange-500"></div>
-                  <div className="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-orange-500"></div>
+                  <div className="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-[#536186]"></div>
+                  <div className="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-[#536186]"></div>
+                  <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-[#536186]"></div>
+                  <div className="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-[#536186]"></div>
 
-                  <div className="bg-neutral-900 p-6 md:p-8">
+                  <div className="bg-[#C0C0C0]/20 p-6 md:p-8">
                     <h2 className="text-2xl md:text-3xl font-bold mb-8">
                       Contact form
                     </h2>
 
                     <div className="space-y-6">
                       <div>
-                        <label className="block text-xs text-gray-400 mb-2 uppercase">
+                        <label className="block text-xs text-[#536186] mb-2 uppercase">
                           Name
                         </label>
                         <input
@@ -213,13 +222,13 @@ const ContactPage = () => {
                           name="name"
                           value={formData.name}
                           onChange={handleChange}
-                          className="w-full bg-neutral-800 text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all"
+                          className="w-full bg-[#D3D3D3] text-[#363636] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#536186] transition-all"
                           placeholder="your name"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs text-gray-400 mb-2 uppercase">
+                        <label className="block text-xs text-[#536186] mb-2 uppercase">
                           Email
                         </label>
                         <input
@@ -227,13 +236,13 @@ const ContactPage = () => {
                           name="email"
                           value={formData.email}
                           onChange={handleChange}
-                          className="w-full bg-neutral-800 text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all"
+                          className="w-full bg-[#D3D3D3] text-[#363636] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#536186] transition-all"
                           placeholder="abc@example.com"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs text-gray-400 mb-2 uppercase">
+                        <label className="block text-xs text-[#536186] mb-2 uppercase">
                           Contact Number
                         </label>
                         <input
@@ -241,13 +250,13 @@ const ContactPage = () => {
                           name="number"
                           value={formData.number}
                           onChange={handleChange}
-                          className="w-full bg-neutral-800 text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all"
+                          className="w-full bg-[#D3D3D3] text-[#363636] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#536186] transition-all"
                           placeholder="+91 12345 67890"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs text-gray-400 mb-2 uppercase">
+                        <label className="block text-xs text-[#536186] mb-2 uppercase">
                           Message
                         </label>
                         <textarea
@@ -255,7 +264,7 @@ const ContactPage = () => {
                           value={formData.message}
                           onChange={handleChange}
                           rows={4}
-                          className="w-full bg-neutral-800 text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all resize-none"
+                          className="w-full bg-[#D3D3D3] text-[#363636] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#536186] transition-all resize-none"
                           placeholder="Your message..."
                         />
                       </div>
@@ -263,7 +272,7 @@ const ContactPage = () => {
                       <button
                         onClick={handleSubmit}
                         disabled={isSubmitting}
-                        className="w-full bg-orange-500 hover:bg-orange-600 text-black font-bold py-4 px-8 transition-all transform hover:scale-105 active:scale-95 uppercase tracking-wider disabled:opacity-50"
+                        className="w-full bg-[#536186] hover:bg-[#363636] text-[#D3D3D3] font-bold py-4 px-8 transition-all transform hover:scale-105 active:scale-95 uppercase tracking-wider disabled:opacity-50"
                       >
                         {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
                       </button>
@@ -275,7 +284,7 @@ const ContactPage = () => {
                       )}
 
                       {submitStatus === "error" && (
-                        <div className="bg-red-500 text-white font-semibold px-4 py-3 text-center">
+                        <div className="bg-red-500 text-[#0A192F] font-semibold px-4 py-3 text-center">
                           Failed to send message. Try again.
                         </div>
                       )}
@@ -283,13 +292,21 @@ const ContactPage = () => {
                   </div>
                 </div>
               </div>
+              <div className="absolute bottom-20 left-16 w-40 h-40">
+                <img
+                  src="https://adswisemarketing.com//star1.webp"
+                  alt="Animated Star"
+                  className="w-full h-full animate-spin"
+                  style={{ animationDuration: "10s" }}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* MAP SECTION */}
-      <section className="w-full border-t border-orange-500 mt-8">
+      <section className="w-full border-t border-[#536186] mt-8">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-7xl mx-auto overflow-hidden rounded-md shadow-lg">
             <div className="w-full h-80 md:h-[520px]">

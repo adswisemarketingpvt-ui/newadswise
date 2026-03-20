@@ -56,35 +56,35 @@ export default function Industry(): JSX.Element {
       icon: Building2,
       title: "Real Estate",
       description: "Digital ecosystems for developers & brokers to generate qualified leads and sell properties faster.",
-      color: "#C7843B",
+      color: "#536186",
       slug: "real-estate",
     },
     {
       icon: Factory,
       title: "Manufacturing",
       description: "B2B strategies to connect manufacturers with global distributors and industrial partners.",
-      color: "#F3BD68",
+      color: "#B0C4DE",
       slug: "manufacturing",
     },
     {
       icon: Armchair, // Represents Interior Design
       title: "Interior Design",
       description: "Aesthetic branding and visual storytelling to attract high-value residential and commercial clients.",
-      color: "#C7843B",
+      color: "#536186",
       slug: "interior-design",
     },
     {
       icon: HeartPulse,
       title: "Healthcare",
       description: "Patient-centric marketing for hospitals, clinics, and health-tech startups to build trust.",
-      color: "#F3BD68",
+      color: "#B0C4DE",
       slug: "healthcare",
     },
     {
       icon: GraduationCap,
       title: "Education",
       description: "Enrollment-focused campaigns for universities, ed-tech, and coaching institutes.",
-      color: "#F3BD68",
+      color: "#B0C4DE",
       slug: "education",
     },
     // Added 2 extras to balance the grid visually, remove if strictly only want 4
@@ -92,7 +92,7 @@ export default function Industry(): JSX.Element {
       icon: Landmark,
       title: "Finance & Fintech",
       description: "Secure, compliance-ready marketing for banks, advisors, and fintech platforms.",
-      color: "#C7843B",
+      color: "#536186",
       slug: "finance",
     },
     
@@ -117,7 +117,7 @@ export default function Industry(): JSX.Element {
   };
 
   return (
-    <div className="min-h-screen bg-black from-[#4D6473] via-[#2C4657] to-[#172531] py-20 px-6 md:px-12 relative">
+    <div className="min-h-screen bg-[#D3D3D3] py-20 px-6 md:px-12 relative">
       
       {/* ========================
           "Why Choose Us" / Stats Section
@@ -153,7 +153,7 @@ export default function Industry(): JSX.Element {
               <svg className="hw-icon mx-auto" viewBox="0 0 24 24" aria-hidden="true" width="72" height="72">
                 <path d="M3 21h18M5 21V7l8-4 8 4v14M8 21v-4h4v4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <h3 className="text-white font-bold text-xl mt-5">
+              <h3 className="text-[#363636] font-bold text-xl mt-5">
                 Sector Specific
               </h3>
             </article>
@@ -167,7 +167,7 @@ export default function Industry(): JSX.Element {
                  <path d="M12 3c-1.5 0-2 1-2 1s-1 1-1 3 1 3 1 3 1.5.5 2 1 1 .5 1 1-1 2-1 2 3 0 4-1 2-3 2-4-1.5-3-3-4-3-2-3-2z" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                  <path d="M6 18h12v2H6z" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              <h3 className="text-white font-bold text-xl mt-5">
+              <h3 className="text-[#363636] font-bold text-xl mt-5">
                 High ROI Logic
               </h3>
             </article>
@@ -182,7 +182,7 @@ export default function Industry(): JSX.Element {
                 <path d="M2 12h20" fill="none" stroke="currentColor" strokeWidth="1.6"/>
                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="currentColor" strokeWidth="1.6"/>
               </svg>
-              <h3 className="text-white font-bold text-xl mt-5">
+              <h3 className="text-[#363636] font-bold text-xl mt-5">
                 Global Standards
               </h3>
             </article>
@@ -198,7 +198,7 @@ export default function Industry(): JSX.Element {
                 <path d="M23 21v-2a4 4 0 0 0-3-3.87" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M16 3.13a4 4 0 0 1 0 7.75" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <h3 className="text-white font-bold text-xl mt-5">
+              <h3 className="text-[#363636] font-bold text-xl mt-5">
                 Audience Focused
               </h3>
             </article>
@@ -213,7 +213,7 @@ export default function Industry(): JSX.Element {
           .hw-card { transition: .3s ease; }
           .hw-card:hover { transform: translateY(-8px); background: rgba(255,255,255,0.06); }
           .hw-card h3 { margin-top: 20px; font-size: 20px; font-weight: 700; color: #fff; }
-          .hw-icon { width: 72px; height: 72px; color: #f7931a; transition: .4s; }
+          .hw-icon { width: 72px; height: 72px; color: #536186; transition: .4s; }
           .hw-card:hover .hw-icon { transform: translateY(-6px) scale(1.1); }
           @media (max-width: 1000px) { .hw-grid { grid-template-columns: repeat(2, 1fr); } }
           @media (max-width: 520px) { .hw-grid { grid-template-columns: 1fr; } #how-we-help { padding: 28px 14px; } }
@@ -226,10 +226,10 @@ export default function Industry(): JSX.Element {
       <div className="max-w-7xl mx-auto relative z-10">
         
         <div className="text-center mb-4 md:mb-5 animate-fadeIn" style={{ animationDelay: '0s' }}>
-          <h1 className="text-4xl md:text-6xl lg:text-4xl font-bold text-white mb-4">
-            Industries We <span className="text-yellow-500">Serve</span>
+          <h1 className="text-4xl md:text-6xl lg:text-4xl font-bold text-[#363636] mb-4">
+            Industries We <span className="text-[#536186]">Serve</span>
           </h1>
-          <p className="text-gray-500 text-sm md:text-lg">
+          <p className="text-[#363636]/80 text-sm md:text-lg">
             Every industry has its own language. We help you speak it fluently 
             to connect with your customers and drive sustainable growth in your sector.
           </p>
@@ -270,10 +270,10 @@ export default function Industry(): JSX.Element {
                   className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transform transition-transform duration-300 hover:scale-110 hover:rotate-6"
                   style={{ backgroundColor: item.color }}
                 >
-                  <Icon size={32} className="text-white" strokeWidth={2} />
+                  <Icon size={32} className="text-[#363636]" strokeWidth={2} />
                 </div>
 
-                <h3 className="text-xl font-bold text-[#172531] mb-3 leading-tight">
+                <h3 className="text-xl font-bold text-[#363636] mb-3 leading-tight">
                   {item.title}
                 </h3>
 
@@ -282,11 +282,11 @@ export default function Industry(): JSX.Element {
                   style={{ backgroundColor: item.color }}
                 />
 
-                <p className="text-[#4D6473] leading-relaxed mb-6">
+                <p className="text-[#536186] leading-relaxed mb-6">
                   {item.description}
                 </p>
 
-                <div className="flex items-center gap-2 text-[#172531] font-semibold hover:text-[#C7843B] transition-colors duration-300 group">
+                <div className="flex items-center gap-2 text-[#363636] font-semibold hover:text-[#536186] transition-colors duration-300 group">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -312,15 +312,15 @@ export default function Industry(): JSX.Element {
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div
           className="absolute top-20 left-10 w-64 h-64 rounded-full opacity-5 blur-3xl animate-float"
-          style={{ backgroundColor: "#C7843B" }}
+          style={{ backgroundColor: "#536186" }}
         />
         <div
           className="absolute bottom-20 right-10 w-96 h-96 rounded-full opacity-5 blur-3xl animate-float-delayed"
-          style={{ backgroundColor: "#F3BD68" }}
+          style={{ backgroundColor: "#B0C4DE" }}
         />
         <div
           className="absolute top-1/2 left-1/2 w-80 h-80 rounded-full opacity-5 blur-3xl animate-float-slow"
-          style={{ backgroundColor: "#4D6473" }}
+          style={{ backgroundColor: "#363636" }}
         />
       </div>
 
@@ -332,12 +332,12 @@ export default function Industry(): JSX.Element {
           role="dialog"
           onClick={closeFeatured}
         >
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-white/40 backdrop-blur-sm" />
           <div
             className="relative z-60 max-w-3xl w-[92%] md:w-2/3 lg:w-1/2 rounded-3xl p-10 shadow-2xl transform transition-all duration-500 featured-zoom"
             onClick={(e) => e.stopPropagation()}
             style={{
-              background: `linear-gradient(180deg, ${industries[activeIndex].color}, #F3BD68)`,
+              background: `linear-gradient(180deg, ${industries[activeIndex].color}, #C0C0C0)`,
             }}
           >
             <button
@@ -355,12 +355,12 @@ export default function Industry(): JSX.Element {
               >
                 {React.createElement(industries[activeIndex].icon, {
                   size: 44,
-                  className: "text-white",
+                  className: "text-[#363636]",
                   strokeWidth: 2,
                 })}
               </div>
 
-              <div className="flex-1 text-white">
+              <div className="flex-1 text-[#363636]">
                 <h2 className="text-2xl md:text-3xl font-extrabold leading-tight mb-2">
                   {industries[activeIndex].title}
                 </h2>
@@ -368,21 +368,21 @@ export default function Industry(): JSX.Element {
                   className="w-20 h-1 mb-4"
                   style={{ backgroundColor: "rgba(0,0,0,0.12)" }}
                 />
-                <p className="mb-6 text-white/90">
+                <p className="mb-6 text-[#363636]/90">
                   {industries[activeIndex].description}
                 </p>
 
                 <div className="flex gap-3">
                   <button
                     onClick={() => goToIndustry(industries[activeIndex])}
-                    className="bg-black/90 text-white px-6 py-3 rounded-full font-semibold shadow-md hover:translate-y-[-2px] transition-transform"
+                    className="bg-white/90 text-[#363636] px-6 py-3 rounded-full font-semibold shadow-md hover:translate-y-[-2px] transition-transform"
                   >
                     View Solutions
                   </button>
 
                   <button
                     onClick={closeFeatured}
-                    className="bg-white/20 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/30 transition-colors"
+                    className="bg-white/20 text-[#363636] px-6 py-3 rounded-full font-semibold hover:bg-white/30 transition-colors"
                   >
                     Close
                   </button>

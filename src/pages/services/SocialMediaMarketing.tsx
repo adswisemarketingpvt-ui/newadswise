@@ -1,43 +1,49 @@
-import React, { useState, useRef } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { 
-  Smartphone, Share2, Heart, Users, MessageCircle, 
-  BarChart2, TrendingUp, Repeat, Globe, Plus, Minus, 
-  Send, ThumbsUp, Video ,Layers,
-} from 'lucide-react';
-
-// ============================================================================
-// TYPE DEFINITIONS
-// ============================================================================
-
-interface SocialMediaMarketingProps {
-  companyName?: string;
-  onContactSubmit?: (formData: FormData) => void;
-}
-
-interface FormData {
-  name: string;
-  email: string;
-  website?: string;
-  platformInterest: string;
-  message: string;
-}
+import React, { useState, useRef } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import {
+  Smartphone,
+  Share2,
+  Heart,
+  Users,
+  MessageCircle,
+  BarChart2,
+  TrendingUp,
+  Globe,
+  Plus,
+  Minus,
+  Send,
+  ThumbsUp,
+  Video,
+  Layers,
+  ChevronRight,
+  CheckCircle,
+  Target,
+  PenTool,
+  Search,
+  MonitorPlay,
+  Briefcase,
+  PlaySquare,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 // ============================================================================
 // ANIMATED SECTION WRAPPER
 // ============================================================================
 
-const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
-  children, className = '', delay = 0 
-}) => {
+const AnimatedSection: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}> = ({ children, className = "", delay = 0 }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.6, delay }}
       className={className}
     >
@@ -50,185 +56,343 @@ const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string;
 // MAIN COMPONENT
 // ============================================================================
 
-const SocialMediaMarketing: React.FC<SocialMediaMarketingProps> = ({
-  companyName = "Adswise Marketing",
-  onContactSubmit
-}) => {
-  const accentColor = '#FF6B35'; // Adswise Orange
-  const socialGradient = 'from-pink-500 via-purple-500 to-indigo-500'; // Social Media Vibe
-  
-  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-  const [formData, setFormData] = useState<FormData>({
-    name: '', email: '', website: '', platformInterest: '', message: ''
-  });
+const SocialMediaMarketing = () => {
+  // Monochromatic Color Palette:
+  // #536186 - Stone Gray (Primary Accent)
+  // #D3D3D3 - Fog Gray (Light Background)
+  // #363636 - Charcoal Gray (Text/Dark Background)
+  // #C0C0C0 - Silver (Borders/Secondary Accent)
+  // #B0C4DE - Ash Gray (Highlighting)
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const HeroSection = () => {
+    return (
+      <header className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#D3D3D3] text-[#363636] py-20 lg:py-0">
+        {/* --- BACKGROUND ANIMATION LAYER --- */}
+        <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
+          {/* Animated Grid Pattern */}
+          <div
+            className="absolute inset-0 opacity-[0.15]"
+            style={{
+              backgroundImage: `linear-gradient(#536186 1px, transparent 1px), linear-gradient(90deg, #536186 1px, transparent 1px)`,
+              backgroundSize: "40px 40px",
+            }}
+          >
+            <motion.div
+              className="absolute inset-0 bg-[#D3D3D3]"
+              animate={{ opacity: [0.1, 0.3, 0.1] }}
+              transition={{ duration: 5, repeat: Infinity }}
+            />
+          </div>
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (onContactSubmit) onContactSubmit(formData);
-    alert("Thanks! We'll analyze your social presence and get back to you.");
-  };
+          {/* Connect Dots / Social Graph Vibes */}
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute bg-[#536186]/20 rounded-full"
+              style={{
+                width: Math.random() * 100 + 50,
+                height: Math.random() * 100 + 50,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -40, 0],
+                x: [0, 20, 0],
+                scale: [1, 1.1, 1],
+                opacity: [0.2, 0.5, 0.2],
+              }}
+              transition={{
+                duration: 4 + i,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
 
-  // ============================================================================
-  // SUB-COMPONENTS
-  // ============================================================================
+          {/* Original Glow Effects */}
+          <div className="absolute top-0 right-0 w-3/4 md:w-[600px] h-[600px] bg-[#B0C4DE] rounded-full blur-[80px] md:blur-[120px] opacity-60"></div>
+          <div className="absolute bottom-0 left-0 w-3/4 md:w-[600px] h-[600px] bg-[#C0C0C0] rounded-full blur-[80px] md:blur-[120px] opacity-60"></div>
+        </div>
 
-  const HeroSection = () => (
-    <header className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-black text-white">
-      {/* Abstract Background */}
-      <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/connected.png')]"></div>
-      <div className="absolute top-0 right-0 w-96 h-96 bg-pink-600 rounded-full blur-[150px] opacity-20"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600 rounded-full blur-[150px] opacity-20"></div>
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        {/* --- CONTENT LAYER --- */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center max-w-5xl pt-12 pointer-events-none">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            className="pointer-events-auto"
           >
-            <div className={`inline-block px-4 py-2 bg-slate-900 border border-slate-700 rounded-full text-sm font-semibold mb-6 flex items-center gap-2 text-transparent bg-clip-text bg-gradient-to-r ${socialGradient}`}>
-              <Smartphone size={16} className="text-pink-500" /> Social Media Marketing
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Where Creativity Meets{' '}
-              <span className={`text-transparent bg-clip-text bg-gradient-to-r ${socialGradient}`}>
-                Strategy
-              </span>
+            {/* Badge */}
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="inline-block px-4 py-1.5 mb-6 text-sm font-bold tracking-widest uppercase bg-[#536186]/10 border border-[#536186]/20 text-[#536186] rounded-full"
+            >
+              Adswise Marketing — Social Media Marketing Services
+            </motion.span>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold mb-6 mt-4 leading-tight text-[#363636]">
+              Elevate your brand with a trusted <br />
+              <span className="text-[#536186]">social media agency</span>
             </h1>
-            <p className="text-xl text-slate-400 mb-8 leading-relaxed">
-              It’s not about random reels or boosted posts. We design AI-powered and psychology-driven strategies that turn attention into trust and followers into customers.
+
+            <p className="text-lg sm:text-xl text-[#363636]/80 mb-10 leading-relaxed font-medium max-w-3xl mx-auto">
+              Are you looking for a marketing partner who can leverage social
+              attention into quantifiable growth? At Adswise Marketing, we
+              specialize in providing comprehensive social media marketing
+              solutions. From developing creative content strategies to
+              leveraging data-driven approaches, our team can help you launch
+              new products, drive customer acquisition, build brand equity, and
+              much more.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href="#contact" className="px-8 py-4 rounded-lg font-bold text-white text-center shadow-lg shadow-pink-900/40 transform transition hover:scale-105 hover:bg-pink-700" style={{ background: 'linear-gradient(to right, #ec4899, #8b5cf6)' }}>
-                Start Growing Today
-              </a>
-              <a href="#process" className="px-8 py-4 border border-slate-600 rounded-lg font-semibold text-white text-center hover:bg-slate-900 transition">
-                Our Approach
-              </a>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                to="/contact"
+                className="w-full sm:w-auto px-10 py-4 rounded-lg font-bold text-white bg-[#536186] shadow-lg shadow-[#536186]/30 transform transition hover:scale-105 hover:bg-[#363636] active:scale-95 flex items-center justify-center gap-2 relative z-50 hover:cursor-pointer pointer-events-auto"
+              >
+                Let’s Build Your Brand <ChevronRight size={18} />
+              </Link>
+              <Link
+                to="/case-studies"
+                className="w-full sm:w-auto px-10 py-4 border-2 border-[#536186] rounded-lg font-semibold text-[#536186] hover:bg-[#536186] hover:text-[#D3D3D3] transition active:scale-95 relative z-50 hover:cursor-pointer pointer-events-auto flex items-center justify-center"
+              >
+                See Client Results
+              </Link>
             </div>
-          </motion.div>
-          
-          <motion.div
-             initial={{ opacity: 0, scale: 0.9 }}
-             animate={{ opacity: 1, scale: 1 }}
-             transition={{ duration: 0.8, delay: 0.2 }}
-             className="relative hidden lg:block"
-          >
-             <div className="relative rounded-2xl overflow-hidden border border-slate-800 shadow-2xl shadow-indigo-900/20">
-                
-             </div>
-             
-             {/* Floating Notification Elements */}
-             <div className="absolute top-20 -left-8 bg-slate-900/90 backdrop-blur-md border border-slate-700 p-4 rounded-xl shadow-xl animate-bounce">
-                <div className="flex items-center gap-3">
-                    <div className="p-2 bg-pink-500/20 rounded-full text-pink-500"><Heart size={20} fill="currentColor" /></div>
-                    <div>
-                        <p className="font-bold text-white">High Engagement</p>
-                        <p className="text-xs text-slate-400">+230% Increase</p>
-                    </div>
-                </div>
-             </div>
-             
-             <div className="absolute bottom-20 -right-8 bg-slate-900/90 backdrop-blur-md border border-slate-700 p-4 rounded-xl shadow-xl">
-                <div className="flex items-center gap-3">
-                    <div className="p-2 bg-blue-500/20 rounded-full text-blue-500"><Users size={20} /></div>
-                    <div>
-                        <p className="font-bold text-white">New Leads</p>
-                        <p className="text-xs text-slate-400">Qualified & Verified</p>
-                    </div>
-                </div>
-             </div>
           </motion.div>
         </div>
-      </div>
-    </header>
-  );
 
-  const WhatIsSMM = () => (
-    <section className="py-20 bg-black">
+        {/* Subtle Bottom Fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none"></div>
+      </header>
+    );
+  };
+
+  const WhatIncludesSection = () => (
+    <section className="py-16 sm:py-24 bg-white border-b border-[#C0C0C0]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <AnimatedSection>
-                <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
-                  Psychology + Analytics = <span className="text-pink-500">Viral Growth</span>
-                </h2>
-                <p className="text-slate-400 mb-6">
-                  Social Media Marketing isn't just about posting more; it's about posting smart. It is the art of using platforms like Meta, LinkedIn, and YouTube to reach and engage your audience.
-                </p>
-                <p className="text-slate-400 mb-6">
-                  Think of it as a mix of psychology and analytics. What makes your audience stop scrolling? What captions trigger curiosity? Adswise Marketing builds your social playbook using data, emotion, and brand storytelling.
-                </p>
-                <div className="flex items-center gap-4 mt-8">
-                    <div className="flex -space-x-4">
-                        {[1,2,3].map(i => (
-                            <div key={i} className="w-10 h-10 rounded-full bg-slate-800 border-2 border-black flex items-center justify-center text-xs text-white">User</div>
-                        ))}
-                    </div>
-                    <div className="text-sm text-slate-400">
-                        Building real relationships, not just vanity metrics.
-                    </div>
+        <AnimatedSection>
+          <div className="text-center max-w-4xl mx-auto mb-16">
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-[#363636]">
+              What our{" "}
+              <span className="text-[#536186]">
+                social media marketing services
+              </span>{" "}
+              include
+            </h2>
+            <p className="text-lg sm:text-xl text-[#363636]/70 leading-relaxed font-medium">
+              We take a full-funnel approach to social, designing systems that
+              attract attention, foster consideration, and ultimately drive
+              interest into action. Our service offering is flexible and
+              outcome-focused across the spectrum of:
+            </p>
+          </div>
+        </AnimatedSection>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {[
+            {
+              icon: <Search size={32} className="text-[#536186]" />,
+              title: "Brand/Channel Audits",
+              desc: "Quickly identify opportunities for short-term gain and long-term strategy.",
+            },
+            {
+              icon: <PenTool size={32} className="text-[#536186]" />,
+              title: "Content Strategy & Production",
+              desc: "Short-form video, static and carousel images, stories, and other native formats.",
+            },
+            {
+              icon: <MessageCircle size={32} className="text-[#536186]" />,
+              title: "Community Management",
+              desc: "Safeguard and enhance brand reputation through proactive engagement.",
+            },
+            {
+              icon: <TrendingUp size={32} className="text-[#536186]" />,
+              title: "Paid Social Campaign Strategy",
+              desc: "Test and optimise ad campaigns across major platforms for maximum ROAS.",
+            },
+            {
+              icon: <BarChart2 size={32} className="text-[#536186]" />,
+              title: "Measurement Frameworks",
+              desc: "Dashboards that reliably link social media activity to tangible business outcomes.",
+            },
+          ].map((item, idx) => (
+            <AnimatedSection key={idx} delay={idx * 0.1}>
+              <div className="bg-[#D3D3D3]/30 rounded-2xl p-8 border border-[#C0C0C0] hover:border-[#536186] hover:shadow-[0_8px_30px_rgba(83,97,134,0.15)] transition-all duration-300 h-full group">
+                <div className="bg-white w-16 h-16 rounded-xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                  {item.icon}
                 </div>
+                <h3 className="text-xl font-bold text-[#363636] mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-[#363636]/70 font-medium leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
             </AnimatedSection>
-            <AnimatedSection delay={0.2} className="bg-slate-900 p-8 rounded-3xl border border-slate-800">
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 bg-black rounded-xl border border-slate-800 text-center">
-                        <Share2 className="mx-auto text-blue-500 mb-2" />
-                        <h4 className="text-white font-bold">Meta</h4>
-                        <p className="text-xs text-slate-500">Community & Scale</p>
-                    </div>
-                    <div className="p-4 bg-black rounded-xl border border-slate-800 text-center">
-                        <Heart className="mx-auto text-pink-500 mb-2" />
-                        <h4 className="text-white font-bold">Instagram</h4>
-                        <p className="text-xs text-slate-500">Visual & Viral</p>
-                    </div>
-                    <div className="p-4 bg-black rounded-xl border border-slate-800 text-center">
-                        <Users className="mx-auto text-blue-400 mb-2" />
-                        <h4 className="text-white font-bold">LinkedIn</h4>
-                        <p className="text-xs text-slate-500">B2B Authority</p>
-                    </div>
-                    <div className="p-4 bg-black rounded-xl border border-slate-800 text-center">
-                        <Video className="mx-auto text-red-500 mb-2" />
-                        <h4 className="text-white font-bold">YouTube</h4>
-                        <p className="text-xs text-slate-500">Search & Story</p>
-                    </div>
-                </div>
-            </AnimatedSection>
+          ))}
+          <AnimatedSection delay={0.5}>
+            <div className="bg-[#536186] rounded-2xl p-8 shadow-xl flex flex-col justify-center h-full text-center">
+              <p className="text-white font-bold text-lg leading-relaxed">
+                It is this combination of creativity and analysis that defines a
+                true professional social media marketing agency: not just good
+                content, but content that makes a measurable difference.
+              </p>
+            </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>
   );
 
-  const WhyIgnore = () => {
-    const benefits = [
-      { icon: <ThumbsUp size={32} />, title: "Builds Authority", desc: "Consistent content makes your brand recognizable. Trust comes from authenticity, not just ads." },
-      { icon: <TrendingUp size={32} />, title: "Drives Leads", desc: "We treat every post as part of a funnel. Driving form fills, DMs, and traffic tied to ROI." },
-      { icon: <MessageCircle size={32} />, title: "Relationships", desc: "Timely replies and conversations build relationships that last longer than a single campaign." },
-      { icon: <BarChart2 size={32} />, title: "Real-Time Feedback", desc: "Unlike traditional ads, social gives instant insights on what works and how your audience feels." }
+  const WhySpecialistSection = () => (
+    <section className="py-16 sm:py-24 bg-[#D3D3D3] relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#B0C4DE] rounded-full blur-[100px] opacity-40 mix-blend-multiply"></div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <AnimatedSection>
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-[#363636]">
+              Why choose a specialist <br />
+              <span className="text-xl sm:text-2xl text-[#536186] font-semibold mt-2 block">
+                social media agency?
+              </span>
+            </h2>
+            <p className="text-lg text-[#363636]/80 mb-8 font-medium">
+              Platform ecosystems are constantly evolving. Algorithms, ad types,
+              and audience behaviors are constantly changing, and so too are the
+              definitions of “what works.” This is the world that a specialist
+              social media agency exists in. We do not take a one-size-fits-all
+              approach; we develop platform-specific playbooks that are right
+              for your product, your audience, and your commercial objectives.
+            </p>
+            <div className="space-y-6">
+              <h3 className="text-[#363636] font-bold text-xl">
+                By working with a specialist, there are many benefits:
+              </h3>
+              <ul className="space-y-4">
+                <li className="flex gap-4 items-start">
+                  <div className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-[#536186] flex items-center justify-center">
+                    <CheckCircle className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-[#363636]/80 font-medium text-lg">
+                    More efficient creative development and more relevant
+                    content.
+                  </span>
+                </li>
+                <li className="flex gap-4 items-start">
+                  <div className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-[#536186] flex items-center justify-center">
+                    <CheckCircle className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-[#363636]/80 font-medium text-lg">
+                    More effective media planning through rigorous testing and
+                    learning.
+                  </span>
+                </li>
+                <li className="flex gap-4 items-start">
+                  <div className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-[#536186] flex items-center justify-center">
+                    <CheckCircle className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-[#363636]/80 font-medium text-lg">
+                    More streamlined execution between paid and organic channels
+                    for consistent messaging.
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.2}>
+            <div className="bg-[#363636] p-8 md:p-10 rounded-3xl shadow-2xl relative border border-[#C0C0C0]/20">
+              <div className="absolute -top-6 -right-6 bg-[#C0C0C0] w-24 h-24 rounded-full blur-[30px] opacity-20"></div>
+              <div className="bg-[#536186] w-16 h-16 rounded-2xl flex items-center justify-center mb-8 shadow-sm">
+                <Target className="text-white" size={32} />
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-6 leading-relaxed">
+                If your goal is return, as opposed to reach, then a specialist
+                social media marketing agency can get you there quicker.
+              </h3>
+              <p className="text-[#D3D3D3] font-medium leading-relaxed mb-8">
+                We eliminate the guesswork. Through dedicated focus on social
+                platform nuances, our strategies inherently align your brand
+                with how modern consumers actually behave and convert on their
+                favorite apps.
+              </p>
+              <Link
+                to="/contact"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#D3D3D3] text-[#363636] font-bold rounded-lg hover:bg-white transition"
+              >
+                Partner with an Expert <ChevronRight size={18} />
+              </Link>
+            </div>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+  );
+
+  const HowWeWorkSection = () => {
+    const processSteps = [
+      {
+        t: "Discover",
+        d: "We audit channels, competitors, and audiences to set a performance baseline and identify opportunity areas.",
+        icon: <Search size={24} className="text-white" />,
+      },
+      {
+        t: "Design",
+        d: "We set measurable objectives, develop content pillars, and design campaign blueprints to meet business objectives.",
+        icon: <PenTool size={24} className="text-white" />,
+      },
+      {
+        t: "Deliver",
+        d: "Our delivery team produces short-form videos, thumb-stopping hooks, carousel stories, and ad creatives tailored to platform nuances.",
+        icon: <PlaySquare size={24} className="text-white" />,
+      },
+      {
+        t: "Scale",
+        d: "We design experiments, scale winning creative and audiences, and optimize funnels to improve conversion metrics over time.",
+        icon: <TrendingUp size={24} className="text-white" />,
+      },
     ];
 
     return (
-      <section className="py-20 bg-slate-950">
+      <section className="py-16 sm:py-24 bg-white border-b border-[#C0C0C0]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection>
-            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-white">
-              Why It’s Not Optional Anymore
-            </h2>
-          </AnimatedSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((benefit, idx) => (
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <AnimatedSection>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                How we work —{" "}
+                <span className="text-[#536186]">
+                  discover, design, deliver, scale
+                </span>
+              </h2>
+              <p className="text-lg text-[#363636]/70 leading-relaxed font-medium">
+                Our approach is simple, repeatable, and transparent. It ensures
+                that your social media marketing service is robust, data-driven,
+                and agile to changing trends.
+              </p>
+            </AnimatedSection>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {processSteps.map((step, idx) => (
               <AnimatedSection key={idx} delay={idx * 0.1}>
-                <motion.div 
-                  whileHover={{ y: -8, backgroundColor: '#1e293b' }} 
-                  className="bg-black p-6 rounded-xl shadow-lg border border-slate-800 h-full group"
-                >
-                  <div className="mb-4 text-slate-400 group-hover:text-pink-500 transition-colors">{benefit.icon}</div>
-                  <h3 className="text-xl font-semibold mb-2 text-white">{benefit.title}</h3>
-                  <p className="text-slate-400 text-sm">{benefit.desc}</p>
-                </motion.div>
+                <div className="relative h-full flex flex-col group">
+                  {idx !== processSteps.length - 1 && (
+                    <div className="hidden lg:block absolute top-8 left-1/2 w-full h-[2px] bg-gradient-to-r from-[#536186] to-transparent z-0 opacity-20"></div>
+                  )}
+                  <div className="w-16 h-16 rounded-2xl bg-[#536186] flex items-center justify-center font-bold text-white mb-6 z-10 shadow-lg group-hover:-translate-y-2 transition-transform">
+                    {step.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold text-[#363636] mb-4">
+                    {step.t}
+                  </h3>
+                  <p className="text-[#363636]/70 font-medium leading-relaxed flex-grow">
+                    {step.d}
+                  </p>
+                </div>
               </AnimatedSection>
             ))}
           </div>
@@ -237,263 +401,499 @@ const SocialMediaMarketing: React.FC<SocialMediaMarketingProps> = ({
     );
   };
 
-  const ProcessSection = () => {
-    const steps = [
-      { title: "Psychology & Research", desc: "Using AI and observation to identify behaviors that guide creative decisions." },
-      { title: "Platform Strategy", desc: "Tailoring content—LinkedIn for authority, Instagram for visuals, Facebook for community." },
-      { title: "Conversion Content", desc: "Designing visuals and copy that stop the scroll and lead somewhere." },
-      { title: "Execution & Optimization", desc: "AI-powered dashboards track engagement and refine content weekly." },
-      { title: "ROI Reporting", desc: "No vanity metrics. We show inquiries, traffic, and lead quality." }
-    ];
-
+  const DeepDivesSection = () => {
     return (
-      <section id="process" className="py-20 bg-black">
+      <section className="py-16 sm:py-24 bg-[#B0C4DE]/15">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Creative That Converts */}
+          <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
             <AnimatedSection>
-                <h2 className="text-3xl sm:text-4xl font-bold mb-16 text-white text-center">
-                  Adswise Marketing’s Approach
+              <div className="bg-white p-8 rounded-3xl shadow-sm border border-[#C0C0C0] relative overflow-hidden h-full">
+                <div className="absolute -right-10 -bottom-10 opacity-5">
+                  <PlaySquare size={300} className="text-[#536186]" />
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6 relative z-10">
+                  Creative that converts — attention to action
                 </h2>
+                <p className="text-lg text-[#363636]/80 font-medium mb-6 relative z-10">
+                  Good creative stops a scroll, while great creative drives
+                  action. We specialize in formats and messages that reduce the
+                  distance between discovery and conversion. Our content
+                  playbook includes:
+                </p>
+                <ul className="space-y-4 mb-6 relative z-10">
+                  <li className="flex gap-3 items-start">
+                    <CheckCircle
+                      className="text-[#536186] flex-shrink-0 mt-1"
+                      size={20}
+                    />
+                    <span className="text-[#363636]/80 font-medium">
+                      Attention-first opens (0-3 seconds) that capture attention
+                      immediately.
+                    </span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <CheckCircle
+                      className="text-[#536186] flex-shrink-0 mt-1"
+                      size={20}
+                    />
+                    <span className="text-[#363636]/80 font-medium">
+                      Platform-native stories that feel organic, rather than
+                      interruptive.
+                    </span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <CheckCircle
+                      className="text-[#536186] flex-shrink-0 mt-1"
+                      size={20}
+                    />
+                    <span className="text-[#363636]/80 font-medium">
+                      Clear and context-appropriate calls-to-action that match
+                      user intent.
+                    </span>
+                  </li>
+                </ul>
+                <p className="text-sm font-bold text-[#536186] bg-[#D3D3D3]/50 p-4 rounded-xl relative z-10">
+                  We also use user-generated content and micro-influencer
+                  strategies to increase authenticity. This is particularly
+                  useful for any social media marketing agency that seeks
+                  performance.
+                </p>
+              </div>
             </AnimatedSection>
 
-            <div className="relative max-w-4xl mx-auto">
-                {/* Vertical Line */}
-                <div className="absolute left-[19px] top-0 bottom-0 w-1 bg-slate-800"></div>
+            <AnimatedSection delay={0.2}>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                Paid social — testable, measurable, repeatable
+              </h2>
+              <p className="text-lg text-[#363636]/80 font-medium mb-6">
+                "Paid social" is a strategy, not a single ad effort. We
+                construct a model for tests, including creative tests, audience
+                tests, and funnel retargeting, to find the scalable combination.
+                Our paid strategy focuses on first-party signals, sequential
+                messaging, and creative freshness to lower CPA and increase
+                ROAS.
+              </p>
+              <h3 className="text-xl font-bold text-[#363636] mb-4">
+                What are the main components of our paid strategy?
+              </h3>
+              <div className="space-y-6">
+                {[
+                  "Audience architecture, including prospecting, engagement, retargeting, and retention.",
+                  "Testing cadence for creative, including rotating concepts and locking winners.",
+                  "Attribution-aware metrics and tests for incremental lift.",
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-white p-5 rounded-xl border border-[#C0C0C0] shadow-sm flex items-center gap-4 hover:border-[#536186] transition-colors"
+                  >
+                    <TrendingUp
+                      className="text-[#536186] flex-shrink-0"
+                      size={24}
+                    />
+                    <p className="font-bold text-[#363636]">{item}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-8 text-lg font-bold text-[#536186] border-l-4 border-[#536186] pl-4">
+                When you work with a results-driven social media marketing
+                agency, your ad spend becomes an investment, not an expense.
+              </p>
+            </AnimatedSection>
+          </div>
 
-                <div className="space-y-12">
-                    {steps.map((step, idx) => (
-                        <AnimatedSection key={idx} delay={idx * 0.1}>
-                            <div className="flex gap-8 group">
-                                <div className={`relative z-10 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold text-white shadow-lg border-2 border-black bg-slate-900 group-hover:bg-gradient-to-br ${socialGradient} transition-all`}>
-                                    {idx + 1}
-                                </div>
-                                <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex-1 hover:border-pink-500/30 transition-colors">
-                                    <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
-                                    <p className="text-slate-400">{step.desc}</p>
-                                </div>
-                            </div>
-                        </AnimatedSection>
-                    ))}
+          {/* Community & Analytics */}
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+            <AnimatedSection>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                Community & reputation — the human side of social
+              </h2>
+              <p className="text-lg text-[#363636]/80 font-medium mb-6">
+                Social media channels are, first and foremost, conversation
+                channels, and second, distribution channels. We approach
+                community management in a proactive, human way, including
+                responses, sentiment analysis, and escalation strategies to
+                maintain brand trust. Good community management can increase
+                organic reach, generate content inspiration, and convert
+                customers into evangelists.
+              </p>
+              <h3 className="text-xl font-bold text-[#363636] mb-4">
+                Our community management practice includes:
+              </h3>
+              <ul className="space-y-4 mb-6">
+                {[
+                  "Real-time monitoring and response playbooks.",
+                  "Crisis detection and escalation strategies.",
+                  "Content inspiration from real customer stories.",
+                ].map((item, idx) => (
+                  <li key={idx} className="flex gap-3 items-start">
+                    <MessageCircle
+                      className="text-[#536186] flex-shrink-0 mt-1"
+                      size={20}
+                    />
+                    <span className="text-[#363636] font-medium">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-sm font-semibold text-[#536186] italic">
+                This is all critical to any professional social media agency
+                concerned about long-term brand health.
+              </p>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.2}>
+              <div className="bg-[#363636] rounded-3xl p-8 sm:p-10 shadow-2xl h-full">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-6">
+                  Analytics & transparency
+                </h2>
+                <p className="text-lg text-[#D3D3D3]/90 font-medium mb-6">
+                  Transparency is non-negotiable. We offer transparent
+                  dashboards and reviews that relate social activity to tangible
+                  KPIs like leads, sales, sign-ups, and lifetime value. Every
+                  campaign starts with an agreement on the measurement approach
+                  so that trade-offs can always be made with conviction and
+                  accountability.
+                </p>
+
+                <div className="bg-white/10 p-6 rounded-2xl border border-white/20 mb-6">
+                  <h3 className="text-xl font-bold text-white mb-4">
+                    Reporting commitments:
+                  </h3>
+                  <ul className="space-y-4">
+                    <li className="flex gap-3 items-start text-[#D3D3D3]">
+                      <BarChart2
+                        className="text-[#B0C4DE] flex-shrink-0 mt-0.5"
+                        size={20}
+                      />
+                      <span className="font-medium">
+                        Actionable weekly reports and monthly strategic reviews.
+                      </span>
+                    </li>
+                    <li className="flex gap-3 items-start text-[#D3D3D3]">
+                      <BarChart2
+                        className="text-[#B0C4DE] flex-shrink-0 mt-0.5"
+                        size={20}
+                      />
+                      <span className="font-medium">
+                        Clear attribution notes and principled reporting on paid
+                        vs organic impact.
+                      </span>
+                    </li>
+                    <li className="flex gap-3 items-start text-[#D3D3D3]">
+                      <BarChart2
+                        className="text-[#B0C4DE] flex-shrink-0 mt-0.5"
+                        size={20}
+                      />
+                      <span className="font-medium">
+                        Recommendations are made as tests and experiments.
+                      </span>
+                    </li>
+                  </ul>
                 </div>
-            </div>
+                <p className="text-[#B0C4DE] font-bold text-center">
+                  This is what a modern social media marketing agency looks like
+                  in terms of measurable value.
+                </p>
+              </div>
+            </AnimatedSection>
+          </div>
         </div>
       </section>
     );
   };
 
-  const CampaignTypes = () => {
-      const campaigns = [
-          { title: "Awareness", desc: "Perfect for startups. Introduce your brand and build recall." },
-          { title: "Engagement", desc: "Contests, polls, and interactive posts that build community." },
-          { title: "Lead Gen", desc: "Targeted Meta/LinkedIn ads with optimized forms and tracking." },
-          { title: "Retargeting", desc: "Remarketing to keep your brand top of mind until they buy." },
-          { title: "Employer Branding", desc: "Showcase culture to attract talent and trust on LinkedIn." }
-      ];
-
-      return (
-        <section className="py-20 bg-slate-950">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <AnimatedSection>
-                    <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-white text-center">
-                        Campaigns We Run
-                    </h2>
-                </AnimatedSection>
-                <div className="flex flex-wrap justify-center gap-6">
-                    {campaigns.map((camp, idx) => (
-                        <AnimatedSection key={idx} delay={idx * 0.1} className="w-full md:w-[30%]">
-                            <div className="bg-black border border-slate-800 p-6 rounded-xl h-full hover:shadow-lg hover:shadow-purple-900/20 transition-all">
-                                <h3 className="text-lg font-bold text-white mb-2">{camp.title}</h3>
-                                <p className="text-slate-400 text-sm">{camp.desc}</p>
-                            </div>
-                        </AnimatedSection>
-                    ))}
-                </div>
-            </div>
-        </section>
-      );
-  };
-
-  const CaseStudy = () => (
-    <section className="py-20 bg-slate-900 border-y border-slate-800">
+  const AdditionalInfoSection = () => {
+    return (
+      <section className="py-16 sm:py-24 bg-white border-b border-[#C0C0C0]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-4xl mx-auto mb-16">
             <AnimatedSection>
-                <div className="max-w-5xl mx-auto bg-gradient-to-br from-black to-slate-900 rounded-3xl overflow-hidden border border-slate-700 flex flex-col md:flex-row shadow-2xl">
-                    <div className="md:w-1/2 p-10 flex flex-col justify-center">
-                        <div className="text-pink-500 font-bold text-sm uppercase tracking-wider mb-2">Success Story</div>
-                        <h3 className="text-3xl font-bold text-white mb-4">Zero Engagement to Real Conversions</h3>
-                        <p className="text-slate-400 mb-6">
-                            A Pune-based real estate client was frustrated—hundreds of posts, zero leads. We restructured their entire plan from visual identity to objectives.
-                        </p>
-                        <div className="grid grid-cols-2 gap-6 border-t border-slate-800 pt-6">
-                            <div>
-                                <div className="text-4xl font-bold text-white">230%</div>
-                                <div className="text-xs text-slate-500 uppercase mt-1">Rise in Engagement</div>
-                            </div>
-                            <div>
-                                <div className="text-4xl font-bold text-white">20+</div>
-                                <div className="text-xs text-slate-500 uppercase mt-1">Qualified Leads/Week</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="md:w-1/2 bg-slate-800 relative min-h-[300px] flex items-center justify-center">
-                      
-                        <div className="absolute bottom-6 bg-black/60 backdrop-blur-md px-6 py-3 rounded-full border border-slate-600">
-                            <p className="text-white text-sm font-semibold">"That’s not luck. That’s structured strategy."</p>
-                        </div>
-                    </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                Who benefits most from our{" "}
+                <span className="text-[#536186]">
+                  social media marketing services?
+                </span>
+              </h2>
+              <p className="text-lg text-[#363636]/70 leading-relaxed font-medium">
+                Our clients come from a broad range of industries and stages.
+                Some of the most common clients we work with include:
+              </p>
+            </AnimatedSection>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-24 max-w-5xl mx-auto">
+            {[
+              {
+                t: "Retail & Ecommerce",
+                d: "Conversion-focused product creatives, streamlined shopping experiences, and strategic retargeting strategies to maximize sales.",
+              },
+              {
+                t: "Service Businesses",
+                d: "Lead generation, appointment booking, and reputation building to maximize lifetime value.",
+              },
+              {
+                t: "Hospitality & Experiences",
+                d: "Campaign-based promotions, immersive brand storytelling, and conversion-focused booking strategies to maximize sales and engagement.",
+              },
+              {
+                t: "Startups & D2C Brands",
+                d: "Rapid validation and acquisition strategies to maximize growth.",
+              },
+            ].map((item, idx) => (
+              <AnimatedSection key={idx} delay={idx * 0.1}>
+                <div className="bg-[#D3D3D3]/20 p-6 rounded-2xl border border-[#C0C0C0] flex items-start gap-4">
+                  <div className="w-12 h-12 bg-[#536186] rounded-xl flex items-center justify-center font-bold text-white shrink-0 z-10 shadow-lg">
+                    <Briefcase size={20} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-[#363636] mb-2">
+                      {item.t}
+                    </h3>
+                    <p className="text-[#363636]/80 font-medium text-sm leading-relaxed">
+                      {item.d}
+                    </p>
+                  </div>
                 </div>
+              </AnimatedSection>
+            ))}
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-16">
+            <AnimatedSection>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                How we measure success
+              </h2>
+              <p className="text-lg text-[#363636]/80 font-medium mb-6">
+                The measures of success vary based on the goal of the business.
+                We work together to identify the North Star metric for your
+                program, which could be revenue per lead, cost per acquisition,
+                or lift in retention. We design experiments to increase it.
+                Measurement is not an afterthought; it is the basis of all the
+                creative and media decisions we make.
+              </p>
+              <div className="space-y-4 mb-6">
+                <div className="bg-[#363636] text-white p-4 rounded-xl shadow-md border border-[#363636]/20 flex gap-4 items-center">
+                  <Target size={24} className="text-[#B0C4DE] shrink-0" />
+                  <span className="font-semibold text-sm">
+                    Reach & engagement signals to verify the resonance of the ad
+                    creatives.
+                  </span>
+                </div>
+                <div className="bg-[#363636] text-white p-4 rounded-xl shadow-md border border-[#363636]/20 flex gap-4 items-center">
+                  <Layers size={24} className="text-[#B0C4DE] shrink-0" />
+                  <span className="font-semibold text-sm">
+                    Funnel metrics like clicks, landing page conversions, and
+                    micro-conversions.
+                  </span>
+                </div>
+                <div className="bg-[#363636] text-white p-4 rounded-xl shadow-md border border-[#363636]/20 flex gap-4 items-center">
+                  <TrendingUp size={24} className="text-[#B0C4DE] shrink-0" />
+                  <span className="font-semibold text-sm">
+                    Business outcomes, which include leads, sales, and
+                    subscription sign-ups.
+                  </span>
+                </div>
+              </div>
+              <p className="font-bold text-[#536186] text-lg text-center uppercase tracking-widest mt-8">
+                A data-first social media marketing agency.
+              </p>
             </AnimatedSection>
 
-            {/* 4 Key Pillars */}
-            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                 {['Consistency', 'Storytelling', 'Visual Identity', 'Data Analysis'].map((item, i) => (
-                     <AnimatedSection key={i} delay={0.3 + (i * 0.1)}>
-                         <div className="bg-black p-4 rounded-lg border border-slate-800 text-slate-300 font-semibold">
-                             {item}
-                         </div>
-                     </AnimatedSection>
-                 ))}
-            </div>
+            <AnimatedSection delay={0.2}>
+              <div className="bg-[#B0C4DE]/15 rounded-3xl p-8 sm:p-10 border border-[#C0C0C0] h-full">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                  Partnership models — flexible and collaborative
+                </h2>
+                <p className="text-lg text-[#363636]/80 font-medium mb-8">
+                  We work with your unique business and team styles. This can be
+                  full-service, co-managed, and project-based. The aim is to
+                  work with your existing processes, not against them.
+                </p>
+                <ul className="space-y-6 mb-8">
+                  <li className="flex gap-4 items-start">
+                    <div className="bg-white rounded-full p-2 border border-[#C0C0C0] shadow-sm">
+                      <CheckCircle className="text-[#536186]" size={20} />
+                    </div>
+                    <div>
+                      <strong className="text-xl text-[#363636]">
+                        Full-service:
+                      </strong>
+                      <p className="text-[#363636]/70 mt-1 font-medium">
+                        strategy, creativity, paid, and community work.
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex gap-4 items-start">
+                    <div className="bg-white rounded-full p-2 border border-[#C0C0C0] shadow-sm">
+                      <CheckCircle className="text-[#536186]" size={20} />
+                    </div>
+                    <div>
+                      <strong className="text-xl text-[#363636]">
+                        Co-managed:
+                      </strong>
+                      <p className="text-[#363636]/70 mt-1 font-medium">
+                        where we work with your internal team to ensure brand
+                        alignment.
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex gap-4 items-start">
+                    <div className="bg-white rounded-full p-2 border border-[#C0C0C0] shadow-sm">
+                      <CheckCircle className="text-[#536186]" size={20} />
+                    </div>
+                    <div>
+                      <strong className="text-xl text-[#363636]">
+                        Project-based:
+                      </strong>
+                      <p className="text-[#363636]/70 mt-1 font-medium">
+                        for one-off activations, launches, and creativity.
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+                <p className="text-sm font-bold text-[#536186] italic">
+                  This allows any business to have access to professional social
+                  media marketing services without losing control.
+                </p>
+              </div>
+            </AnimatedSection>
+          </div>
         </div>
-    </section>
-  );
-
-  const FAQSection = () => {
-    const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-    const faqs = [
-        { q: "What platforms do you specialize in?", a: "We handle Meta (Facebook & Instagram), LinkedIn, YouTube, and emerging platforms depending on your business goals." },
-        { q: "How long before I see results?", a: "Typically, engagement improves within 30 days, and solid lead generation happens between 60–90 days." },
-        { q: "Do you create organic and paid campaigns?", a: "Yes. We design organic strategies for reach/brand building, and paid campaigns for conversion/scaling." },
-        { q: "How do you measure ROI?", a: "We track KPIs like CTR, CPL, lead quality, and website traffic — all linked to your business outcomes." },
-        { q: "Can small businesses afford this?", a: "Absolutely. We have flexible packages for MSMEs that fit budgets without compromising strategy." }
-    ];
-
-    return (
-        <section className="py-20 bg-black">
-            <div className="container mx-auto px-4 max-w-3xl">
-                <AnimatedSection>
-                    <h2 className="text-3xl font-bold text-center mb-12 text-white">FAQs About Social Media</h2>
-                </AnimatedSection>
-                <div className="space-y-4">
-                    {faqs.map((faq, index) => (
-                        <AnimatedSection key={index} delay={index * 0.1}>
-                            <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
-                                <button
-                              type="button" 
-                                    onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
-                                    className="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-slate-800 transition"
-                                >
-                                    <span className="font-semibold text-slate-200">{faq.q}</span>
-                                    {openFAQ === index ? <Minus size={20} color={accentColor} /> : <Plus size={20} color={accentColor} />}
-                                </button>
-                                <AnimatePresence>
-                                    {openFAQ === index && (
-                                        <motion.div 
-                                            initial={{ height: 0, opacity: 0 }} 
-                                            animate={{ height: 'auto', opacity: 1 }} 
-                                            exit={{ height: 0, opacity: 0 }}
-                                            className="px-6 pb-4"
-                                        >
-                                            <p className="text-slate-400 pt-2 border-t border-slate-800">{faq.a}</p>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-                        </AnimatedSection>
-                    ))}
-                </div>
-            </div>
-        </section>
+      </section>
     );
   };
 
-  const ContactSection = () => (
-    <section id="contact" className="py-20 bg-slate-950 relative overflow-hidden">
-        <div className="container mx-auto px-4 max-w-6xl relative z-10">
-            <div className="grid lg:grid-cols-2 gap-16">
-                <AnimatedSection>
-                    <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
-                        Let’s Build Your <span className={`text-transparent bg-clip-text bg-gradient-to-r ${socialGradient}`}>Brand Story</span>
-                    </h2>
-                    <p className="text-lg text-slate-400 mb-8">
-                        Adswise Marketing’s approach blends human psychology with AI precision. If you’re ready to turn your social presence into a revenue engine, we are ready to help.
-                    </p>
-                    <div className="bg-slate-900 p-6 rounded-xl border border-slate-800 flex items-center gap-4">
-                        <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-green-500">
-                            <Globe size={24} />
-                        </div>
-                        <div>
-                            <p className="text-white font-bold">Pan-India Service</p>
-                            <p className="text-slate-500 text-sm">Serving Pune, Mumbai, and beyond.</p>
-                        </div>
-                    </div>
-                </AnimatedSection>
+  const CaseOutcomesSection = () => (
+    <section className="py-16 sm:py-24 bg-[#D3D3D3]/50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+        <AnimatedSection>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+              Case-style outcomes — proof in performance
+            </h2>
+            <p className="text-lg text-[#363636]/80 font-medium max-w-3xl mx-auto">
+              We respect client confidentiality, but the anonymised results
+              demonstrate the consistency of benefits realised. These are the
+              tangible results of an established social media marketing company
+              / agency.
+            </p>
+          </div>
+        </AnimatedSection>
 
-                <AnimatedSection delay={0.2}>
-                    <form onSubmit={handleSubmit} className="bg-black shadow-2xl rounded-2xl p-8 border border-slate-800">
-                        <h3 className="text-2xl font-bold mb-6 text-white">Get Your Social Audit</h3>
-                        <div className="grid grid-cols-2 gap-4 mb-4">
-                            <div>
-                                <label className="block text-sm font-medium text-slate-400 mb-1">Name</label>
-                                <input required name="name" onChange={handleInputChange} className="w-full px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition" placeholder="John Doe" />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-slate-400 mb-1">Email</label>
-                                <input required name="email" type="email" onChange={handleInputChange} className="w-full px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition" placeholder="john@company.com" />
-                            </div>
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium text-slate-400 mb-1">Primary Platform of Interest</label>
-                            <select name="platformInterest" onChange={handleInputChange} className="w-full px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition">
-                                <option value="" className="bg-slate-900">Select a Platform</option>
-                                <option value="Instagram/Facebook">Instagram & Facebook</option>
-                                <option value="LinkedIn">LinkedIn (B2B)</option>
-                                <option value="YouTube">YouTube</option>
-                                <option value="All">Full Social Suite</option>
-                            </select>
-                        </div>
-                        <div className="mb-6">
-                            <label className="block text-sm font-medium text-slate-400 mb-1">Current Challenges</label>
-                            <textarea required name="message" onChange={handleInputChange} rows={4} className="w-full px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition" placeholder="Low engagement? No leads? Tell us..."></textarea>
-                        </div>
-                        <button type="submit" className="w-full py-4 rounded-lg text-white font-bold text-lg shadow-lg shadow-pink-900/40 hover:shadow-pink-900/60 transition transform hover:-translate-y-1 flex items-center justify-center gap-2" style={{ background: accentColor }}>
-                            <span>Analyze My Brand</span>
-                            <Send size={20} />
-                        </button>
-                    </form>
-                </AnimatedSection>
-            </div>
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {[
+            {
+              metric: "Lower CPA",
+              desc: "Lower acquisition costs through creative testing and audience segmentation.",
+            },
+            {
+              metric: "Higher CVR",
+              desc: "Improved conversion rates through sequenced funnels and re-organizing content (discovery, consideration, conversion).",
+            },
+            {
+              metric: "Brand Lift",
+              desc: "Greater brand awareness through narrative consistency and implementation of retention-based social sequences.",
+            },
+          ].map((item, i) => (
+            <AnimatedSection key={i} delay={i * 0.1}>
+              <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#C0C0C0] text-center h-full hover:border-[#536186] transition-colors">
+                <div className="text-2xl font-bold tracking-tight text-[#536186] mb-4">
+                  {item.metric}
+                </div>
+                <p className="text-[#363636]/80 font-medium leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+            </AnimatedSection>
+          ))}
         </div>
+
+        <AnimatedSection delay={0.4}>
+          <div className="bg-[#363636] text-white p-8 rounded-2xl text-center max-w-3xl mx-auto shadow-xl">
+            <h3 className="text-2xl font-bold text-white mb-4">
+              Why Adswise Marketing?
+            </h3>
+            <p className="text-[#D3D3D3]/90 font-medium leading-relaxed">
+              The social media agency we choose to work with makes a big
+              difference. We offer a mix of creative enthusiasm and business
+              sense. We’re a group of strategists, writers, designers, and paid
+              media specialists who concentrate on results. Our strength lies in
+              our capacity to integrate platform specialists with a relentless
+              testing mentality to ensure your social media channels drive
+              growth.
+            </p>
+          </div>
+        </AnimatedSection>
+      </div>
     </section>
   );
 
-  const Footer = () => (
-      <footer className="bg-slate-950 text-slate-500 py-12 border-t border-slate-900">
-          <div className="container mx-auto px-4 text-center">
-              <h2 className="text-white text-2xl font-bold mb-4">Adswise Marketing</h2>
-              <p className="mb-8">From Engagement to Conversion.</p>
-              <div className="text-sm">
-                  © {new Date().getFullYear()} Adswise Marketing. All rights reserved.
-              </div>
+  const CTASection = () => (
+    <section className="py-20 sm:py-32 relative overflow-hidden bg-[#536186]">
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/graphy.png')] opacity-10"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#363636]/30 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div className="container mx-auto px-4 relative z-10 text-center max-w-4xl">
+        <AnimatedSection>
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-white mb-8 leading-tight">
+            Get started: <br />
+            <span className="text-[#B0C4DE]">a practical first step</span>
+          </h2>
+          <p className="text-xl text-[#D3D3D3] mb-8 font-medium leading-relaxed max-w-3xl mx-auto">
+            Start with a strategic audit, a short look at what you’re doing now,
+            opportunities to improve, and a 90-day plan to make progress without
+            sacrificing innovation. It will give you a plan and a set of metrics
+            to gauge success.
+          </p>
+          <p className="text-lg text-white font-bold mb-12 max-w-2xl mx-auto border-l-4 border-[#B0C4DE] pl-4 text-left">
+            If you’re ready to stop focusing on vanity metrics and create a
+            social media presence that drives revenue, Adswise Marketing can
+            help with our social media marketing services.
+          </p>
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center">
+            <Link
+              to="/contact"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-[#363636] bg-[#D3D3D3] hover:bg-white transform transition hover:scale-105 shadow-xl shadow-[#363636]/20"
+            >
+              Contact Us for a Free Audit
+            </Link>
+            <Link
+              to="/services"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-white bg-transparent border-2 border-[#B0C4DE] hover:bg-[#B0C4DE] hover:text-[#363636] transform transition"
+            >
+              Learn More
+            </Link>
           </div>
-      </footer>
+          <p className="mt-8 text-sm text-[#B0C4DE] font-semibold uppercase tracking-widest">
+            — no jargon, just clear actions that scale your social presence and
+            grow your business.
+          </p>
+        </AnimatedSection>
+      </div>
+    </section>
   );
 
-  // ============================================================================
-  // MAIN RENDER
-  // ============================================================================
-
   return (
-    <div className="font-sans bg-black text-slate-100 min-h-screen">
-      <HeroSection />
-      <WhatIsSMM />
-      <WhyIgnore />
-      <ProcessSection />
-      <CampaignTypes />
-      <CaseStudy />
-      <FAQSection />
-      {/* <ContactSection />
-      <Footer /> */}
-    </div>
+    <>
+      <Helmet>
+        <title>Best Social Media Agency for Growth | Adswise Marketing</title>
+        <meta
+          name="description"
+          content="Partner with Adswise Marketing, a creative social media agency delivering strategy, content, ads, and analytics to increase engagement, leads, and sales."
+        />
+      </Helmet>
+
+      <div className="font-sans min-h-screen text-[#363636] bg-[#D3D3D3]">
+        <HeroSection />
+        <WhatIncludesSection />
+        <WhySpecialistSection />
+        <HowWeWorkSection />
+        <DeepDivesSection />
+        <AdditionalInfoSection />
+        <CaseOutcomesSection />
+        <CTASection />
+      </div>
+    </>
   );
 };
 

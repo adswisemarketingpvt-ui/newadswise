@@ -1,16 +1,23 @@
 import React, { useEffect, useRef } from "react";
-import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
-import FallBeamBackground from "../components/FallBeamBackground";
+import { motion, useInView, useMotionValue, useSpring, Variants } from "framer-motion";
 
-// --- Helper Component: Animated Counter ---
-const Counter = ({
-  value,
-  start = false,
-  direction = "up",
-}: {
+// --- Types ---
+interface CounterProps {
   value: number;
   start?: boolean;
   direction?: "up" | "down";
+}
+
+interface StatItem {
+  label: string;
+  value: number;
+}
+
+// --- Helper Component: Animated Counter ---
+const Counter: React.FC<CounterProps> = ({
+  value,
+  start = false,
+  direction = "up",
 }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const motionValue = useMotionValue(direction === "down" ? value : 0);
@@ -25,7 +32,6 @@ const Counter = ({
   useEffect(() => {
     const unsub = springValue.on("change", (latest) => {
       if (ref.current) {
-        // keep number stable width by using Intl and floor
         ref.current.textContent = Intl.NumberFormat("en-US").format(
           Math.floor(latest)
         );
@@ -34,180 +40,103 @@ const Counter = ({
     return () => unsub();
   }, [springValue]);
 
-  return (
-    // inline-block + min width prevents the span from collapsing on mobile
-    <span ref={ref} className="inline-block min-w-[3ch] text-right" />
-  );
+  return <span ref={ref} className="inline-block min-w-[1ch] text-right" />;
 };
 
-// --- Helper Component: Typewriter Effect ---
-const TypewriterText = ({ text }: { text: string }) => {
-  const letters = Array.from(text);
-
-  const container = {
-    hidden: { opacity: 0 },
-    visible: (i = 1) => ({
-      opacity: 1,
-      transition: { staggerChildren: 0.04, delayChildren: 0.02 * i },
-    }),
-  };
-
-  const child = {
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100,
-      },
+// --- Animation Variants ---
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.3,
     },
-    hidden: {
-      opacity: 0,
-      y: 20,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100,
-      },
-    },
-  };
-
-  return (
-    <motion.div
-      style={{ display: "flex", overflow: "hidden" }}
-      variants={container}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-    >
-      {letters.map((letter, index) => (
-        <motion.span variants={child} key={index}>
-          {letter}
-        </motion.span>
-      ))}
-      {/* Blinking Cursor */}
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 1, 0] }}
-        transition={{ duration: 0.8, repeat: Infinity }}
-        className="ml-1 text-orange-500"
-      >
-        |
-      </motion.span>
-    </motion.div>
-  );
+  },
 };
 
-const StatsSection = () => {
-  // Observe the whole stats grid area once; when it enters viewport start all counters
+const itemVariants: Variants = {
+  hidden: { opacity: 0, x: 30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+const textVariants: Variants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
+
+// --- Main Component ---
+const StatsSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-120px" });
+  // amount: 0.3 means animation triggers when 30% of component is visible
+  const isInView = useInView(containerRef, { once: true, amount: 0.3 });
+
+  const stats: StatItem[] = [
+    { label: "Years of Experience", value: 3 },
+    { label: "Successful Projects", value: 700 },
+    { label: "Brands Transformed", value: 450 },
+    { label: "Campaigns Launched", value: 1010 },
+  ];
 
   return (
-    <section className="bg-black text-white py-16 px-6 md:px-12 lg:px-24 overflow-hidden">
-      
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+    <section 
+      className="bg-[#D3D3D3] py-24 px-4 sm:px-6 lg:px-8 overflow-hidden relative "
+    >
+      <motion.div 
+        ref={containerRef}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center"
+      >
         
         {/* LEFT COLUMN: Text Content */}
-        <div className="space-y-6">
-          
-          <div>
-            <h3 className="text-xl md:text-2xl font-medium text-gray-200 mb-2">
+        <motion.div variants={textVariants} className="space-y-6">
+          <header>
+            <h3 className="text-xl md:text-2xl font-semibold text-[#536186] mb-2">
               Your Brand Deserves More
             </h3>
-            <div className="text-5xl md:text-6xl lg:text-7xl font-bold text-orange-500 h-20 md:h-24 pb-3 flex">
+            <div className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-[#363636] leading-tight tracking-tighter">
               Recognition
             </div>
-          </div>
+          </header>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            viewport={{ once: true }}
-            className="text-gray-300 leading-relaxed text-lg text-justify"
-          >
-            At <strong className="text-white">Adswise Marketing</strong>,your brand gets more than visibility — it gets measurable growth. We blend creativity, strategy, and technology to build campaigns that genuinely connect with the right audience. With data-driven insights and a clear understanding of online behavior, we help your business stand out in today’s competitive digital space.
-            <br />
-            With <strong className="text-white"> Adswise Marketing as your partner, success becomes consistent and predictable.</strong>
-          </motion.p>
-        </div>
+          <p className="text-[#363636] leading-relaxed text-base sm:text-lg text-justify font-medium opacity-90">
+            At <strong className="text-[#536186]">Adswise Marketing</strong>, your brand gets more than visibility — it gets measurable growth. We blend creativity, strategy, and technology to build campaigns that genuinely connect with the right audience.
+            <br /><br />
+            With <strong className="text-[#363636]">Adswise Marketing as your partner, success becomes consistent and predictable.</strong>
+          </p>
+        </motion.div>
 
         {/* RIGHT COLUMN: Statistics Grid */}
-        <div
-          ref={containerRef}
-          className="grid grid-cols-2 gap-x-8 gap-y-12"
-          aria-hidden={false}
-        >
-          {/* Stat 1 */}
-          <div className="flex flex-col">
-            <div className="text-5xl md:text-6xl font-bold text-white mb-2 flex items-baseline gap-2">
-              <Counter value={3} start={isInView} />
-              <span className="text-white">+</span>
-            </div>
-            <p className="text-orange-500 text-lg md:text-xl font-medium">
-              Years of Experience
-            </p>
-          </div>
-
-          {/* Stat 2 */}
-          <div className="flex flex-col">
-            <div className="text-5xl md:text-6xl font-bold text-white mb-2 flex items-baseline gap-2">
-              <Counter value={700} start={isInView} />
-              <span className="text-white">+</span>
-            </div>
-            <p className="text-orange-500 text-lg md:text-xl font-medium">
-              Successful Projects
-            </p>
-          </div>
-
-          {/* Stat 3 */}
-          <div className="flex flex-col">
-            <div className="text-5xl md:text-6xl font-bold text-white mb-2 flex items-baseline gap-2">
-              <Counter value={450} start={isInView} />
-              <span className="text-white">+</span>
-            </div>
-            <p className="text-orange-500 text-lg md:text-xl font-medium">
-              Brands Transformed
-            </p>
-          </div>
-
-          {/* Stat 4 */}
-          <div className="flex flex-col">
-            <div className="text-5xl md:text-6xl font-bold text-white mb-2 flex items-baseline gap-2">
-              <Counter value={1010} start={isInView} />
-              <span className="text-white">+</span>
-            </div>
-            <p className="text-orange-500 text-lg md:text-xl font-medium">
-              Campaigns Launched
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Optional: Simple arrow at bottom right like the image */}
-      <div className="flex justify-end w-full max-w-7xl mx-auto mt-8">
         <motion.div
-          animate={{ y: [0, -5, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
+          variants={containerVariants}
+          className="grid grid-cols-2 gap-x-6 gap-y-10 sm:gap-x-12 sm:gap-y-16"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2.5}
-            stroke="currentColor"
-            className="w-6 h-6 text-white"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"
-            />
-          </svg>
+          {stats.map((stat, idx) => (
+            <motion.div 
+              key={idx} 
+              variants={itemVariants}
+              className="flex flex-col border-l-4 border-[#536186] pl-6 group"
+            >
+              <div className="text-4xl sm:text-5xl md:text-6xl font-black text-[#363636] mb-2 flex items-baseline gap-1 group-hover:text-[#536186] transition-colors duration-300">
+                <Counter value={stat.value} start={isInView} />
+                <span className="text-[#536186] font-bold">+</span>
+              </div>
+              <p className="text-[#536186] text-xs sm:text-sm md:text-base font-bold uppercase tracking-widest leading-snug">
+                {stat.label}
+              </p>
+            </motion.div>
+          ))}
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 };

@@ -1,43 +1,49 @@
-import React, { useState, useRef } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { 
-  Code, Layout, Smartphone, Globe, Zap, Brain, 
-  Search, Lock, BarChart, CheckCircle, ArrowRight, 
-  Plus, Minus, Send, Monitor 
-} from 'lucide-react';
+import React, { useState, useRef } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import {
+  Code,
+  Layout,
+  Smartphone,
+  Globe,
+  Zap,
+  Server,
+  ShoppingCart,
+  CheckCircle,
+  Plus,
+  Minus,
+  ChevronRight,
+  TrendingUp,
+  Shield,
+  Workflow,
+  Search,
+  Monitor,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
-// ============================================================================
-// TYPE DEFINITIONS
-// ============================================================================
-
-interface WebsiteDevelopmentProps {
-  companyName?: string;
-  onContactSubmit?: (formData: FormData) => void;
-}
-
-interface FormData {
-  name: string;
-  email: string;
-  currentWebsite?: string;
-  projectType: string;
-  message: string;
-}
+/*
+  SEO METADATA CONTENT (For specific configuration in index.html, next/head or helmet):
+  Meta Title (≤60 chars): Web Development Services | Website Development Agency
+  Meta Description (150–160 chars): Professional web development services from a trusted website development agency. Fast, secure, SEO-friendly sites built to convert and scale your business.
+*/
 
 // ============================================================================
 // ANIMATED SECTION WRAPPER
 // ============================================================================
 
-const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
-  children, className = '', delay = 0 
-}) => {
+const AnimatedSection: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}> = ({ children, className = "", delay = 0 }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.6, delay }}
       className={className}
     >
@@ -50,341 +56,812 @@ const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string;
 // MAIN COMPONENT
 // ============================================================================
 
-const WebsiteDevelopment: React.FC<WebsiteDevelopmentProps> = ({
-  companyName = "Adswise Marketing",
-  onContactSubmit
-}) => {
-  const accentColor = '#FF6B35'; // Adswise Orange
-  const techColor = '#06b6d4'; // Cyan/Teal for Code/Tech vibes
-  
-  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-  const [formData, setFormData] = useState<FormData>({
-    name: '', email: '', currentWebsite: '', projectType: '', message: ''
-  });
+const WebsiteDevelopment = () => {
+  // Monochromatic Color Palette:
+  // #536186 - Stone Gray (Primary Accent)
+  // #D3D3D3 - Fog Gray (Light Background)
+  // #363636 - Charcoal Gray (Text/Dark Background)
+  // #C0C0C0 - Silver (Borders/Secondary Accent)
+  // #B0C4DE - Ash Gray (Highlighting)
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const HeroSection = () => {
+    return (
+      <header className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#D3D3D3] text-[#363636] py-20 lg:py-0">
+        {/* --- BACKGROUND ANIMATION LAYER --- */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          {/* Animated Grid Pattern */}
+          <div
+            className="absolute inset-0 opacity-[0.2]"
+            style={{
+              backgroundImage: `linear-gradient(#536186 1px, transparent 1px), linear-gradient(90deg, #536186 1px, transparent 1px)`,
+              backgroundSize: "60px 60px",
+            }}
+          >
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-t from-[#D3D3D3] via-transparent to-[#D3D3D3]"
+              animate={{ opacity: [0.3, 0.7, 0.3] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </div>
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (onContactSubmit) onContactSubmit(formData);
-    alert("Project inquiry received! We'll analyze your digital presence shortly.");
-  };
+          {/* Floating UI Elements */}
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute border-2 border-[#536186]/20 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center"
+              style={{
+                width: Math.random() * 100 + 50,
+                height: Math.random() * 60 + 30,
+                left: `${Math.random() * 90}%`,
+                top: `${Math.random() * 90}%`,
+              }}
+              animate={{
+                y: [0, -30, 0],
+                x: [0, 20, 0],
+                opacity: [0.2, 0.6, 0.2],
+              }}
+              transition={{
+                duration: 5 + i * 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <Layout className="text-[#536186]/40" size={24} />
+            </motion.div>
+          ))}
 
-  // ============================================================================
-  // SUB-COMPONENTS
-  // ============================================================================
+          {/* Glowing Accents */}
+          <div className="absolute top-0 right-0 w-3/4 md:w-[600px] h-[600px] bg-[#B0C4DE] rounded-full blur-[80px] md:blur-[120px] opacity-60"></div>
+          <div className="absolute bottom-0 left-0 w-3/4 md:w-[600px] h-[600px] bg-[#C0C0C0] rounded-full blur-[80px] md:blur-[120px] opacity-60"></div>
+        </div>
 
-  const HeroSection = () => (
-    <header className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-black text-white">
-      {/* Abstract Tech Background */}
-      <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
-      <div className="absolute top-0 left-0 w-[800px] h-[600px] bg-cyan-900/20 rounded-full blur-[120px]"></div>
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-orange-900/20 rounded-full blur-[120px]"></div>
-      
-      {/* Grid Lines */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        {/* --- CONTENT LAYER --- */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center max-w-5xl pt-12 pointer-events-none">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            className="pointer-events-auto"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 border border-slate-800 rounded-full text-sm font-semibold text-cyan-400 mb-6">
-              <Code size={16} /> Full-Stack Web Solutions
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Your Website is Your <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-orange-500">
-                24/7 Salesperson
-              </span>
+            {/* Badge */}
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-bold tracking-widest uppercase bg-[#536186]/10 border border-[#536186]/20 text-[#536186] rounded-full"
+            >
+              <Code size={16} /> Full-Stack Architecture
+            </motion.span>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold mb-6 mt-4 leading-tight text-[#363636] capitalize">
+              Web Development Services <br />
+              <span className="text-[#536186]">Adswise Marketing</span>
             </h1>
-            <p className="text-xl text-slate-400 mb-8 leading-relaxed">
-              A website isn’t just a digital brochure. We build psychology-driven, SEO-ready websites that convert clicks into clients. Fast, secure, and built for growth.
+
+            <p className="text-lg sm:text-lg text-[#363636]/80 mb-10 leading-relaxed font-medium max-w-3xl mx-auto">
+              At Adswise Marketing, our web development services bring ideas to
+              life with powerful, business-growing websites. We are full-stack
+              web architects who specialize in intuitive user experience,
+              bulletproof development, and conversion-focused strategy to create
+              breathtaking websites that surpass expectations. Do you need a
+              website that drives traffic, converts visitors, and grows with
+              your business? You’re in the right place.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href="#contact" className="px-8 py-4 rounded-lg font-bold text-white text-center shadow-lg shadow-cyan-900/30 transform transition hover:scale-105 hover:bg-cyan-600" style={{ backgroundColor: techColor }}>
-                Build My Site
-              </a>
-              <a href="#portfolio" className="px-8 py-4 border border-slate-600 rounded-lg font-semibold text-white text-center hover:bg-slate-900 transition">
-                View Portfolio
-              </a>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-4 ">
+              <Link
+                to="/contact"
+                className="w-full sm:w-auto px-10 py-4 rounded-lg font-bold text-white bg-[#536186] shadow-lg shadow-[#536186]/30 transform transition hover:scale-105 hover:bg-[#363636] active:scale-95 flex items-center justify-center gap-2 relative z-50 hover:cursor-pointer pointer-events-auto"
+              >
+                Get Your Free Website Audit <ChevronRight size={18} />
+              </Link>
+              <Link
+                to="/case-studies"
+                className="w-full sm:w-auto px-10 py-4 border-2 border-[#536186] rounded-lg font-semibold text-[#536186] hover:bg-[#536186] hover:text-[#D3D3D3] transition active:scale-95 text-center relative z-50 hover:cursor-pointer pointer-events-auto"
+              >
+                See Client Results
+              </Link>
             </div>
           </motion.div>
-          
-          <motion.div
-             initial={{ opacity: 0, scale: 0.9 }}
-             animate={{ opacity: 1, scale: 1 }}
-             transition={{ duration: 0.8, delay: 0.2 }}
-             className="relative hidden lg:block"
-          >
-             <div className="relative rounded-2xl overflow-hidden border border-slate-800 shadow-2xl shadow-cyan-900/10 bg-slate-900/80 backdrop-blur-md p-2">
-                 {/* Mockup Window */}
-                 <div className="bg-black rounded-xl border border-slate-800 overflow-hidden">
-                    <div className="h-8 bg-slate-900 border-b border-slate-800 flex items-center px-4 gap-2">
-                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                        <div className="ml-4 px-3 py-1 bg-slate-800 rounded text-xs text-slate-500 flex-1 text-center font-mono">
-                            www.yourbusiness.com
-                        </div>
-                    </div>
-                    <div className="p-8 relative h-80 bg-slate-950">
-                        {/* Wireframe Content */}
-                        <div className="w-3/4 h-8 bg-slate-800 rounded mb-4 animate-pulse"></div>
-                        <div className="w-1/2 h-4 bg-slate-800 rounded mb-8 animate-pulse"></div>
-                        <div className="grid grid-cols-3 gap-4">
-                            <div className="h-32 bg-slate-900 rounded border border-slate-800"></div>
-                            <div className="h-32 bg-slate-900 rounded border border-slate-800"></div>
-                            <div className="h-32 bg-slate-900 rounded border border-slate-800"></div>
-                        </div>
-                        
-                        {/* Floating Badge */}
-                        <div className="absolute bottom-6 right-6 bg-green-500/10 border border-green-500/30 text-green-400 px-4 py-2 rounded-full flex items-center gap-2 text-sm font-bold backdrop-blur-md">
-                            <Zap size={16} /> Speed: 99/100
-                        </div>
-                    </div>
-                 </div>
-             </div>
-          </motion.div>
+        </div>
+
+        {/* Subtle Bottom Fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none"></div>
+      </header>
+    );
+  };
+
+  const IntroSection = () => (
+    <section className="py-16 sm:py-24 bg-white border-b border-[#C0C0C0]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection>
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-8 text-[#363636]">
+              Introduction to <span className="text-[#536186]">Web Dev</span>
+            </h2>
+            <p className="text-lg sm:text-xl text-[#363636]/70 leading-relaxed font-medium mb-6">
+              Your website is your single most important online asset, perhaps
+              the first time a new customer has ever heard of your business.
+              Investing in professional web development services means that
+              first impression is a quick, clear, and compelling one. At our web
+              development agency, we understand the importance of a website that
+              doesn’t just exist, but works.
+            </p>
+            <p className="text-lg text-[#363636]/70 leading-relaxed font-medium bg-[#B0C4DE]/10 p-6 rounded-2xl border border-[#B0C4DE]/30">
+              Our web development services combine user experience, frontend,
+              and backend development, along with search engine optimization, to
+              create websites that help achieve marketing, sales, and product
+              goals. Perhaps you’re launching a new business, migrating to a new
+              platform, or scaling an existing portal? Our web development
+              agency has the expertise to provide tailor-made solutions that
+              deliver results.
+            </p>
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+
+  const WhatIsWebDevSection = () => (
+    <section className="py-16 sm:py-24 bg-[#D3D3D3] relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#B0C4DE] rounded-full blur-[100px] opacity-40 mix-blend-multiply"></div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <AnimatedSection>
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-[#363636]">
+              What is Website Development?
+            </h2>
+            <p className="text-lg text-[#363636]/80 mb-8 font-medium">
+              Website development is the technical and creative process of
+              building an online presence, including structure, functionality,
+              appearance, and content delivery. It consists of:
+            </p>
+            <ul className="space-y-6 mb-8">
+              {[
+                {
+                  title: "Frontend Development",
+                  desc: "Responsive UI, Accessibility, and Interactive Features.",
+                },
+                {
+                  title: "Backend Development",
+                  desc: "Databases, API, Server Logic, etc.",
+                },
+                {
+                  title: "Hosting & Architecture",
+                  desc: "Deployment, Scaling, and Tuning.",
+                },
+                {
+                  title: "Ecommerce Mastery",
+                  desc: "WordPress, Shopify, Headless, or Custom Solutions Designed for Scalability.",
+                },
+                {
+                  title: "Security & Compliance",
+                  desc: "SSL, Data Security, and compliance regulations.",
+                },
+              ].map((item, idx) => (
+                <li
+                  key={idx}
+                  className="flex gap-4 items-start bg-white/50 p-4 rounded-xl border border-[#C0C0C0]/50 hover:bg-white transition-colors"
+                >
+                  <div className="flex-shrink-0 mt-1 w-8 h-8 rounded-full bg-[#536186] flex items-center justify-center shadow-md">
+                    <CheckCircle className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <span className="text-[#363636] font-bold block text-lg mb-1">
+                      {item.title}
+                    </span>
+                    <span className="text-[#363636]/70 leading-snug">
+                      {item.desc}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div className="inline-block bg-[#536186] text-white px-6 py-4 rounded-xl shadow-lg border border-[#363636]/10">
+              <p className="font-medium">
+                Good web development services involve more than just coding, as
+                they must map business outcomes to technical decisions,
+                including speed, user experience, and conversion rates.
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.2}>
+            <div className="bg-[#363636] p-8 md:p-10 rounded-3xl shadow-2xl relative">
+              <div className="absolute -top-6 -right-6 bg-[#C0C0C0] w-24 h-24 rounded-full blur-[30px] opacity-20"></div>
+              <h3 className="text-2xl font-bold text-white mb-6">
+                Why Your Business Needs Web Development Services
+              </h3>
+              <p className="text-[#D3D3D3] mb-6 font-medium">
+                With a professionally designed website, you'll see growth at
+                multiple levels:
+              </p>
+              <ul className="space-y-4 mb-8">
+                {[
+                  "Lightning-fast load times will propel you to the top of the search engines and lower your bounce rate dramatically.",
+                  "Simple navigation and clear messaging will help visitors convert into customers.",
+                  "Clean code will lower your technical debt and risk.",
+                  "Scalable design will help you add features and handle traffic surges.",
+                  "SEO-friendly design will help you grow your organic traffic over time.",
+                ].map((item, idx) => (
+                  <li key={idx} className="flex gap-3 items-start">
+                    <TrendingUp className="w-5 h-5 text-[#B0C4DE] flex-shrink-0 mt-0.5" />
+                    <span className="text-[#D3D3D3]/80 text-sm leading-relaxed">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <div className="bg-[#D3D3D3] rounded-xl p-5">
+                <p className="text-[#363636] font-medium text-sm leading-relaxed">
+                  Working with an experienced website development company will
+                  save you time and money in the long run, as opposed to the
+                  trial and error method.
+                </p>
+              </div>
+            </div>
+          </AnimatedSection>
         </div>
       </div>
-    </header>
-  );
-
-  const WhyItMatters = () => (
-    <section className="py-20 bg-black">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <AnimatedSection>
-                <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
-                        Why Development Matters <span className="text-cyan-500">More Than Ever</span>
-                    </h2>
-                    <p className="text-slate-400 text-lg">
-                        When someone hears about your business, the first thing they do is Google you. If your website feels outdated, slow, or confusing, they’ll bounce before you even know they were there.
-                    </p>
-                </div>
-            </AnimatedSection>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <AnimatedSection delay={0.1}>
-                    <div className="text-5xl font-bold text-white mb-2">70%</div>
-                    <p className="text-slate-400 uppercase tracking-wider text-sm">Of Audience Visits From Mobile</p>
-                </AnimatedSection>
-                <AnimatedSection delay={0.2}>
-                    <div className="text-5xl font-bold text-red-500 mb-2">&lt; 3s</div>
-                    <p className="text-slate-400 uppercase tracking-wider text-sm">Load Time to Retain Visitors</p>
-                </AnimatedSection>
-                <AnimatedSection delay={0.3}>
-                    <div className="text-5xl font-bold text-cyan-500 mb-2">24/7</div>
-                    <p className="text-slate-400 uppercase tracking-wider text-sm">Availability for Lead Gen</p>
-                </AnimatedSection>
-            </div>
-        </div>
     </section>
   );
 
-  const Differentiation = () => {
-    const pillars = [
-      { icon: <Brain />, title: "Psychology Design", desc: "We design for action. Colors, CTAs, and scroll depth are engineered to convert." },
-      { icon: <Search />, title: "SEO Architecture", desc: "Clean code and schema markup ensure you rank on Google from day one." },
-      { icon: <Smartphone />, title: "Mobile-First", desc: "Responsive sites that adapt beautifully to every screen size." },
-      { icon: <Globe />, title: "Local Optimization", desc: "Map embedding and local keywords to drive traffic in Pune & Mumbai." },
-      { icon: <Zap />, title: "Hyper Speed", desc: "We compress and cache to ensure load times under 2.5 seconds." }
+  const ServiceDetailsSection = () => {
+    const servicesData = [
+      {
+        icon: <Search size={32} className="text-[#536186]" />,
+        title: "Strategy & Planning",
+        list: [
+          "Strategic discovery sessions with key stakeholders.",
+          "Technical audits and performance benchmarks.",
+          "Feature prioritization, road mapping, and success metrics.",
+        ],
+      },
+      {
+        icon: <Layout size={32} className="text-[#536186]" />,
+        title: "UI/UX & Design",
+        list: [
+          "User research and persona-based wireframing.",
+          "Mobile-first responsive design and prototyping.",
+          "Accessibility audit and user experience validation.",
+        ],
+      },
+      {
+        icon: <Code size={32} className="text-[#536186]" />,
+        title: "Frontend Development",
+        list: [
+          "Modern frameworks like React, Vue, or Vanilla JS.",
+          "Pixel perfect builds, responsive layouts, and animations.",
+          "Progressive enhancement and cross-browser testing.",
+        ],
+      },
+      {
+        icon: <Server size={32} className="text-[#536186]" />,
+        title: "Backend Development",
+        list: [
+          "Backend architecture and smooth integrations.",
+          "Strong APIs, microservices, and database architecture.",
+          "CMS integration (WordPress, Webflow, Headless).",
+          "Payment systems, CRMs, and tool integrations.",
+        ],
+      },
+      {
+        icon: <ShoppingCart size={32} className="text-[#536186]" />,
+        title: "eCommerce Development",
+        list: [
+          "Shopify, WooCommerce, or custom platforms.",
+          "Conversion-optimised product pages and checkout flows.",
+          "Inventory, tax, and shipping integrations.",
+        ],
+      },
+      {
+        icon: <Shield size={32} className="text-[#536186]" />,
+        title: "Performance & Security",
+        list: [
+          "Optimization of Core Web Vitals.",
+          "CDN Configuration and secure architecture.",
+          "Managed Hosting platforms like AWS, GCP, Azure.",
+        ],
+      },
+      {
+        icon: <TrendingUp size={32} className="text-[#536186]" />,
+        title: "Maintenance & SEO",
+        list: [
+          "SEO-friendly URLs, schema, and page speed fixes.",
+          "Content template and editorial flow setup.",
+          "Ongoing updates, automated backups, and A/B testing.",
+          "Analytics setup to measure growth.",
+        ],
+      },
     ];
 
     return (
-      <section className="py-20 bg-slate-950">
+      <section className="py-16 sm:py-24 bg-white border-b border-[#C0C0C0]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <AnimatedSection>
-                <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-white text-center">
-                    The {companyName} Difference
-                </h2>
-            </AnimatedSection>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                {pillars.map((item, idx) => (
-                    <AnimatedSection key={idx} delay={idx * 0.1}>
-                        <div className="bg-black p-6 rounded-xl border border-slate-800 h-full hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10 transition-all group">
-                            <div className="mb-4 bg-slate-900 w-12 h-12 rounded-lg flex items-center justify-center text-cyan-400 group-hover:text-white transition-colors">
-                                {item.icon}
-                            </div>
-                            <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                            <p className="text-slate-400 text-sm">{item.desc}</p>
-                        </div>
-                    </AnimatedSection>
-                ))}
+          <AnimatedSection>
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <h2 className="text-3xl sm:text-5xl font-extrabold mb-6 text-[#363636]">
+                Our Web Development{" "}
+                <span className="text-[#536186]">Services</span>
+              </h2>
+              <p className="text-[#363636]/70 text-lg">
+                Our web development services begin with strategy all the way
+                through ongoing optimization. Our services are tailored to each
+                project, but some of our key services include:
+              </p>
             </div>
-        </div>
-      </section>
-    );
-  };
+          </AnimatedSection>
 
-  const ProcessSection = () => {
-    const steps = [
-      { title: "Discovery", desc: "Understanding goals, audience, and purpose." },
-      { title: "Wireframing", desc: "Mapping user journeys and UX flow." },
-      { title: "Development", desc: "Coding robust backends with clean architecture." },
-      { title: "Testing", desc: "Rigorous checks across devices and browsers." },
-      { title: "Maintenance", desc: "Ongoing security updates and performance tracking." }
-    ];
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-center">
+            {servicesData.map((svc, idx) => (
+              <AnimatedSection
+                key={idx}
+                delay={idx * 0.1}
+                className={
+                  idx === 6 ? "md:col-span-2 lg:col-span-3 xl:col-span-1" : ""
+                }
+              >
+                <div className="bg-[#D3D3D3]/30 rounded-2xl p-6 h-full border border-[#C0C0C0] hover:border-[#536186] hover:shadow-[0_8px_30px_rgba(83,97,134,0.15)] hover:-translate-y-2 transition-all duration-300 group relative overflow-hidden">
+                  <div className="absolute -right-4 -top-4 w-24 h-24 bg-[#B0C4DE] rounded-full blur-[40px] opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
 
-    return (
-      <section id="process" className="py-20 bg-black">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <AnimatedSection>
-                <h2 className="text-3xl sm:text-4xl font-bold mb-16 text-white text-center">
-                  Our Development Process
-                </h2>
-            </AnimatedSection>
-
-            <div className="relative">
-                {/* Horizontal Line for Desktop */}
-                <div className="hidden md:block absolute top-6 left-0 w-full h-1 bg-slate-900">
-                     <div className="absolute top-0 left-0 h-full w-1/2 bg-gradient-to-r from-cyan-900 to-cyan-500"></div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-                    {steps.map((step, idx) => (
-                        <AnimatedSection key={idx} delay={idx * 0.1} className="relative">
-                            <div className="flex flex-col items-center text-center group">
-                                <div className="w-12 h-12 rounded-full bg-black border-4 border-slate-900 flex items-center justify-center text-cyan-500 font-bold z-10 group-hover:border-cyan-500 transition-colors shadow-lg">
-                                    {idx + 1}
-                                </div>
-                                <div className="mt-6 p-6 bg-slate-900 rounded-xl border border-slate-800 w-full hover:-translate-y-2 transition-transform duration-300">
-                                    <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
-                                    <p className="text-slate-400 text-xs">{step.desc}</p>
-                                </div>
-                            </div>
-                        </AnimatedSection>
+                  <div className="bg-white w-14 h-14 rounded-xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform relative z-10">
+                    {svc.icon}
+                  </div>
+                  <h3 className="text-lg font-bold text-[#363636] mb-4 relative z-10">
+                    {svc.title}
+                  </h3>
+                  <ul className="space-y-3 relative z-10">
+                    {svc.list.map((pt, i) => (
+                      <li
+                        key={i}
+                        className="flex gap-3 text-[#363636]/70 text-sm"
+                      >
+                        <CheckCircle
+                          size={16}
+                          className="text-[#536186] flex-shrink-0 mt-0.5"
+                        />
+                        <span className="leading-snug">{pt}</span>
+                      </li>
                     ))}
+                  </ul>
                 </div>
-            </div>
+              </AnimatedSection>
+            ))}
+          </div>
         </div>
       </section>
     );
   };
 
-  const CaseStudy = () => (
-    <section className="py-20 bg-slate-900 border-y border-slate-800">
+  const ToolsAndProcessSection = () => {
+    const processSteps = [
+      {
+        t: "Discover & Define",
+        d: "Strategic workshops, technical audits, key KPIs.",
+      },
+      {
+        t: "Design & Prototype",
+        d: "Wireframes, visual design, user testing.",
+      },
+      {
+        t: "Build & Integrate",
+        d: "Frontend development, backend development, third-party integrations.",
+      },
+      {
+        t: "Test & Launch",
+        d: "Quality assurance, performance tuning, staged rollouts.",
+      },
+      {
+        t: "Measure & Improve",
+        d: "Analytics, A/B testing, iterative updates.",
+      },
+      {
+        t: "Maintain & Secure",
+        d: "Backups, updates, iterative optimisations.",
+      },
+      {
+        t: "Scale",
+        d: "New features, multilingual support, platform migrations.",
+      },
+    ];
+
+    return (
+      <section className="py-16 sm:py-24 bg-[#B0C4DE]/15 relative">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16">
             <AnimatedSection>
-                <div className="max-w-5xl mx-auto bg-black rounded-3xl overflow-hidden border border-slate-700 flex flex-col md:flex-row shadow-2xl">
-                    <div className="md:w-1/2 p-10 flex flex-col justify-center">
-                        <div className="text-cyan-500 font-bold text-sm uppercase tracking-wider mb-2">Transformation Story</div>
-                        <h3 className="text-3xl font-bold text-white mb-4">Pune Architecture Firm Revamp</h3>
-                        <p className="text-slate-400 mb-6">
-                            Their old site had low engagement and poor load speed. We built a fast, mobile-optimized portfolio site with local SEO integration.
-                        </p>
-                        <div className="grid grid-cols-2 gap-6 border-t border-slate-800 pt-6">
-                            <div>
-                                <div className="text-4xl font-bold text-white text-green-400">+58%</div>
-                                <div className="text-xs text-slate-500 uppercase mt-1">Organic Traffic</div>
-                            </div>
-                            <div>
-                                <div className="text-4xl font-bold text-white text-green-400">2x</div>
-                                <div className="text-xs text-slate-500 uppercase mt-1">Lead Inquiries</div>
-                            </div>
-                        </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                Platforms We Work With
+              </h2>
+              <p className="text-lg text-[#363636]/80 mb-8 font-medium">
+                We offer web development services for popular platforms and web
+                stacks. The choice of platform depends on your needs, and we can
+                help you decide which one is the best for your business.
+              </p>
+
+              <div className="space-y-4 mb-8">
+                {[
+                  {
+                    title: "WordPress",
+                    desc: "Flexible content management system for content-centric web applications.",
+                  },
+                  {
+                    title: "Shopify",
+                    desc: "Reliable e-commerce storefronts tailored for sales.",
+                  },
+                  {
+                    title: "Webflow",
+                    desc: "Design-centric, CMS enabled web applications.",
+                  },
+                  {
+                    title: "Headless Ecosystems",
+                    desc: "Headless CMS + frontend frameworks or Custom web stacks.",
+                  },
+                  {
+                    title: "Hosting Providers",
+                    desc: "AWS, Google Cloud, Vercel, Netlify, etc.",
+                  },
+                ].map((plat, i) => (
+                  <div
+                    key={i}
+                    className="bg-white p-5 rounded-xl border border-[#C0C0C0] shadow-sm flex items-center gap-4 hover:border-[#536186] transition-colors"
+                  >
+                    <Globe className="text-[#536186] flex-shrink-0" size={24} />
+                    <div>
+                      <h4 className="font-bold text-[#363636]">{plat.title}</h4>
+                      <p className="text-sm text-[#363636]/70">{plat.desc}</p>
                     </div>
-                    <div className="md:w-1/2 bg-slate-950 relative flex items-center justify-center overflow-hidden border-l border-slate-800">
-                         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20"></div>
-                         <div className="relative z-10 text-center">
-                            <div className="bg-slate-900 p-4 rounded-lg border border-slate-800 mb-4 opacity-50 scale-90">
-                                <p className="text-red-500 text-xs font-mono">Error: Slow Load Time</p>
-                            </div>
-                            <div className="bg-slate-800 p-6 rounded-xl border border-cyan-500 shadow-[0_0_30px_rgba(6,182,212,0.2)]">
-                                <p className="text-cyan-400 text-lg font-bold font-mono">Status: Optimized</p>
-                                <p className="text-white text-sm mt-2">Performance Grade: A+</p>
-                            </div>
-                         </div>
-                    </div>
-                </div>
+                  </div>
+                ))}
+              </div>
             </AnimatedSection>
 
-            {/* Features Grid */}
-            <AnimatedSection delay={0.2} className="mt-16">
-                <h3 className="text-center text-white font-bold text-xl mb-8">Everything You Need to Grow</h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                     {[
-                        'Conversion-Driven Layouts', 'SEO Integration', 'Secure SSL Hosting', 'Easy CMS Access',
-                        'Analytics Setup', 'Chatbot Automation', 'Fast Load Time', 'Multi-Language Support'
-                     ].map((feat, i) => (
-                         <div key={i} className="bg-slate-950 p-4 rounded-lg border border-slate-800 text-slate-300 text-sm font-medium hover:border-cyan-900 transition-colors">
-                             {feat}
-                         </div>
-                     ))}
+            <AnimatedSection delay={0.2}>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                Our Process (7 Steps)
+              </h2>
+              <p className="text-lg text-[#363636]/80 mb-8 font-medium">
+                A predictable process to guarantee quality and speed. Each phase
+                has clear deliverables, timelines, and approval checkpoints to
+                ensure you’re kept in the loop throughout the process.
+              </p>
+
+              <div className="relative">
+                <div className="absolute left-[20px] top-4 bottom-4 w-0.5 bg-[#C0C0C0] z-0"></div>
+                <div className="space-y-5 relative z-10">
+                  {processSteps.map((step, idx) => (
+                    <motion.div
+                      key={idx}
+                      className="flex gap-5 group"
+                      whileHover={{ x: 5 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20,
+                      }}
+                    >
+                      <div className="w-10 h-10 rounded-full bg-[#536186] text-white flex items-center justify-center font-bold shadow-md flex-shrink-0 group-hover:scale-110 transition-transform">
+                        {idx + 1}
+                      </div>
+                      <div className="bg-white border border-[#C0C0C0] p-4 rounded-xl flex-1 shadow-sm group-hover:border-[#536186] group-hover:shadow-md transition-all">
+                        <strong className="text-[#363636] block mb-1 text-base">
+                          {step.t}
+                        </strong>
+                        <span className="text-[#363636]/70 text-sm leading-relaxed">
+                          {step.d}
+                        </span>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
+              </div>
             </AnimatedSection>
+          </div>
         </div>
-    </section>
-  );
+      </section>
+    );
+  };
+
+  const BenefitsSection = () => {
+    return (
+      <section className="py-16 sm:py-24 bg-white border-b border-[#C0C0C0]">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <AnimatedSection>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                Benefits of Choosing
+                <br /> <span className="text-[#536186]">Our Agency</span>
+              </h2>
+              <div className="bg-[#363636] rounded-3xl p-8 sm:p-10 shadow-2xl relative overflow-hidden">
+                {/* Decorative graphic */}
+                <div className="absolute right-0 bottom-0 opacity-10 transform translate-x-1/4 translate-y-1/4">
+                  <Monitor size={250} className="text-white" />
+                </div>
+
+                <ul className="space-y-6 relative z-10">
+                  {[
+                    "Business-first development that ties features to KPIs.",
+                    "Faster time-to-market with our library of reusable components and modular code.",
+                    "More conversions with our best practices in UX and CRO.",
+                    "Long-term maintainability with our documentation for your internal teams.",
+                    "Transparent pricing models with clear milestones to avoid surprises.",
+                    "Launch support to guarantee ongoing performance and security.",
+                  ].map((ben, idx) => (
+                    <li key={idx} className="flex items-start gap-4">
+                      <CheckCircle
+                        className="text-[#B0C4DE] flex-shrink-0 mt-1"
+                        size={20}
+                      />
+                      <span className="text-[#D3D3D3]/90 text-base md:text-lg font-medium">
+                        {ben}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8 pt-6 border-t border-[#536186]">
+                  <p className="text-white font-bold italic">
+                    With these benefits, your website will become a reliable
+                    growth engine instead of a one-time solution.
+                  </p>
+                </div>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.2}>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                Industries We Serve & Why Us
+              </h2>
+              <p className="text-[#363636]/80 mb-6 font-medium text-lg">
+                We have developed high-performing websites for various
+                industries, including:
+              </p>
+
+              <div className="flex flex-wrap gap-2 mb-8">
+                {[
+                  "E-commerce",
+                  "Retail Solutions",
+                  "SaaS & Tech Startups",
+                  "Healthcare & Wellness",
+                  "Finance & Fintech",
+                  "Hospitality & Travel",
+                  "Education & Edtech",
+                  "Professional Services",
+                ].map((ind, i) => (
+                  <span
+                    key={i}
+                    className="bg-[#D3D3D3]/50 text-[#363636] px-4 py-2 rounded-lg text-sm font-semibold border border-[#C0C0C0]"
+                  >
+                    {ind}
+                  </span>
+                ))}
+              </div>
+              <p className="text-sm font-semibold text-[#536186] mb-8">
+                *For businesses in Pune, we understand that finding the best web
+                development company in pune or the best web designing agency in
+                pune is important.
+              </p>
+
+              <div className="bg-[#B0C4DE]/20 p-6 rounded-2xl border border-[#C0C0C0]">
+                <h3 className="text-xl font-bold text-[#363636] mb-4">
+                  Why Choose Our Web Development Agency?
+                </h3>
+                <ul className="space-y-3">
+                  <li className="flex gap-2 text-sm text-[#363636]/80">
+                    <CheckCircle
+                      size={16}
+                      className="text-[#536186] flex-shrink-0 mt-0.5"
+                    />
+                    Demonstrated success, results, and customer testimonials.
+                  </li>
+                  <li className="flex gap-2 text-sm text-[#363636]/80">
+                    <CheckCircle
+                      size={16}
+                      className="text-[#536186] flex-shrink-0 mt-0.5"
+                    />
+                    Seasoned team of web developers, UX experts, and product
+                    strategists.
+                  </li>
+                  <li className="flex gap-2 text-sm text-[#363636]/80">
+                    <CheckCircle
+                      size={16}
+                      className="text-[#536186] flex-shrink-0 mt-0.5"
+                    />
+                    Clear communication, weekly updates, and demos.
+                  </li>
+                  <li className="flex gap-2 text-sm text-[#363636]/80">
+                    <CheckCircle
+                      size={16}
+                      className="text-[#536186] flex-shrink-0 mt-0.5"
+                    />
+                    Security-focused approach, regular audits, and best
+                    practices.
+                  </li>
+                </ul>
+                <p className="mt-4 text-xs font-bold text-[#363636]/60 uppercase tracking-wide">
+                  If you're looking for the best web development company in
+                  pune, we're your best bet!
+                </p>
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+    );
+  };
 
   const FAQSection = () => {
     const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+
     const faqs = [
-        { q: "How long does it take to build a website?", a: "Typically, 2–6 weeks depending on complexity, features, and revisions." },
-        { q: "Do you handle content writing and SEO?", a: "Yes. We provide SEO-optimized content and on-page optimization as part of the development process." },
-        { q: "Can you redesign an existing website?", a: "Absolutely. We can rebuild outdated layouts from the ground up for better conversion performance." },
-        { q: "Is maintenance included?", a: "We offer monthly maintenance packages to ensure your site stays fast, safe, and updated." },
+      {
+        q: "How long does a website build take?",
+        a: "Timelines vary by complexity. A basic marketing site typically takes 6–10 weeks; complex platforms or eCommerce stores may take 12–20+ weeks. We provide realistic schedules after discovery.",
+      },
+      {
+        q: "Do you provide responsive and mobile-first development?",
+        a: "Yes. Every project follows a mobile-first approach to ensure fast, accessible experiences across devices.",
+      },
+      {
+        q: "Which CMS should I choose — WordPress, Webflow, or headless?",
+        a: "It depends on your needs. WordPress fits content-heavy sites, Webflow suits design-led builds, and headless is ideal for scale and custom experiences. We recommend the best option during strategy sessions.",
+      },
+      {
+        q: "Will my site be SEO-friendly out of the box?",
+        a: "Absolutely. We implement technical SEO foundations, schema markup, and SEO-friendly templates as part of standard builds.",
+      },
+      {
+        q: "Do you support post-launch maintenance and updates?",
+        a: "Yes. We offer maintenance plans that include security updates, backups, performance monitoring, and iterative improvements.",
+      },
     ];
 
     return (
-        <section className="py-20 bg-black">
-            <div className="container mx-auto px-4 max-w-3xl">
-                <AnimatedSection>
-                    <h2 className="text-3xl font-bold text-center mb-12 text-white">FAQs About Web Dev</h2>
-                </AnimatedSection>
-                <div className="space-y-4">
-                    {faqs.map((faq, index) => (
-                        <AnimatedSection key={index} delay={index * 0.1}>
-                            <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
-                                <button
-                                    type="button" 
-                                    onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
-                                    className="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-slate-800 transition"
-                                >
-                                    <span className="font-semibold text-slate-200">{faq.q}</span>
-                                    {openFAQ === index ? <Minus size={20} color={accentColor} /> : <Plus size={20} color={accentColor} />}
-                                </button>
-                                <AnimatePresence>
-                                    {openFAQ === index && (
-                                        <motion.div 
-                                            initial={{ height: 0, opacity: 0 }} 
-                                            animate={{ height: 'auto', opacity: 1 }} 
-                                            exit={{ height: 0, opacity: 0 }}
-                                            className="px-6 pb-4"
-                                        >
-                                            <p className="text-slate-400 pt-2 border-t border-slate-800">{faq.a}</p>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-                        </AnimatedSection>
-                    ))}
+      <section className="py-16 sm:py-24 bg-[#D3D3D3]/50">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <AnimatedSection>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] text-center mb-12">
+              FAQs (SEO-Optimized)
+            </h2>
+          </AnimatedSection>
+
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <AnimatedSection key={index} delay={index * 0.1}>
+                <div className="bg-white rounded-2xl border border-[#C0C0C0] overflow-hidden shadow-sm transition-all hover:border-[#536186]">
+                  <button
+                    type="button"
+                    onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
+                    className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none hover:bg-[#B0C4DE]/10 transition-colors"
+                  >
+                    <span className="font-bold text-[#363636] text-base md:text-lg pr-4">
+                      {faq.q}
+                    </span>
+                    {openFAQ === index ? (
+                      <Minus
+                        size={24}
+                        className="flex-shrink-0 text-[#536186]"
+                      />
+                    ) : (
+                      <Plus
+                        size={24}
+                        className="flex-shrink-0 text-[#536186]"
+                      />
+                    )}
+                  </button>
+                  <AnimatePresence>
+                    {openFAQ === index && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="px-6 pb-5"
+                      >
+                        <p className="text-[#363636]/80 text-base pt-4 border-t border-[#C0C0C0]/50">
+                          {faq.a}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
+              </AnimatedSection>
+            ))}
+          </div>
+
+          <AnimatedSection delay={0.6}>
+            <div className="mt-12 text-center">
+              <Link
+                to="/blog/web-development"
+                className="font-bold text-[#536186] hover:text-[#363636] transition-colors underline underline-offset-4"
+              >
+                Read our Blog for more Web Development Resources
+              </Link>
             </div>
-        </section>
+          </AnimatedSection>
+        </div>
+      </section>
     );
   };
 
- 
+  const CTASection = () => (
+    <section className="py-20 sm:py-32 relative overflow-hidden bg-[#536186]">
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/graphy.png')] opacity-10"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#363636]/30 rounded-full blur-[100px] pointer-events-none"></div>
 
-  
+      <div className="container mx-auto px-4 relative z-10 text-center max-w-4xl">
+        <AnimatedSection>
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-white mb-8 leading-tight">
+            Ready to partner with a <br />
+            <span className="text-[#B0C4DE]">results-driven agency?</span>
+          </h2>
+          <p className="text-xl text-[#D3D3D3] mb-12 font-medium leading-relaxed max-w-3xl mx-auto">
+            Investing in professional web development services turns your
+            website into a scalable business asset. As a results-driven website
+            development agency and web development agency, we build fast,
+            secure, and conversion-optimized sites tailored to your goals.
+            Whether you’re searching for a top web development company in pune
+            or evaluating a web designing agency in pune, our team delivers
+            measurable outcomes and ongoing support.
+            <br />
+            <br />
+            Ready to start? Book a free discovery call and get a custom web
+            roadmap.
+          </p>
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center">
+            <Link
+              to="/contact"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-[#363636] bg-[#D3D3D3] hover:bg-white transform transition hover:scale-105 shadow-xl shadow-[#363636]/20"
+            >
+              Get Your Free Website Audit
+            </Link>
+            <Link
+              to="/services"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-white bg-transparent border-2 border-[#B0C4DE] hover:bg-[#B0C4DE] hover:text-[#363636] transform transition"
+            >
+              Request a Proposal
+            </Link>
+            <Link
+              to="/case-studies"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-[#D3D3D3] hover:text-white underline underline-offset-4 transform transition"
+            >
+              See Case Studies
+            </Link>
+          </div>
+
+          {/* <div className="mt-12">
+            <a
+              href="#download-checklist"
+              className="text-sm font-bold text-[#B0C4DE] hover:text-white uppercase tracking-widest transition-colors flex items-center justify-center gap-2"
+            >
+              Download Our Web Development Checklist <ChevronRight size={16} />
+            </a>
+          </div> */}
+        </AnimatedSection>
+      </div>
+    </section>
+  );
 
   return (
-    <div className="font-sans bg-black text-slate-100 min-h-screen">
-      <HeroSection />
-      <WhyItMatters />
-      <Differentiation />
-      <ProcessSection />
-      <CaseStudy />
-      <FAQSection />
-    
-    </div>
+    <>
+      <Helmet>
+        <title>Web Development Services | Website Development Agency</title>
+        <meta
+          name="description"
+          content=" Trusted web development services delivering fast, secure, SEO-friendly sites that convert and scale your business."
+        />
+      </Helmet>
+
+      <div className="min-h-screen bg-[#D3D3D3] font-sans selection:bg-[#536186] selection:text-white">
+        <HeroSection />
+        <IntroSection />
+        <WhatIsWebDevSection />
+        <ServiceDetailsSection />
+        <ToolsAndProcessSection />
+        <BenefitsSection />
+        <FAQSection />
+        <CTASection />
+      </div>
+    </>
   );
 };
 

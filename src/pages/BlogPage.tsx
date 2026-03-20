@@ -15,6 +15,7 @@ import {
   Linkedin,
   Sparkles,
 } from "lucide-react";
+import SEO from "../components/SEO";
 
 type Blog = {
   id: number;
@@ -363,7 +364,7 @@ at Adswise Marketing today. </p>
       date: "Nov 11, 2025",
       readTime: "6 min read",
       image:
-        "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmcv9oNdusDkbk7KD-voxO6-ivBR6pL9JbBg&s?w=800&q=80",
       tags: ["Social Media", "Marketing Tools", "Engagement"],
       views: "7.3K",
       content: `
@@ -454,12 +455,18 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
   // --- render selected article view ---
   if (selectedBlog) {
     return (
-      <div className="min-h-screen bg-black text-white">
-        <div className="sticky top-0 z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
+      <div className="min-h-screen bg-[#D3D3D3] text-[#363636]">
+        <SEO
+          title={`${selectedBlog.title} `}
+          description={selectedBlog.excerpt}
+          url="https://www.adswisemarketing.com/blog"
+          canonical="/blog"
+        />
+        <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <button
               onClick={handleBackToBlogs}
-              className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+              className="flex items-center gap-2 text-[#536186] hover:text-[#363636] transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
               <span>Back to Articles</span>
@@ -473,22 +480,22 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
             alt={selectedBlog.title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A192F] via-white/70 to-transparent"></div>
 
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4">
-            <span className="inline-block px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-full mb-4">
+            <span className="inline-block px-4 py-2 bg-[#536186] text-[#D3D3D3] text-sm font-semibold rounded-full mb-4">
               {selectedBlog.category}
             </span>
           </div>
         </div>
 
         <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-10">
-          <div className="bg-gradient-to-br from-white/5 to-white/[0.02] rounded-3xl p-8 sm:p-12 border border-white/10">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
+          <div className="bg-gradient-to-br from-slate-50 to-white/[0.02] rounded-3xl p-8 sm:p-12 border border-slate-200">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-[#363636] via-[#363636] to-[#363636] bg-clip-text text-transparent">
               {selectedBlog.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400 mb-8 pb-8 border-b border-white/10">
+            <div className="flex flex-wrap items-center gap-6 text-sm text-[#536186] mb-8 pb-8 border-b border-slate-200">
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
                 <span>{selectedBlog.date}</span>
@@ -503,19 +510,19 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
               </div>
             </div>
 
-            {/* <div className="flex items-center gap-4 mb-8 pb-8 border-b border-white/10">
-              <span className="text-sm text-gray-400">Share:</span>
-              <button className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors">
-                <Facebook className="w-4 h-4 text-blue-400" />
+            {/* <div className="flex items-center gap-4 mb-8 pb-8 border-b border-slate-200">
+              <span className="text-sm text-slate-600">Share:</span>
+              <button className="p-2 bg-slate-50 hover:bg-slate-100 rounded-full transition-colors">
+                <Facebook className="w-4 h-4 text-[#0A192F]" />
               </button>
-              <button className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors">
+              <button className="p-2 bg-slate-50 hover:bg-slate-100 rounded-full transition-colors">
                 <Twitter className="w-4 h-4 text-sky-400" />
               </button>
-              <button className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors">
-                <Linkedin className="w-4 h-4 text-blue-500" />
+              <button className="p-2 bg-slate-50 hover:bg-slate-100 rounded-full transition-colors">
+                <Linkedin className="w-4 h-4 text-[#0A192F]" />
               </button>
-              <button className="ml-auto p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors">
-                <Bookmark className="w-4 h-4 text-gray-400" />
+              <button className="ml-auto p-2 bg-slate-50 hover:bg-slate-100 rounded-full transition-colors">
+                <Bookmark className="w-4 h-4 text-slate-600" />
               </button>
             </div> */}
 
@@ -524,13 +531,13 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
               dangerouslySetInnerHTML={{ __html: selectedBlog.content }}
             />
 
-            <div className="mt-12 pt-8 border-t border-white/10">
-              <h3 className="text-sm text-gray-400 mb-4">Tags:</h3>
+            <div className="mt-12 pt-8 border-t border-slate-200">
+              <h3 className="text-sm text-[#536186] mb-4">Tags:</h3>
               <div className="flex flex-wrap gap-2">
                 {selectedBlog.tags.map((tag, i) => (
                   <span
                     key={i}
-                    className="px-4 py-2 bg-purple-600/20 text-purple-300 text-sm rounded-full border border-purple-500/30 hover:bg-purple-600/30 transition-colors cursor-pointer"
+                    className="px-4 py-2 bg-[#536186]/20 text-[#536186] text-sm rounded-full border border-[#536186]/30 hover:bg-[#536186]/30 transition-colors cursor-pointer"
                   >
                     #{tag}
                   </span>
@@ -553,7 +560,7 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
                   <div
                     key={blog.id}
                     onClick={() => handleReadMore(blog)}
-                    className="group cursor-pointer bg-gradient-to-br from-white/5 to-white/[0.02] rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/30 transition-all"
+                    className="group cursor-pointer bg-gradient-to-br from-slate-50 to-white/[0.02] rounded-2xl overflow-hidden border border-slate-200 hover:border-[#FF4E45]/30 transition-all"
                   >
                     <div className="relative h-48 overflow-hidden">
                       <img
@@ -561,13 +568,13 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
                         alt={blog.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0A192F] to-transparent"></div>
                     </div>
                     <div className="p-6">
-                      <h3 className="font-bold text-lg mb-2 text-white group-hover:text-purple-300 transition-colors line-clamp-2">
+                      <h3 className="font-bold text-lg mb-2 text-[#0A192F] group-hover:text-[#FF4E45] transition-colors line-clamp-2">
                         {blog.title}
                       </h3>
-                      <p className="text-gray-400 text-sm line-clamp-2">
+                      <p className="text-slate-600 text-sm line-clamp-2">
                         {blog.excerpt}
                       </p>
                     </div>
@@ -578,12 +585,12 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
         </article>
 
         <style>{`
-          .article-content { color: #d1d5db; line-height: 1.8; }
-          .article-content h2 { color: #fff; font-size: 1.75rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 1.25rem; }
-          .article-content p { margin-bottom: 1.25rem; color: #d1d5db; }
+          .article-content { color: #000000; line-height: 1.8; }
+          .article-content h2 { color: #050505; font-size: 1.75rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 1.25rem; }
+          .article-content p { margin-bottom: 1.25rem; color: #003481; }
           .article-content ul { margin: 1.5rem 0; padding-left: 1.5rem; list-style-type: disc; }
-          .article-content li { margin-bottom: 0.75rem; color: #d1d5db; }
-          .article-content strong { color: #fff; font-weight: 600; }
+          .article-content li { margin-bottom: 0.75rem; color: #003481; }
+          .article-content strong { color: #003481; font-weight: 600; }
         `}</style>
       </div>
     );
@@ -591,35 +598,39 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
 
   // --- render list view ---
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="relative overflow-hidden bg-gradient-to-br from-purple-900/20 via-black to-blue-900/20">
+    <div className="min-h-screen bg-[#D3D3D3] text-[#363636]">
+      <SEO
+        title="Digital Marketing Blog & Insights | AdsWise Marketing"
+        description="Stay ahead with the latest insights, strategies, and trends in digital marketing, SEO, and AI technology from AdsWise Marketing experts."
+      />
+      <div className="relative overflow-hidden bg-gradient-to-br from-slate-100 via-white to-slate-200">
         <div className="absolute inset-0 opacity-40"></div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
           <div className="text-center">
-            <div className="text-4xl sm:text-6xl lg:text-6xl font-bold text-orange-500 h-20 md:h-24 pb-3 flex justify-center">
+            <div className="text-4xl sm:text-6xl lg:text-6xl font-bold text-[#536186] h-20 md:h-24 pb-3 flex justify-center">
               <TypewriterText text="Digital Marketing Blog" />
             </div>
-            <p className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto mb-12">
+            <p className="text-[#536186] text-lg sm:text-xl max-w-2xl mx-auto mb-12">
               Stay ahead with the latest insights, strategies, and trends in
               digital marketing, SEO, and AI technology
             </p>
 
             <div className="max-w-2xl mx-auto relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#536186] w-5 h-5" />
               <input
                 type="text"
                 placeholder="Search articles..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all"
+                className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-[#363636] placeholder-[#536186] focus:outline-none focus:border-[#536186] focus:ring-2 focus:ring-[#536186] transition-all"
               />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="border-b border-white/10 bg-black/50 backdrop-blur-sm sticky top-0 z-10">
+      <div className="border-b border-slate-200 bg-white/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex gap-2 overflow-x-auto py-4">
             {categories.map((category) => (
@@ -628,8 +639,8 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
                 onClick={() => setSelectedCategory(category)}
                 className={`px-6 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
                   selectedCategory === category
-                    ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-500/30"
-                    : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
+                    ? "bg-[#D3D3D3] text-[#363636] shadow-lg shadow-[#363636]/30 border border-[#363636]"
+                    : "bg-slate-50 text-[#536186] hover:bg-slate-100 hover:text-[#363636]"
                 }`}
               >
                 {category}
@@ -642,13 +653,13 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {filteredBlogs.length === 0 ? (
           <div className="text-center py-20">
-            <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Search className="w-10 h-10 text-gray-600" />
+            <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Search className="w-10 h-10 text-slate-600" />
             </div>
-            <h3 className="text-xl font-semibold text-gray-400 mb-2">
+            <h3 className="text-xl font-semibold text-slate-600 mb-2">
               No articles found
             </h3>
-            <p className="text-gray-600">
+            <p className="text-slate-600">
               Try adjusting your search or filters
             </p>
           </div>
@@ -657,7 +668,7 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
             {filteredBlogs.map((blog) => (
               <article
                 key={blog.id}
-                className="group bg-gradient-to-br from-white/5 to-white/[0.02] rounded-3xl overflow-hidden border border-white/10 hover:border-purple-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/10 hover:-translate-y-1"
+                className="group bg-gradient-to-br from-slate-50 to-white/[0.02] rounded-3xl overflow-hidden border border-slate-200 hover:border-[#536186]/30 transition-all duration-500 hover:shadow-2xl hover:shadow-[#536186]/10 hover:-translate-y-1"
               >
                 <div className="relative h-64 overflow-hidden">
                   <img
@@ -665,24 +676,24 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
                     alt={blog.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A192F] via-white/50 to-transparent"></div>
 
                   <div className="absolute top-4 left-4">
-                    <span className="px-4 py-1.5 bg-purple-600/90 backdrop-blur-sm text-white text-xs font-semibold rounded-full">
+                    <span className="px-4 py-1.5 bg-[#536186]/90 backdrop-blur-sm text-[#D3D3D3] text-xs font-semibold rounded-full">
                       {blog.category}
                     </span>
                   </div>
 
-                  <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 bg-black/70 backdrop-blur-sm rounded-full">
-                    <Eye className="w-3.5 h-3.5 text-gray-400" />
-                    <span className="text-xs text-gray-300 font-medium">
+                  <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 bg-white/70 backdrop-blur-sm rounded-full">
+                    <Eye className="w-3.5 h-3.5 text-slate-600" />
+                    <span className="text-xs text-slate-700 font-medium">
                       {blog.views}
                     </span>
                   </div>
                 </div>
 
                 <div className="p-6">
-                  <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                  <div className="flex items-center gap-4 text-sm text-slate-500 mb-4">
                     <div className="flex items-center gap-1.5">
                       <Calendar className="w-4 h-4" />
                       <span>{blog.date}</span>
@@ -693,11 +704,11 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
                     </div>
                   </div>
 
-                  <h2 className="text-xl font-bold mb-3 text-white group-hover:text-purple-300 transition-colors line-clamp-2">
+                  <h2 className="text-xl font-bold mb-3 text-[#363636] group-hover:text-[#536186] transition-colors line-clamp-2">
                     {blog.title}
                   </h2>
 
-                  <p className="text-gray-400 mb-4 line-clamp-2 leading-relaxed">
+                  <p className="text-[#536186] mb-4 line-clamp-2 leading-relaxed">
                     {blog.excerpt}
                   </p>
 
@@ -705,7 +716,7 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
                     {blog.tags.map((tag, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1 bg-white/5 text-gray-400 text-xs rounded-full border border-white/10"
+                        className="px-3 py-1 bg-slate-50 text-slate-600 text-xs rounded-full border border-slate-200"
                       >
                         #{tag}
                       </span>
@@ -714,7 +725,7 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
 
                   <button
                     onClick={() => handleReadMore(blog)}
-                    className="group/btn flex items-center gap-2 text-purple-400 font-medium hover:text-purple-300 transition-colors"
+                    className="group/btn flex items-center gap-2 text-[#536186] font-medium hover:text-[#363636] transition-colors"
                   >
                     <span>Read Article</span>
                     <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
@@ -726,10 +737,12 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
         )}
 
         {filteredBlogs.length > 0 && (
-          <div className="mt-20 p-8 bg-gradient-to-br from-purple-900/10 to-blue-900/10 rounded-3xl border border-white/10">
+          <div className="mt-20 p-8 bg-slate-50 rounded-3xl border border-slate-200">
             <div className="flex items-center gap-2 mb-6">
-              <TrendingUp className="w-5 h-5 text-purple-400" />
-              <h3 className="text-xl font-bold text-white">Trending Topics</h3>
+              <TrendingUp className="w-5 h-5 text-[#536186]" />
+              <h3 className="text-xl font-bold text-[#363636]">
+                Trending Topics
+              </h3>
             </div>
             <div className="flex flex-wrap gap-3">
               {[
@@ -744,7 +757,7 @@ to enhance keyword tracking, content visibility, and integrated digital strategy
               ].map((topic, i) => (
                 <span
                   key={i}
-                  className="px-5 py-2.5 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white rounded-full border border-white/10 hover:border-purple-500/30 transition-all cursor-pointer text-sm font-medium"
+                  className="px-5 py-2.5 bg-slate-50 hover:bg-slate-100 text-[#536186] hover:text-[#363636] rounded-full border border-slate-200 hover:border-[#536186]/30 transition-all cursor-pointer text-sm font-medium"
                 >
                   {topic}
                 </span>

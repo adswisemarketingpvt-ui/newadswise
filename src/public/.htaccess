@@ -19,6 +19,3 @@
   # Otherwise rewrite to index.html (SPA fallback)
   RewriteRule . /index.html [L]
 </IfModule>
-
-# Optional: set index file order (if needed)
-DirectoryIndex index.html index.htm

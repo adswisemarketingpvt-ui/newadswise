@@ -10,10 +10,11 @@ import EcommerceDevelopment from "./EcommerceDevelopment";
 import SEOService from "./SEOService";
 import NotFoundService from "./NotFoundService";
 import StrategyConsulting from "./strategy-consulting";
-import AEOptimization from "./AEOptimization";
+import MobileAppDevelopment from "./MobileAppDevelopment";
 import PlatformListingOptimization from "./PLO";
 import MediaBuyingPlanning from "./MediaBuyingPlanning";
 import EmailWhatsAppMarketing from "./EmailWhatsAppMarketing";
+import BrandDevelopmentServices from "./BrandDevelopmentServices";
 const ServiceRouter: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
 
@@ -34,14 +35,18 @@ const ServiceRouter: React.FC = () => {
       return <EcommerceDevelopment />;
     case "search-engine-optimization":
       return <SEOService />;
-    case "answer-engine-optimization":
-      return <AEOptimization />;
+
+    case "mobile-app-development":
+      return <MobileAppDevelopment />;
+
     case "Platform-Listing-Optimization":
       return <PlatformListingOptimization />;
     case "media-buying-planning":
       return <MediaBuyingPlanning />;
     case "email-whatsapp-marketing":
       return <EmailWhatsAppMarketing />;
+    case "brand-development":
+      return <BrandDevelopmentServices />;
     default:
       return <NotFoundService />;
   }

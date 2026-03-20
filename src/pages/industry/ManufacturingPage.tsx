@@ -1,31 +1,65 @@
-import React, { useState, useRef } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { 
-  Factory, Settings, Users, Search, 
-  FileText, Globe, Magnet, MapPin, 
-  Video, ChevronRight, CheckCircle2, 
-  TrendingUp, Send, ShieldCheck, 
-  Cpu, Wrench, Truck
-} from 'lucide-react';
+import React, { useState, useRef } from "react";
+import {
+  motion,
+  useInView,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
+import {
+  Factory,
+  Settings,
+  Users,
+  Search,
+  FileText,
+  Globe,
+  Magnet,
+  MapPin,
+  Video,
+  ChevronRight,
+  TrendingUp,
+  Cpu,
+  Target,
+  BarChart,
+  Link as LinkIcon,
+  MessageSquare,
+  ShieldCheck,
+  Zap,
+  CheckCircle,
+  Plus,
+  Minus,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+
+/*
+  SEO METADATA CONTENT (For specific configuration in index.html, next/head or helmet):
+  Meta Title (≤60 chars): Manufacturing Industry Digital Marketing | Adswise Marketing
+  Meta Description (150–160 chars): Boost B2B sales with manufacturing industry digital marketing — targeted lead-gen, machinery campaigns, measurable ROI. Book a free strategy call now.
+  Slug: manufacturing-marketing
+*/
 
 // ============================================================================
 // ASSETS & CONFIG
 // ============================================================================
 
 const IMAGES = {
-  hero: "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?q=80&w=2070&auto=format&fit=crop", // Sparks/Welding
+  hero: "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?q=80&w=2070&auto=format&fit=crop", // Factory floor with CNC machines and engineer reviewing specifications.
   texture: "https://www.transparenttextures.com/patterns/carbon-fibre.png",
-  factory: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop", // CNC/Machinery
-  logistics: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop" // Warehouse
+  factory:
+    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop", // Technical demo of industrial machinery with sales team capturing lead details.
+  services:
+    "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop", // Product landing page and LinkedIn ad targeting manufacturing buyers.
 };
 
 // ============================================================================
 // ANIMATION WRAPPERS
 // ============================================================================
 
-const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
-  children, className = '', delay = 0 
-}) => {
+const AnimatedSection: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}> = ({ children, className = "", delay = 0 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
@@ -42,51 +76,42 @@ const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string;
   );
 };
 
-const ParallaxImage: React.FC<{ src: string; alt: string; className?: string }> = ({ src, alt, className = "" }) => {
-    const ref = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"]
-    });
-    const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+const ParallaxImage: React.FC<{
+  src: string;
+  alt: string;
+  className?: string;
+}> = ({ src, alt, className = "" }) => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
-    return (
-        <div ref={ref} className={`overflow-hidden relative ${className}`}>
-            <motion.img 
-                style={{ y, scale: 1.15 }}
-                src={src} 
-                alt={alt} 
-                className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20"></div>
-        </div>
-    );
+  return (
+    <div ref={ref} className={`overflow-hidden relative ${className}`}>
+      <motion.img
+        style={{ y, scale: 1.15 }}
+        src={src}
+        alt={alt}
+        className="w-full h-full object-cover mix-blend-multiply"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#D3D3D3] via-[#D3D3D3]/80 to-[#D3D3D3]/40"></div>
+    </div>
+  );
 };
 
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
 
-const ManufacturingPage = ({
-  onContactSubmit
-}: { onContactSubmit?: (formData: any) => void }) => {
-  
-  // Brand Colors
-  const accentColor = '#FF6B35'; // Safety Orange
-  
-  const [formData, setFormData] = useState({
-    name: '', email: '', companyName: '', industryType: '', message: ''
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (onContactSubmit) onContactSubmit(formData);
-    alert("Industrial inquiry received. We will analyze your requirements shortly.");
-  };
+const ManufacturingPage = () => {
+  // Monochromatic Color Palette:
+  // #536186 - Stone Gray (Primary Accent)
+  // #D3D3D3 - Fog Gray (Light Background)
+  // #363636 - Charcoal Gray (Text/Dark Background)
+  // #C0C0C0 - Silver (Borders/Secondary Accent)
+  // #B0C4DE - Ash Gray (Highlighting)
 
   // ============================================================================
   // SUB-COMPONENTS
@@ -94,355 +119,641 @@ const ManufacturingPage = ({
 
   const HeroSection = () => {
     return (
-        <header className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-black text-white pt-20">
-            {/* Parallax Background */}
-            <div className="absolute inset-0 z-0">
-                 <ParallaxImage src={IMAGES.hero} alt="Industrial Manufacturing" className="w-full h-full" />
-                 {/* Blueprint Grid Overlay */}
-                 <div className="absolute inset-0 opacity-20" 
-                      style={{ backgroundImage: 'linear-gradient(rgba(255,107,53,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,53,0.3) 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
-                 </div>
-            </div>
+      <header className="relative min-h-[95vh] flex items-center justify-center overflow-hidden bg-[#D3D3D3] text-[#363636] pt-20">
+        {/* Parallax Background */}
+        <div className="absolute inset-0 z-0 opacity-40">
+          <ParallaxImage
+            src={IMAGES.hero}
+            alt="Factory floor with CNC machines and engineer reviewing specifications"
+            className="w-full h-full"
+          />
+          {/* Blueprint Grid Overlay */}
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage:
+                "linear-gradient(#536186 1px, transparent 1px), linear-gradient(90deg, #536186 1px, transparent 1px)",
+              backgroundSize: "50px 50px",
+            }}
+          ></div>
+        </div>
 
-            <div className="relative z-20 container mx-auto px-4 text-center max-w-5xl">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.2 }}
-                >
-                    <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-orange-500/10 text-orange-500 border border-orange-500/30 text-xs md:text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md">
-                        <Wrench size={14} /> Industrial Growth Engine
-                    </span>
-                </motion.div>
+        <div className="relative z-20 container mx-auto px-4 text-center max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-[#536186]/10 text-[#536186] border border-[#536186]/50 text-xs md:text-sm font-bold tracking-widest uppercase mb-3 mt-8 backdrop-blur-md">
+              <Factory size={16} /> B2B Growth Engines
+            </span>
+          </motion.div>
 
-                <motion.h1 
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4, duration: 0.8 }}
-                    className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-tight"
-                >
-                    Manufacturing Digital <br className="hidden md:block" />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-600">
-                        Supply Chain Solutions.
-                    </span>
-                </motion.h1>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-tight text-[#363636] capitalize"
+          >
+            Manufacturing Industry <br className="hidden md:block" />
+            <span className="text-[#536186]">Digital Marketing.</span>
+          </motion.h1>
 
-                <motion.p 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.6 }}
-                    className="max-w-2xl mx-auto text-lg md:text-xl text-slate-300 mb-10 leading-relaxed font-light"
-                >
-                    We build the digital infrastructure that connects factories to buyers. Secure OEM partnerships, expand dealer networks, and generate qualified RFQs.
-                </motion.p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="max-w-3xl mx-auto"
+          >
+            <h2 className="text-xl md:text-2xl text-[#363636]/90 mb-6 font-bold">
+              Generate more qualified leads, reduce your sales time, and grow
+              your manufacturers' income.
+            </h2>
+            <p className="text-lg text-[#363636]/80 mb-10 leading-relaxed font-medium">
+              We are Adswise Marketing — we design specialized digital marketing
+              systems for manufacturers. Our digital manufacturing marketing
+              methodology utilizes both a technical understanding and measurable
+              marketing, thus providing your manufacturing equipment, components
+              and/or plant services with visibility to the appropriate buyer
+              groups at the right moment.
+            </p>
+          </motion.div>
 
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8 }}
-                    className="flex flex-col sm:flex-row gap-4 justify-center"
-                >
-                    <a 
-                        href="#contact" 
-                        className="px-8 py-4 rounded-lg bg-orange-600 text-white font-bold text-lg hover:bg-orange-500 transition transform hover:-translate-y-1 shadow-[0_0_30px_rgba(255,107,53,0.3)] flex items-center justify-center gap-2"
-                    >
-                        Get B2B Leads <ChevronRight size={20} />
-                    </a>
-                    <a 
-                        href="#solutions" 
-                        className="px-8 py-4 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold text-lg hover:bg-white/20 transition flex items-center justify-center gap-2"
-                    >
-                        View Solutions
-                    </a>
-                </motion.div>
-            </div>
-        </header>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="flex flex-col items-center justify-center gap-4"
+          >
+            <Link
+              to="/contact"
+              className="px-10 py-5 rounded-lg bg-[#536186] text-white font-bold text-lg hover:bg-[#363636] transition transform hover:-translate-y-1 shadow-[0_0_30px_rgba(83,97,134,0.3)] flex items-center justify-center gap-2 w-full sm:w-auto"
+            >
+              Get my free strategy call <ChevronRight size={20} />
+            </Link>
+            <p className="text-sm font-bold text-[#536186] tracking-wide uppercase mt-2">
+              Start with a tailored 90-day launch plan{" "}
+              <br className="sm:hidden" /> • No long contracts • Month-to-month
+              options
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Subtle Bottom Fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#D3D3D3] to-transparent z-10"></div>
+      </header>
     );
   };
 
-  const ChallengesSection = () => {
-    const challenges = [
-        { icon: Search, title: "Invisible to Buyers", desc: "Your machines are world-class, but procurement teams can't find you on Google." },
-        { icon: Users, title: "Gatekeeper Barrier", desc: "Struggling to bypass front-desk staff to reach decision-making Engineers." },
-        { icon: FileText, title: "Technical Gaps", desc: "Buyers reject suppliers instantly if specs, grades, or certifications are unclear." },
-        { icon: TrendingUp, title: "Long Cycles", desc: "Deals die during the 6-month sales cycle without automated digital follow-up." }
+  const TheProblemSection = () => {
+    const problems = [
+      {
+        icon: Search,
+        title: "Invisible to Buyers",
+        desc: "Manufacturers frequently miss out on deals prior to a potential customer discovering them.",
+      },
+      {
+        icon: MessageSquare,
+        title: "Generic Messaging",
+        desc: "Precision is required in terms of messaging for technical products rather than generic advertisements.",
+      },
+      {
+        icon: TrendingUp,
+        title: "Long Sales Cycles",
+        desc: "Long sales cycles without the appropriate nurturing of leads will leave them cold.",
+      },
+      {
+        icon: Target,
+        title: "Misaligned SEO",
+        desc: "Search engine optimization generally does not cater to the needs of users searching for machinery or their intent on making an industrial purchase.",
+      },
+      {
+        icon: Users,
+        title: "Siloed Teams",
+        desc: "Marketing and sales work separately resulting in missed opportunities for both sides.",
+      },
     ];
 
     return (
-      <section className="py-20 bg-zinc-950 relative">
-          <div className="absolute inset-0 opacity-10 bg-repeat" style={{ backgroundImage: `url(${IMAGES.texture})` }}></div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-              <AnimatedSection>
-                  <div className="text-center max-w-3xl mx-auto mb-16">
-                      <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
-                          Why Manufacturers <span className="text-orange-500">Struggle Online</span>
-                      </h2>
-                      <p className="text-slate-400 text-lg">
-                          Industrial procurement has moved online. If your digital presence lacks technical clarity and authority, you lose the RFQ before the first call.
-                      </p>
-                  </div>
-              </AnimatedSection>
+      <section className="py-20 bg-[#D3D3D3] relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <AnimatedSection>
+            <div className="text-center max-w-4xl mx-auto mb-16">
+              <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-[#363636]">
+                The Problem: <br />
+                <span className="text-[#536186]">
+                  Why Manufacturers Struggle Online
+                </span>
+              </h2>
+              <p className="text-[#363636]/80 text-lg font-medium">
+                As a result of these issues, there are multiple wasteful
+                expenditures on advertising, poor conversion rates, and lost
+                enterprise sales. We resolve this through establishing marketing
+                alignment with engineering specifications, procurement behaviour
+                and distributor network relationships.
+              </p>
+            </div>
+          </AnimatedSection>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {challenges.map((c, idx) => (
-                      <AnimatedSection key={idx} delay={idx * 0.1} className="h-full">
-                          <div className="bg-black/50 backdrop-blur-sm p-8 rounded-sm border-l-4 border-orange-600 hover:bg-zinc-900 transition-all group h-full relative overflow-hidden">
-                              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                  <c.icon size={64} className="text-white" />
-                              </div>
-                              <div className="w-12 h-12 flex items-center justify-center text-orange-500 mb-6">
-                                  <c.icon size={32} />
-                              </div>
-                              <h3 className="text-lg font-bold text-white mb-3 uppercase tracking-wide">{c.title}</h3>
-                              <p className="text-slate-400 text-sm leading-relaxed">
-                                  {c.desc}
-                              </p>
-                          </div>
-                      </AnimatedSection>
-                  ))}
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+            {problems.map((c, idx) => (
+              <AnimatedSection
+                key={idx}
+                delay={idx * 0.1}
+                className={`h-full ${idx === 3 ? "lg:col-start-2" : ""}`}
+              >
+                <div className="bg-white/40 backdrop-blur-md p-8 rounded-2xl border border-[#C0C0C0] hover:border-[#536186] hover:shadow-[0_8px_30px_rgba(83,97,134,0.1)] transition-all group h-full relative overflow-hidden">
+                  <div className="w-14 h-14 rounded-xl flex items-center justify-center bg-[#536186]/10 text-[#536186] mb-6 group-hover:scale-110 transition-transform">
+                    <c.icon size={28} />
+                  </div>
+                  <h3 className="text-xl font-bold text-[#363636] mb-3">
+                    {c.title}
+                  </h3>
+                  <p className="text-[#363636]/70 text-base leading-relaxed">
+                    {c.desc}
+                  </p>
+                </div>
+              </AnimatedSection>
+            ))}
           </div>
+        </div>
       </section>
     );
   };
 
-  const SolutionsSection = () => {
-    const solutions = [
-        { icon: Globe, color: "text-blue-500", title: "Industrial SEO", desc: "Ranking for 'CNC machining Pune' or 'Chemical supplier Mumbai'. We build spec-rich pages matching procurement intent." },
-        { icon: FileText, color: "text-orange-500", title: "Smart Catalogs", desc: "Turning PDFs into interactive digital assets with high-res photos, material grades, and downloadable ISO certifications." },
-        { icon: Magnet, color: "text-green-500", title: "B2B Lead Gen", desc: "Laser-targeted LinkedIn & Google campaigns reaching Factory Owners, OEMs, and Procurement Managers." },
-        { icon: MapPin, color: "text-purple-500", title: "Dealer Network", desc: "Recruitment campaigns to find and onboard qualified distributors in untapped territories across India." },
-        { icon: Cpu, color: "text-yellow-500", title: "Tech Websites", desc: "Websites acting as 24/7 technical consultants with RFQ calculators, WhatsApp APIs, and 3D product views." },
-        { icon: Video, color: "text-red-500", title: "Factory Tours", desc: "Drone fly-throughs and machinery operation videos that prove your production capacity without a site visit." }
-    ];
-
+  const ServicesSection = () => {
     return (
-      <section id="solutions" className="py-24 bg-black relative border-t border-zinc-900">
+      <section className="py-24 bg-white border-y border-[#C0C0C0]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <AnimatedSection>
-                <div className="mb-16">
-                    <span className="text-orange-500 font-bold mb-2 uppercase tracking-widest text-xs">Our Engineering</span>
-                    <h2 className="text-3xl sm:text-5xl font-bold text-white">
-                        Built for <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-200 to-slate-500">Industrial Sales</span>
-                    </h2>
+          <AnimatedSection>
+            <div className="mb-16 text-center max-w-4xl mx-auto">
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-[#363636] mb-6">
+                Tailored Services for the{" "}
+                <span className="text-[#536186]">Manufacturing Sector</span>
+              </h2>
+              <p className="text-[#363636]/80 text-lg font-medium">
+                We provide services that cater to the unique needs and
+                challenges faced by factories, OEMs and suppliers of machinery.
+                We combine these into a unified plan so digital channels support
+                sales at every phase.
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Service 1 */}
+            <AnimatedSection delay={0.1}>
+              <div className="bg-[#D3D3D3]/30 rounded-3xl p-8 border border-[#C0C0C0] h-full hover:border-[#536186] transition-colors">
+                <div className="flex items-center gap-4 mb-6 border-b border-[#C0C0C0] pb-4">
+                  <Globe className="text-[#536186]" size={36} />
+                  <h3 className="text-2xl font-bold text-[#363636]">
+                    SEO and Content Marketing
+                  </h3>
                 </div>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3 text-[#363636]/80">
+                    <CheckCircle
+                      className="text-[#536186] shrink-0 mt-1"
+                      size={18}
+                    />
+                    <span>
+                      Having a targeted keyword strategy for searching machine
+                      models, part numbers and solutions.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3 text-[#363636]/80">
+                    <CheckCircle
+                      className="text-[#536186] shrink-0 mt-1"
+                      size={18}
+                    />
+                    <span>
+                      Creating technical content, such as white papers,
+                      specification sheets and "how it works." This material is
+                      designed specifically to engage with engineers and
+                      purchasing departments.
+                    </span>
+                  </li>
+                </ul>
+              </div>
             </AnimatedSection>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
-                {solutions.map((sol, idx) => (
-                    <AnimatedSection key={idx} delay={idx * 0.05}>
-                        <div className="bg-zinc-900/50 p-8 border border-zinc-800 hover:bg-zinc-900 hover:border-orange-500/50 transition-all group h-full flex flex-col relative">
-                            {/* Technical Corner Markers */}
-                            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-zinc-600 group-hover:border-orange-500 transition-colors"></div>
-                            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-zinc-600 group-hover:border-orange-500 transition-colors"></div>
-                            
-                            <div className={`w-12 h-12 rounded bg-black border border-zinc-800 flex items-center justify-center ${sol.color} mb-6 shadow-inner`}>
-                                <sol.icon size={24} />
-                            </div>
-                            <h3 className="text-xl font-bold text-white mb-4 font-mono">{sol.title}</h3>
-                            <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                                {sol.desc}
-                            </p>
-                            <div className="flex items-center text-xs font-bold uppercase tracking-widest text-zinc-500 group-hover:text-white transition-colors cursor-pointer">
-                                Explore <ChevronRight size={14} className="ml-1 text-orange-500" />
-                            </div>
-                        </div>
-                    </AnimatedSection>
-                ))}
-            </div>
+            {/* Service 2 */}
+            <AnimatedSection delay={0.2}>
+              <div className="bg-[#D3D3D3]/30 rounded-3xl p-8 border border-[#C0C0C0] h-full hover:border-[#536186] transition-colors">
+                <div className="flex items-center gap-4 mb-6 border-b border-[#C0C0C0] pb-4">
+                  <Target className="text-[#536186]" size={36} />
+                  <h3 className="text-2xl font-bold text-[#363636]">
+                    B2B Digital Advertising & ABM
+                  </h3>
+                </div>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3 text-[#363636]/80">
+                    <CheckCircle
+                      className="text-[#536186] shrink-0 mt-1"
+                      size={18}
+                    />
+                    <span>
+                      Developing targeted pay-per-click (PPC) advertising
+                      campaigns for purchase intent keywords and account-based
+                      marketing for large customer accounts.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3 text-[#363636]/80">
+                    <CheckCircle
+                      className="text-[#536186] shrink-0 mt-1"
+                      size={18}
+                    />
+                    <span>
+                      Using LinkedIn and programmatic advertising to reach
+                      decision-making individuals in procurement departments.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </AnimatedSection>
+
+            {/* Service 3 */}
+            <AnimatedSection delay={0.3}>
+              <div className="bg-[#D3D3D3]/30 rounded-3xl p-8 border border-[#C0C0C0] h-full hover:border-[#536186] transition-colors">
+                <div className="flex items-center gap-4 mb-6 border-b border-[#C0C0C0] pb-4">
+                  <Cpu className="text-[#536186]" size={36} />
+                  <h3 className="text-2xl font-bold text-[#363636]">
+                    Site & Lead Systems
+                  </h3>
+                </div>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3 text-[#363636]/80">
+                    <CheckCircle
+                      className="text-[#536186] shrink-0 mt-1"
+                      size={18}
+                    />
+                    <span>
+                      Conversion focused product pages, Spec downloads, and ROI
+                      Calculators.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3 text-[#363636]/80">
+                    <CheckCircle
+                      className="text-[#536186] shrink-0 mt-1"
+                      size={18}
+                    />
+                    <span>
+                      CRM Integrations and Lead Scoring to Only Pass on Sales
+                      Ready Leads.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3 text-[#363636]/80">
+                    <CheckCircle
+                      className="text-[#536186] shrink-0 mt-1"
+                      size={18}
+                    />
+                    <span>
+                      Quick Demo’s, Installation Walk-Thru’s, and Testimonial
+                      Video’s to Help Speed Up Evaluation Time.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </AnimatedSection>
+
+            {/* Service 4 & 5 */}
+            <AnimatedSection delay={0.4}>
+              <div className="bg-[#D3D3D3]/30 rounded-3xl p-8 border border-[#C0C0C0] h-full hover:border-[#536186] transition-colors flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-4 mb-6 border-b border-[#C0C0C0] pb-4">
+                    <MapPin className="text-[#536186]" size={36} />
+                    <h3 className="text-2xl font-bold text-[#363636]">
+                      Distributor & Channel Growth
+                    </h3>
+                  </div>
+                  <ul className="space-y-4 mb-8">
+                    <li className="flex items-start gap-3 text-[#363636]/80">
+                      <CheckCircle
+                        className="text-[#536186] shrink-0 mt-1"
+                        size={18}
+                      />
+                      <span>
+                        Support for Dealer Portals, Distributor Landing Pages,
+                        and Co-Marketing Packages.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <div className="flex items-center gap-4 mb-6 border-b border-[#C0C0C0] pb-4">
+                    <BarChart className="text-[#536186]" size={36} />
+                    <h3 className="text-2xl font-bold text-[#363636]">
+                      Analytics & Optimization
+                    </h3>
+                  </div>
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3 text-[#363636]/80">
+                      <CheckCircle
+                        className="text-[#536186] shrink-0 mt-1"
+                        size={18}
+                      />
+                      <span>
+                        Dashboarding for leads, opportunity value, and channel
+                        ROI. Continuous A/B testing to reduce friction.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </AnimatedSection>
+          </div>
         </div>
       </section>
     );
   };
 
-  const CaseStudy = () => (
-    <section className="bg-zinc-950 py-24">
-        <div className="container mx-auto px-4">
-            <div className="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl flex flex-col lg:flex-row">
-                
-                {/* Visual Dashboard Side */}
-                <div className="lg:w-1/2 relative min-h-[400px]">
-                    <ParallaxImage src={IMAGES.factory} alt="CNC Factory Floor" className="absolute inset-0 w-full h-full" />
-                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center p-8">
-                        {/* Floating Stats Card */}
-                        <div className="bg-black/80 backdrop-blur-md border border-zinc-700 p-6 rounded-xl w-full max-w-sm shadow-2xl">
-                            <div className="flex items-center justify-between mb-6 border-b border-zinc-700 pb-4">
-                                <div className="text-sm font-bold text-slate-300">Live Production Data</div>
-                                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                            </div>
-                            <div className="space-y-4">
-                                <div>
-                                    <div className="flex justify-between text-xs text-slate-400 mb-1">
-                                        <span>Tech Visitors</span>
-                                        <span className="text-white">1,900+</span>
-                                    </div>
-                                    <div className="h-1.5 bg-zinc-700 rounded-full overflow-hidden"><div className="h-full bg-blue-500 w-[80%]"></div></div>
-                                </div>
-                                <div>
-                                    <div className="flex justify-between text-xs text-slate-400 mb-1">
-                                        <span>Qualified Inquiries</span>
-                                        <span className="text-white">310</span>
-                                    </div>
-                                    <div className="h-1.5 bg-zinc-700 rounded-full overflow-hidden"><div className="h-full bg-orange-500 w-[65%]"></div></div>
-                                </div>
-                                <div>
-                                    <div className="flex justify-between text-xs text-slate-400 mb-1">
-                                        <span>OEM Contracts</span>
-                                        <span className="text-white">03</span>
-                                    </div>
-                                    <div className="h-1.5 bg-zinc-700 rounded-full overflow-hidden"><div className="h-full bg-green-500 w-[40%]"></div></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Text Content Side */}
-                <div className="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center">
-                    <AnimatedSection>
-                        <div className="flex items-center gap-2 mb-4">
-                            <Factory size={20} className="text-orange-500" />
-                            <div className="text-orange-500 font-bold text-xs uppercase tracking-widest">Case Study: Pune Machinery</div>
-                        </div>
-                        <h3 className="text-3xl lg:text-4xl font-bold text-white mb-6">From Empty Inbox to <br/>OEM Supplier.</h3>
-                        <p className="text-slate-400 mb-8 leading-relaxed">
-                            This client relied on exhibitions and agent networks. We implemented a complete industrial marketing ecosystem targeting OEMs. Within 45 days, they secured 3 major supply contracts.
-                        </p>
-                        
-                        <div className="grid grid-cols-2 gap-4">
-                             <div className="p-4 bg-black border border-zinc-800 rounded-lg">
-                                 <div className="text-2xl font-bold text-white">47</div>
-                                 <div className="text-xs text-zinc-500 uppercase mt-1">High-Value RFQs</div>
-                             </div>
-                             <div className="p-4 bg-black border border-zinc-800 rounded-lg">
-                                 <div className="text-2xl font-bold text-white">12</div>
-                                 <div className="text-xs text-zinc-500 uppercase mt-1">Distributors Added</div>
-                             </div>
-                        </div>
-                    </AnimatedSection>
-                </div>
-
-            </div>
-        </div>
-    </section>
-  );
-
-  const IndustriesSection = () => {
-    const industries = [
-        "Industrial Machinery", "Fabrication & Engineering", 
-        "Chemicals & Pharma", "Textile Manufacturing", 
-        "Food Processing", "Electronics & Electrical",
-        "Packaging Solutions", "Contract Manufacturing"
-    ];
-
+  const HowWeWorkSection = () => {
     return (
-        <section className="py-24 bg-black">
-            <div className="container mx-auto px-4">
-                <AnimatedSection>
-                    <h2 className="text-3xl font-bold text-white mb-12 text-center">Industries We Engineer Growth For</h2>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {industries.map((ind, i) => (
-                            <div key={i} className="group p-6 bg-zinc-900 border border-zinc-800 rounded hover:border-orange-500/50 transition-all cursor-default text-center">
-                                <div className="mb-3 text-zinc-600 group-hover:text-orange-500 transition-colors flex justify-center">
-                                    <Settings size={24} className={i % 2 === 0 ? "animate-spin-slow" : ""} />
-                                </div>
-                                <span className="text-sm font-medium text-slate-300 group-hover:text-white">{ind}</span>
-                            </div>
-                        ))}
-                    </div>
-                </AnimatedSection>
+      <section className="py-24 bg-[#D3D3D3] relative overflow-hidden">
+        {/* Tech Grid Background */}
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage:
+              "linear-gradient(#536186 1px, transparent 1px), linear-gradient(90deg, #536186 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        ></div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <AnimatedSection>
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-[#363636] mb-6">
+                How We Work
+              </h2>
+              <p className="text-[#363636]/80 text-lg font-medium">
+                All phases have defined deliverables with timelines for
+                completion. We use straightforward checklists for easy
+                visibility of your overall growth to the Leadership team.
+              </p>
             </div>
-        </section>
+          </AnimatedSection>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Audit & Develop a Plan",
+                icon: <Search size={40} />,
+                desc: "We analyze your product specs, identify your target market, evaluate your current channels, and outline quick wins along with long term SEO strategies.",
+              },
+              {
+                title: "Create & Execute",
+                icon: <Settings size={40} />,
+                desc: "We produce technical copy/content, create detailed ads, define tracking and build CRM funnels.",
+              },
+              {
+                title: "Evaluate & Scale",
+                icon: <TrendingUp size={40} />,
+                desc: "We perform weekly optimizations, identify underperforming areas through channel reallocations, and report back every month on progress to develop what has worked previously.",
+              },
+            ].map((step, idx) => (
+              <AnimatedSection key={idx} delay={idx * 0.1}>
+                <div className="bg-white/80 backdrop-blur-md border border-[#B0C4DE] p-8 rounded-3xl h-full flex flex-col items-center text-center shadow-lg hover:border-[#536186] hover:-translate-y-2 transition-all group">
+                  <div className="w-20 h-20 bg-[#D3D3D3] rounded-full flex items-center justify-center text-[#536186] mb-6 group-hover:scale-110 transition-transform">
+                    {step.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-[#363636] mb-4">
+                    {step.title}
+                  </h3>
+                  <p className="text-[#363636]/70 font-medium leading-relaxed">
+                    {step.desc}
+                  </p>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
     );
   };
 
-  const ContactSection = () => (
-    <section id="contact" className="py-24 bg-zinc-950 relative overflow-hidden">
-        <div className="container mx-auto px-4 max-w-6xl relative z-10">
-            <div className="grid lg:grid-cols-2 gap-16">
-                <AnimatedSection>
-                    <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
-                        Stop Losing Deals to <span className="text-orange-500">Competitors.</span>
-                    </h2>
-                    <p className="text-lg text-slate-400 mb-8 leading-relaxed">
-                        The machinery, process, and product didn't change for our clients. Only the strategy changed—and the results followed.
+  const SplitFeaturesSection = () => {
+    return (
+      <section className="py-24 bg-white border-y border-[#C0C0C0]">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16">
+            {/* Benefits */}
+            <AnimatedSection>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-8">
+                Benefits & Results
+              </h2>
+              <div className="bg-[#363636] rounded-3xl p-8 relative overflow-hidden shadow-2xl">
+                <div className="absolute right-0 bottom-0 opacity-10 transform translate-x-1/4 translate-y-1/4">
+                  <Factory size={250} className="text-white" />
+                </div>
+
+                <ul className="space-y-6 relative z-10">
+                  {[
+                    "Generally better prospects through intent based searching and account-based marketing (ABM).",
+                    "Reduced demo to deal cycle times through effective demonstration content and follow-up processes.",
+                    "Funnel insight accuracy improvement via integration of analytics.",
+                    "Better channel partnerships achieved through use of distributor focused landing pages.",
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex gap-4">
+                      <CheckCircle
+                        className="text-[#B0C4DE] shrink-0 mt-1"
+                        size={24}
+                      />
+                      <span className="text-[#D3D3D3] text-lg font-medium leading-relaxed">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </AnimatedSection>
+
+            {/* KPIs */}
+            <AnimatedSection delay={0.2}>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-8">
+                KPIs We Track
+              </h2>
+              <p className="text-[#363636]/80 text-lg font-medium mb-6">
+                Establish Month 1 Baseline KPIs and Assign Revenue Impact to All
+                Metrics. By Product Line, Qualified Leads (RFQ, Demo Requests)
+                will be tracked.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  {
+                    t: "CPQ & CPO",
+                    d: "Cost Per Qualified Lead & Cost Per Opportunity",
+                  },
+                  { t: "Conversion Steps", d: "Lead > Demo > Deal" },
+                  {
+                    t: "Organic Visibility",
+                    d: "Model #(s) & Technical Query positions",
+                  },
+                  {
+                    t: "ABM Engagement",
+                    d: "Targeted Account Touches & Content Views",
+                  },
+                  {
+                    t: "Channel Mix ROI",
+                    d: "Performance by channel & Projected LTV",
+                  },
+                ].map((kpi, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-[#B0C4DE]/20 p-5 rounded-xl border border-[#C0C0C0]"
+                  >
+                    <h4 className="font-bold text-[#363636] text-lg mb-1">
+                      {kpi.t}
+                    </h4>
+                    <p className="text-[#363636]/70 text-sm leading-snug">
+                      {kpi.d}
                     </p>
-                    <div className="bg-black/50 p-8 rounded-xl border border-zinc-800">
-                        <h4 className="text-white font-bold mb-6 border-b border-zinc-800 pb-2">Why Manufacturers Choose Adswise?</h4>
-                        <ul className="space-y-4">
-                            {[
-                                "Expertise in technical content writing",
-                                "Deep knowledge of industrial buying behavior",
-                                "Ability to communicate engineering concepts",
-                                "Transparent cost-per-RFQ tracking"
-                            ].map((item, i) => (
-                                <li key={i} className="flex items-start gap-3 text-slate-300 text-sm">
-                                    <ShieldCheck className="text-green-500 shrink-0" size={18} /> {item}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </AnimatedSection>
-
-                <AnimatedSection delay={0.2}>
-                    <form onSubmit={handleSubmit} className="bg-zinc-900 p-8 md:p-10 border-t-4 border-orange-600 shadow-2xl rounded-xl relative">
-                        <h3 className="text-2xl font-bold mb-8 text-white">Request Strategy Audit</h3>
-                        
-                        <div className="grid grid-cols-2 gap-4 mb-4">
-                            <div>
-                                <label className="block text-xs font-bold uppercase text-zinc-500 mb-1">Name</label>
-                                <input required name="name" onChange={handleInputChange} className="w-full px-4 py-3 rounded bg-black border border-zinc-800 text-white focus:border-orange-500 outline-none transition" placeholder="Your Name" />
-                            </div>
-                            <div>
-                                <label className="block text-xs font-bold uppercase text-zinc-500 mb-1">Company</label>
-                                <input required name="companyName" onChange={handleInputChange} className="w-full px-4 py-3 rounded bg-black border border-zinc-800 text-white focus:border-orange-500 outline-none transition" placeholder="Factory Name" />
-                            </div>
-                        </div>
-
-                        <div className="mb-4">
-                            <label className="block text-xs font-bold uppercase text-zinc-500 mb-1">Email</label>
-                            <input required name="email" type="email" onChange={handleInputChange} className="w-full px-4 py-3 rounded bg-black border border-zinc-800 text-white focus:border-orange-500 outline-none transition" placeholder="email@company.com" />
-                        </div>
-
-                        <div className="mb-4">
-                            <label className="block text-xs font-bold uppercase text-zinc-500 mb-1">Sector</label>
-                            <select name="industryType" onChange={handleInputChange} className="w-full px-4 py-3 rounded bg-black border border-zinc-800 text-white focus:border-orange-500 outline-none transition appearance-none">
-                                <option value="" className="text-zinc-600">Select Industry</option>
-                                <option value="Machinery">Industrial Machinery</option>
-                                <option value="Chemicals">Chemicals & Pharma</option>
-                                <option value="Fabrication">Fabrication & Engineering</option>
-                                <option value="FoodProcessing">Food Processing</option>
-                            </select>
-                        </div>
-
-                        <div className="mb-8">
-                            <label className="block text-xs font-bold uppercase text-zinc-500 mb-1">Requirements</label>
-                            <textarea required name="message" onChange={handleInputChange} rows={3} className="w-full px-4 py-3 rounded bg-black border border-zinc-800 text-white focus:border-orange-500 outline-none transition" placeholder="Describe your product & target market..."></textarea>
-                        </div>
-
-                        <button type="submit" className="w-full py-4 rounded font-bold text-white text-lg hover:bg-orange-700 transition flex items-center justify-center gap-2 uppercase tracking-wide" style={{ backgroundColor: accentColor }}>
-                            <span>Start Growth Engine</span>
-                            <Send size={18} />
-                        </button>
-                    </form>
-                </AnimatedSection>
-            </div>
+                  </div>
+                ))}
+              </div>
+            </AnimatedSection>
+          </div>
         </div>
+      </section>
+    );
+  };
+
+  const FAQSection = () => {
+    const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+
+    const faqs = [
+      {
+        q: "How quickly will we see results?",
+        a: "Paid campaigns often generate qualified leads in 7–21 days; organic SEO and content impact builds over 2–6 months.",
+      },
+      {
+        q: "Can you market niche machinery with small search volumes?",
+        a: "Yes. We use technical content, part-number landing pages, and ABM to capture low-volume, high-value buyers.",
+      },
+      {
+        q: "Do you integrate with our ERP/CRM?",
+        a: "Absolutely. We connect to major CRMs and can push leads into ERP workflows for quoting and tracking.",
+      },
+      {
+        q: "How do you support distributor networks?",
+        a: "We create co-branded pages, lead routing rules, and marketing kits that distributors can use locally.",
+      },
+      {
+        q: "What are your contract terms?",
+        a: "No long contracts — month-to-month options and transparent reporting.",
+      },
+    ];
+
+    return (
+      <section className="py-20 sm:py-24 bg-[#D3D3D3]/50">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <AnimatedSection>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-4">
+                FAQs — Quick, Clear Answers
+              </h2>
+            </div>
+          </AnimatedSection>
+
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <AnimatedSection key={index} delay={index * 0.1}>
+                <div className="bg-white rounded-2xl border border-[#C0C0C0] overflow-hidden shadow-sm transition-all hover:border-[#536186]">
+                  <button
+                    type="button"
+                    onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
+                    className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none hover:bg-[#B0C4DE]/10 transition-colors"
+                  >
+                    <span className="font-bold text-[#363636] text-base md:text-lg pr-4">
+                      {faq.q}
+                    </span>
+                    {openFAQ === index ? (
+                      <Minus
+                        size={24}
+                        className="flex-shrink-0 text-[#536186]"
+                      />
+                    ) : (
+                      <Plus
+                        size={24}
+                        className="flex-shrink-0 text-[#536186]"
+                      />
+                    )}
+                  </button>
+                  <AnimatePresence>
+                    {openFAQ === index && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="px-6 pb-5"
+                      >
+                        <p className="text-[#363636]/80 text-base pt-4 border-t border-[#C0C0C0]/50">
+                          {faq.a}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  };
+
+  const CTASection = () => (
+    <section className="py-24 sm:py-32 relative overflow-hidden bg-[#536186]">
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#363636]/30 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div className="container mx-auto px-4 relative z-10 text-center max-w-4xl">
+        <AnimatedSection>
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-white mb-8 leading-tight">
+            Ready to grow manufacturer business digital growth{" "}
+            <br className="hidden md:block" />
+            <span className="text-[#B0C4DE]">and win bigger contracts?</span>
+          </h2>
+          <p className="text-xl text-[#D3D3D3] mb-12 font-medium leading-relaxed max-w-3xl mx-auto">
+            Book a free strategy call — we’ll show a tailored plan for your
+            product lines.
+          </p>
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center">
+            <Link
+              to="/contact"
+              className="w-full sm:w-auto px-10 py-5 rounded-xl font-bold text-[#363636] bg-[#D3D3D3] hover:bg-white transform transition hover:scale-105 shadow-xl shadow-[#363636]/20 flex items-center justify-center gap-2"
+            >
+              Start a free strategy call <ChevronRight size={20} />
+            </Link>
+            <Link
+              to="/services"
+              className="w-full sm:w-auto px-10 py-5 rounded-xl font-bold text-white bg-transparent border-2 border-[#B0C4DE] hover:bg-[#B0C4DE] hover:text-[#363636] transform transition flex items-center justify-center gap-2"
+            >
+              Our Services
+            </Link>
+            <Link
+              to="/case-studies-manufacturing"
+              className="w-full sm:w-auto px-8 py-5 rounded-xl font-bold text-[#D3D3D3] hover:text-white underline underline-offset-4 transform transition text-center"
+            >
+              Manufacturing Case Studies
+            </Link>
+          </div>
+        </AnimatedSection>
+      </div>
     </section>
   );
 
-  // ============================================================================
-  // MAIN RENDER
-  // ============================================================================
-
   return (
-    <div className="font-sans bg-black text-slate-100 min-h-screen selection:bg-orange-500 selection:text-white">
+    <div className="font-sans bg-[#D3D3D3] text-[#536186] min-h-screen selection:bg-[#536186] selection:text-[#363636]">
       <HeroSection />
-      <ChallengesSection />
-      <SolutionsSection />
-      <CaseStudy />
-      <IndustriesSection />
-      <ContactSection />
+      <TheProblemSection />
+      <ServicesSection />
+      <HowWeWorkSection />
+      <SplitFeaturesSection />
+      <FAQSection />
+      <CTASection />
     </div>
   );
 };

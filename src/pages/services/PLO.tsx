@@ -1,472 +1,873 @@
-import React, { useState, useRef } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { 
-    Search, TrendingUp, Zap, Image, CheckCircle, 
-    Layers, Package, ClipboardList, Star, ChevronDown, 
-    ChevronUp, Send, Target 
-} from 'lucide-react';
-
-// ============================================================================
-// TYPE DEFINITIONS
-// ============================================================================
-
-interface PLOProps {
-    agencyName?: string;
-    onContactSubmit?: (formData: ContactFormData) => void;
-}
-
-interface ContactFormData {
-    name: string;
-    email: string;
-    marketplace: string;
-    skuCount: string;
-}
+import React, { useState, useRef } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import {
+  MapPin,
+  TrendingUp,
+  Search,
+  CheckCircle,
+  BarChart2,
+  FileText,
+  Building,
+  Briefcase,
+  ChevronRight,
+  Target,
+  Image as ImageIcon,
+  MessageCircle,
+  ChevronDown,
+  ChevronUp,
+  Smartphone,
+  Layers,
+  Star,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 // ============================================================================
 // ANIMATED SECTION WRAPPER
 // ============================================================================
 
-const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
-    children, className = '', delay = 0 
-}) => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-100px" });
+const AnimatedSection: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}> = ({ children, className = "", delay = 0 }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
-    return (
-        <motion.div
-            ref={ref}
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.6, delay }}
-            className={className}
-        >
-            {children}
-        </motion.div>
-    );
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      transition={{ duration: 0.6, delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
 };
 
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
 
-const PLO: React.FC<PLOProps> = ({
-    agencyName = "Adswise Ecom",
-    onContactSubmit
-}) => {
-    const accentColor = '#50E3C2'; // Ecom Teal/Mint
-    const secondaryColor = '#7B68EE'; // Algorithm Purple
-    
-    const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-    const [formData, setFormData] = useState<ContactFormData>({
-        name: '', email: '', marketplace: '', skuCount: ''
-    });
+const PLO = () => {
+  // Monochromatic Color Palette:
+  // #536186 - Stone Gray (Primary Accent)
+  // #D3D3D3 - Fog Gray (Light Background)
+  // #363636 - Charcoal Gray (Text/Dark Background)
+  // #C0C0C0 - Silver (Borders/Secondary Accent)
+  // #B0C4DE - Ash Gray (Highlighting)
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+  const HeroSection = () => {
+    return (
+      <header className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#D3D3D3] text-[#363636] py-20 lg:py-0">
+        {/* --- BACKGROUND ANIMATION LAYER --- */}
+        <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
+          <div
+            className="absolute inset-0 opacity-[0.15]"
+            style={{
+              backgroundImage: `linear-gradient(#536186 1px, transparent 1px), linear-gradient(90deg, #536186 1px, transparent 1px)`,
+              backgroundSize: "40px 40px",
+            }}
+          >
+            <motion.div
+              className="absolute inset-0 bg-[#D3D3D3]"
+              animate={{ opacity: [0.1, 0.3, 0.1] }}
+              transition={{ duration: 5, repeat: Infinity }}
+            />
+          </div>
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (onContactSubmit) onContactSubmit(formData);
-        alert("Optimization request received! We'll start your marketplace visibility analysis.");
-    };
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute bg-[#536186]/20 rounded-full"
+              style={{
+                width: Math.random() * 100 + 50,
+                height: Math.random() * 100 + 50,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -40, 0],
+                x: [0, 20, 0],
+                scale: [1, 1.1, 1],
+                opacity: [0.2, 0.5, 0.2],
+              }}
+              transition={{
+                duration: 4 + i,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
 
-    // ============================================================================
-    // SUB-COMPONENTS
-    // ============================================================================
+          <div className="absolute top-0 right-0 w-3/4 md:w-[600px] h-[600px] bg-[#B0C4DE] rounded-full blur-[80px] md:blur-[120px] opacity-60"></div>
+          <div className="absolute bottom-0 left-0 w-3/4 md:w-[600px] h-[600px] bg-[#C0C0C0] rounded-full blur-[80px] md:blur-[120px] opacity-60"></div>
+        </div>
 
-    const HeroSection = () => (
-        <header className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-slate-950 text-white">
-            {/* Abstract Background Elements */}
-            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/black-linen.png')]"></div>
-            <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-teal-900/10 rounded-full blur-[100px]"></div>
-            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[100px]"></div>
-            
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 border border-slate-800 rounded-full text-sm font-semibold text-teal-400 mb-6">
-                            <TrendingUp size={16} /> Marketplace Profit Optimization
-                        </div>
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
-                            Platform Listing & Optimization: <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-500">
-                                Rank Higher, Sell More
-                            </span>
-                        </h1>
-                        <p className="text-xl text-slate-400 mb-8 leading-relaxed">
-                            When you’re selling on Amazon, Flipkart, or Meesho, you’re competing with an entire country. We ensure your product is **visible, attractive, and convincing** enough to win the click and the sale.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <a href="#contact" className="px-8 py-4 rounded-lg font-bold text-black text-center shadow-lg shadow-teal-900/30 transform transition hover:scale-105" style={{ backgroundColor: accentColor }}>
-                                Start Your Audit
-                            </a>
-                            <a href="#process" className="px-8 py-4 border border-slate-600 rounded-lg font-semibold text-white text-center hover:bg-slate-900 transition">
-                                See Our Process
-                            </a>
-                        </div>
-                    </motion.div>
-                    
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="relative hidden lg:block"
-                    >
-                        <div className="relative rounded-2xl overflow-hidden border border-slate-800 shadow-2xl shadow-purple-900/10 bg-slate-900/50 backdrop-blur-sm p-4">
-                            {/* Abstract Journey Representation */}
-                            <div className="bg-black rounded-xl p-6 border border-slate-800">
-                                <div className="space-y-4">
-                                    <div className="flex items-center gap-3">
-                                        <Search size={24} className="text-purple-400 flex-shrink-0" />
-                                        <div className="h-2 w-full bg-slate-800 rounded-full">
-                                            <motion.div initial={{ width: '0%' }} animate={{ width: '100%' }} transition={{ duration: 1.5, delay: 0.5 }} className="h-full bg-purple-500 rounded-full"></motion.div>
-                                        </div>
-                                        <span className="text-sm font-semibold text-white">Visibility</span>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <Image size={24} className="text-teal-400 flex-shrink-0" />
-                                        <div className="h-2 w-full bg-slate-800 rounded-full">
-                                            <motion.div initial={{ width: '0%' }} animate={{ width: '85%' }} transition={{ duration: 1.5, delay: 0.7 }} className="h-full bg-teal-500 rounded-full"></motion.div>
-                                        </div>
-                                        <span className="text-sm font-semibold text-white">Click-Through</span>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <CheckCircle size={24} className="text-green-400 flex-shrink-0" />
-                                        <div className="h-2 w-full bg-slate-800 rounded-full">
-                                            <motion.div initial={{ width: '0%' }} animate={{ width: '92%' }} transition={{ duration: 1.5, delay: 0.9 }} className="h-full bg-green-500 rounded-full"></motion.div>
-                                        </div>
-                                        <span className="text-sm font-semibold text-white">Conversion</span>
-                                    </div>
-                                </div>
-                                <div className="text-center mt-6 text-slate-400 text-sm">
-                                    Visibility → Click → Conversion → Repeat Buyer
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-                </div>
+        {/* --- CONTENT LAYER --- */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center max-w-5xl pt-12 pointer-events-none">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="pointer-events-auto"
+          >
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="inline-block px-4 py-1.5 mb-6 text-sm font-bold tracking-widest uppercase bg-[#536186]/10 border border-[#536186]/20 text-[#536186] rounded-full mt-10"
+            >
+              Platform Listing Optimization Service
+            </motion.span>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold mb-6 mt-4 leading-tight text-[#363636]">
+              Acquire local customers <br />
+              <span className="text-[#536186]">in no time</span>
+            </h1>
+
+            <p className="text-lg sm:text-xl text-[#363636]/80 mb-10 leading-relaxed font-medium max-w-3xl mx-auto">
+              In a hyper-local world, local customers expect to get instant
+              answers to their queries. With our local business listing service,
+              you can be assured that your business’s name, address, phone
+              number (NAP), and other business details are consistently
+              represented across search engines, directories, and applications.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                to="/contact"
+                className="w-full sm:w-auto px-10 py-4 rounded-lg font-bold text-white bg-[#536186] shadow-lg shadow-[#536186]/30 transform transition hover:scale-105 hover:bg-[#363636] active:scale-95 flex items-center justify-center gap-2 relative z-50 hover:cursor-pointer pointer-events-auto"
+              >
+                Get Free Audit <ChevronRight size={18} />
+              </Link>
             </div>
-        </header>
+          </motion.div>
+        </div>
+
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none"></div>
+      </header>
     );
+  };
 
-    const ProblemSection = () => (
-        <section className="py-20 bg-slate-900">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <AnimatedSection>
-                    <div className="text-center max-w-4xl mx-auto mb-16">
-                        <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
-                            Why **Platform Listing & Optimization** Decides Whether You Sell or Stay Invisible
-                        </h2>
-                        <p className="text-slate-400 text-lg">
-                            Marketplace success is rarely about the product alone. It’s about how well that product is **presented, structured, priced, positioned, and optimized** every single week. If you’re not near the top, you may as well not exist.
-                        </p>
-                    </div>
-                </AnimatedSection>
+  const WhatIsSection = () => (
+    <section className="py-16 sm:py-24 bg-white border-b border-[#C0C0C0]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection>
+          <div className="text-center max-w-4xl mx-auto mb-16">
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-[#363636]">
+              What is{" "}
+              <span className="text-[#536186]">
+                Platform Listing Optimization
+              </span>{" "}
+              & Local Business Listing Service?
+            </h2>
+            <p className="text-lg sm:text-xl text-[#363636]/70 leading-relaxed font-medium">
+              Platform listing optimization, also known as citation management
+              or local listing optimization, is a process of building,
+              verifying, and maintaining your business listings on relevant
+              platforms and directories.
+            </p>
+          </div>
+        </AnimatedSection>
 
-                <div className="grid md:grid-cols-3 gap-8 text-center">
-                    <AnimatedSection delay={0.1}>
-                        <div className="p-8 rounded-xl border border-slate-800 bg-black/50 h-full">
-                            <Layers size={36} className="text-red-500 mx-auto mb-4" />
-                            <h3 className="text-xl font-bold text-white mb-2">The Algorithm Crush</h3>
-                            <p className="text-slate-400">Poorly structured listings are ignored by Amazon, Flipkart, & Meesho search algorithms, burying your product.</p>
-                        </div>
-                    </AnimatedSection>
-                    <AnimatedSection delay={0.2}>
-                        <div className="p-8 rounded-xl border border-slate-800 bg-black/50 h-full">
-                            <Package size={36} className="text-yellow-500 mx-auto mb-4" />
-                            <h3 className="text-xl font-bold text-white mb-2">High Ad Cost, Low ROI</h3>
-                            <p className="text-slate-400">Bad listings lead to low conversions. You spend more on ads only to get fewer sales.</p>
-                        </div>
-                    </AnimatedSection>
-                    <AnimatedSection delay={0.3}>
-                        <div className="p-8 rounded-xl border border-slate-800 bg-black/50 h-full">
-                            <Zap size={36} className="text-blue-500 mx-auto mb-4" />
-                            <h3 className="text-xl font-bold text-white mb-2">Customer Confusion</h3>
-                            <p className="text-slate-400">Incomplete or confusing information increases returns and negative reviews. **Clarity = Trust**.</p>
-                        </div>
-                    </AnimatedSection>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          {[
+            {
+              icon: <CheckCircle size={32} className="text-[#536186]" />,
+              title: "Accurate Listings",
+              desc: "Accurate and verified business listings.",
+            },
+            {
+              icon: <Layers size={32} className="text-[#536186]" />,
+              title: "NAP Consistency",
+              desc: "Checking and correction of NAP (name, address, and phone number).",
+            },
+            {
+              icon: <Target size={32} className="text-[#536186]" />,
+              title: "Profile Optimization",
+              desc: "Description, category, and image optimization for conversions.",
+            },
+            {
+              icon: <Search size={32} className="text-[#536186]" />,
+              title: "Continuous Monitoring",
+              desc: "Monitoring to keep your business listings accurate and up-to-date.",
+            },
+          ].map((item, idx) => (
+            <AnimatedSection key={idx} delay={idx * 0.1}>
+              <div className="bg-[#D3D3D3]/30 rounded-2xl p-8 border border-[#C0C0C0] hover:border-[#536186] hover:shadow-[0_8px_30px_rgba(83,97,134,0.15)] transition-all duration-300 h-full group">
+                <div className="bg-white w-16 h-16 rounded-xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                  {item.icon}
                 </div>
+                <h3 className="text-xl font-bold text-[#363636] mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-[#363636]/70 font-medium leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+            </AnimatedSection>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+
+  const WhySection = () => (
+    <section className="py-16 sm:py-24 bg-[#D3D3D3] relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#B0C4DE] rounded-full blur-[100px] opacity-40 mix-blend-multiply"></div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <AnimatedSection>
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-[#363636]">
+              Why Your Business Needs <br />
+              <span className="text-xl sm:text-2xl text-[#536186] font-semibold mt-2 block">
+                Platform Listing Optimization
+              </span>
+            </h2>
+            <p className="text-lg text-[#363636]/80 mb-8 font-medium">
+              A local search translates into actual sales. When you have a
+              potential customer searching for services near them, such as “near
+              me” searches, inconsistent data can lead to losing the sale.
+            </p>
+            <div className="space-y-6">
+              <ul className="space-y-4">
+                {[
+                  "Reach local map packs and search results consistently.",
+                  "Gain trust with accurate hours, phone numbers, and directions.",
+                  "Boost your local search engine ranking with consistent citations.",
+                  "Harness review signals to convert searches.",
+                  "Prevent confusion for customers caused by outdated or duplicate data.",
+                ].map((item, idx) => (
+                  <li key={idx} className="flex gap-4 items-start">
+                    <div className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-[#536186] flex items-center justify-center">
+                      <CheckCircle className="w-4 h-4 text-white" />
+                    </div>
+                    <span className="text-[#363636]/80 font-medium text-lg">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
-        </section>
-    );
+          </AnimatedSection>
 
-    const CoreElementsSection = () => {
-        const elements = [
-            { icon: <Search size={28} className="text-purple-400" />, title: "Search-Friendly Product Titles", desc: "Helps you rank and tells the buyer exactly what they’re about to click. (SEO + User Clarity)" },
-            { icon: <Image size={28} className="text-teal-400" />, title: "High-Quality Images That Answer Questions", desc: "Clear photos reduce hesitation. Show scale, texture, packaging, and real usage to build customer confidence." },
-            { icon: <ClipboardList size={28} className="text-orange-400" />, title: "Descriptions That Sell, Not Confuse", desc: "A good description is clarity and trust. It’s a compelling 'here’s why this product is worth your money.'" },
-            { icon: <Target size={28} className="text-red-400" />, title: "Bullet Points That Address Real Problems", desc: "Most buyers scan. Bullets help them understand benefits quickly and contribute significantly to marketplace SEO." },
-            { icon: <Layers size={28} className="text-yellow-400" />, title: "Backend Keywords and Tags", desc: "These unseen fields decide whether your product appears in relevant searches. We maximize their potential." },
-            { icon: <Star size={28} className="text-green-400" />, title: "Review and Rating Management", desc: "We manage follow-ups, smart review requests, issue resolution, and compliant negative feedback suppression." },
-        ];
-
-        return (
-            <section className="py-20 bg-slate-950">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <AnimatedSection>
-                        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-white">
-                            Core Elements That Make PLO Work
-                        </h2>
-                    </AnimatedSection>
-                    
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {elements.map((item, idx) => (
-                            <AnimatedSection key={idx} delay={idx * 0.1}>
-                                <div className="bg-black p-6 rounded-xl border border-slate-800 hover:border-teal-500/30 transition-all h-full flex flex-col">
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center border border-slate-700 flex-shrink-0">
-                                            {item.icon}
-                                        </div>
-                                        <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                                    </div>
-                                    <p className="text-slate-400 text-sm">{item.desc}</p>
-                                </div>
-                            </AnimatedSection>
-                        ))}
-                    </div>
-                </div>
-            </section>
-        );
-    };
-
-    const ProcessSection = () => {
-        const steps = [
-            { title: "Deep Marketplace Audit", desc: "A comprehensive check of current listings, competitor analysis, and market gap identification.", icon: <Search size={24} /> },
-            { title: "Keyword & SEO Strategy", desc: "Identifying high-volume, low-competition keywords for titles, bullets, and backend tags.", icon: <Target size={24} /> },
-            { title: "Content & Creative Refinement", desc: "Writing compelling copy and advising on high-conversion photography/A+ content.", icon: <Image size={24} /> },
-            { title: "Launch & Re-indexing", desc: "Implementing the new content and ensuring the marketplace re-indexes your product with the new, optimized data.", icon: <Zap size={24} /> },
-            { title: "Monitor & Protect", desc: "Continuous tracking of ranking changes, conversion rate, and review management to maintain performance.", icon: <TrendingUp size={24} /> }
-        ];
-
-        return (
-            <section id="process" className="py-20 bg-black">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <AnimatedSection>
-                        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-16 text-white">
-                            How Platform Listing & Optimization Works Step-by-Step
-                        </h2>
-                    </AnimatedSection>
-                    
-                    <div className="relative max-w-4xl mx-auto">
-                        {/* Vertical Connector Line */}
-                        <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-slate-800 hidden md:block"></div>
-
-                        {steps.map((step, idx) => (
-                            <AnimatedSection key={idx} delay={idx * 0.1} className={`flex items-center mb-12 relative ${idx % 2 === 0 ? 'md:justify-start' : 'md:justify-end'}`}>
-                                <div className={`w-full md:w-1/2 ${idx % 2 === 0 ? 'md:pr-16 text-left' : 'md:pl-16 text-right'}`}>
-                                    <div className="flex items-center gap-4 mb-2 md:block">
-                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold text-sm border border-teal-500/30">
-                                            {idx + 1}
-                                        </div>
-                                        <h3 className="text-2xl font-bold text-white">{step.title}</h3>
-                                    </div>
-                                    <p className="text-slate-400 mt-2">{step.desc}</p>
-                                </div>
-                                
-                                {/* Center Icon & Dot */}
-                                <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-10 h-10 rounded-full bg-black border-4 border-teal-500 flex items-center justify-center shadow-lg shadow-teal-900/50">
-                                    {step.icon}
-                                </div>
-                            </AnimatedSection>
-                        ))}
-                    </div>
-                </div>
-            </section>
-        );
-    };
-
-    const CaseStudySnippet = () => (
-        <section className="py-20 bg-slate-900 border-y border-slate-800">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <AnimatedSection>
-                    <div className="max-w-5xl mx-auto bg-slate-950 rounded-3xl overflow-hidden border border-slate-800 flex flex-col md:flex-row shadow-2xl">
-                        <div className="md:w-1/2 p-10 flex flex-col justify-center">
-                            <div className="text-purple-400 font-bold text-sm uppercase tracking-wider mb-2">Quick Win Example</div>
-                            <h3 className="text-3xl font-bold text-white mb-4">Fixing the Foundation: Home Decor Brand</h3>
-                            <p className="text-slate-400 mb-6">
-                                **The Problem:** A client selling home décor complained that ads weren’t converting. The problem wasn't the ads; the listings were incomplete, poorly structured, and confusing.
-                            </p>
-                            <div className="bg-black p-6 rounded-xl border border-slate-800 flex gap-8">
-                                <div>
-                                    <div className="text-3xl font-bold text-white">2x</div>
-                                    <div className="text-xs text-slate-500 uppercase mt-1">Conversion Rate</div>
-                                </div>
-                                <div className="w-px bg-slate-700"></div>
-                                <div>
-                                    <div className="text-3xl font-bold text-white">#1 Rank</div>
-                                    <div className="text-xs text-slate-500 uppercase mt-1">For Primary Keyword</div>
-                                </div>
-                            </div>
-                            <p className="text-teal-400 text-sm italic mt-4">
-                                Result achieved within 45 days, **without touching the ad budget.**
-                            </p>
-                        </div>
-                        <div className="md:w-1/2 bg-slate-900 p-10 flex items-center justify-center border-l border-slate-800 relative overflow-hidden">
-                            {/* Abstract Comparison Graphic */}
-                            <div className="grid grid-cols-2 gap-4 w-full">
-                                <div className="p-4 bg-red-900/30 rounded-lg border border-red-700/50 text-center">
-                                    <p className="text-red-400 font-bold text-lg mb-1">Before PLO</p>
-                                    <p className="text-3xl font-extrabold text-white">3.2%</p>
-                                    <p className="text-xs text-red-300">Conversion Rate</p>
-                                </div>
-                                <div className="p-4 bg-teal-900/30 rounded-lg border border-teal-700/50 text-center">
-                                    <p className="text-teal-400 font-bold text-lg mb-1">After PLO</p>
-                                    <p className="text-3xl font-extrabold text-white">6.4%</p>
-                                    <p className="text-xs text-teal-300">Conversion Rate</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </AnimatedSection>
+          <AnimatedSection delay={0.2}>
+            <div className="bg-[#363636] p-8 md:p-10 rounded-3xl shadow-2xl relative border border-[#C0C0C0]/20">
+              <div className="absolute -top-6 -right-6 bg-[#C0C0C0] w-24 h-24 rounded-full blur-[30px] opacity-20"></div>
+              <div className="bg-[#536186] w-16 h-16 rounded-2xl flex items-center justify-center mb-8 shadow-sm">
+                <Target className="text-white" size={32} />
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-6 leading-relaxed">
+                Consistent, short, and optimized business listings are often an
+                untapped way to beat bigger brands for local searches.
+              </h3>
+              <p className="text-[#D3D3D3] font-medium leading-relaxed mb-8">
+                Whether you are a small business with a single location or a
+                multi-location brand, our local business listing service is a
+                powerful tool to deliver maximum ROI to your business.
+              </p>
+              <Link
+                to="/contact"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#D3D3D3] text-[#363636] font-bold rounded-lg hover:bg-white transition"
+              >
+                Schedule Consultation <ChevronRight size={18} />
+              </Link>
             </div>
-        </section>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+  );
+
+  const ServicesSection = () => {
+    return (
+      <section className="py-16 sm:py-24 bg-white border-b border-[#C0C0C0]">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <AnimatedSection>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                Our Platform Listing{" "}
+                <span className="text-[#536186]">Optimization Services</span>
+              </h2>
+              <p className="text-lg text-[#363636]/70 leading-relaxed font-medium">
+                We offer end-to-end solutions to help create a perfect and
+                conversion-ready local presence for you.
+              </p>
+            </AnimatedSection>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <AnimatedSection delay={0.1}>
+              <div className="bg-[#B0C4DE]/20 p-8 rounded-3xl h-full border border-[#C0C0C0]">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-[#536186] rounded-xl flex justify-center items-center">
+                    <MapPin className="text-white" size={24} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-[#363636]">
+                    Strategy Development
+                  </h3>
+                </div>
+                <p className="text-[#363636]/80 mb-6 font-medium">
+                  We conduct an audit of your existing local presence and create
+                  a data-driven strategy that focuses on the highest-impact
+                  listings in relevant directories, search engines, and vertical
+                  websites.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-2 text-[#363636]/80 font-medium">
+                    <CheckCircle size={18} className="text-[#536186]" /> Local
+                    presence audit
+                  </li>
+                  <li className="flex items-center gap-2 text-[#363636]/80 font-medium">
+                    <CheckCircle size={18} className="text-[#536186]" />{" "}
+                    Competitor citation analysis
+                  </li>
+                  <li className="flex items-center gap-2 text-[#363636]/80 font-medium">
+                    <CheckCircle size={18} className="text-[#536186]" />{" "}
+                    Priority platform selection
+                  </li>
+                </ul>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.2}>
+              <div className="bg-[#B0C4DE]/20 p-8 rounded-3xl h-full border border-[#C0C0C0]">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-[#536186] rounded-xl flex justify-center items-center">
+                    <Briefcase className="text-white" size={24} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-[#363636]">
+                    Campaign Management
+                  </h3>
+                </div>
+                <p className="text-[#363636]/80 mb-6 font-medium">
+                  We manage, verify, and maintain your listings so that you can
+                  focus on running your business.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-2 text-[#363636]/80 font-medium">
+                    <CheckCircle size={18} className="text-[#536186]" /> Claim &
+                    verify listings
+                  </li>
+                  <li className="flex items-center gap-2 text-[#363636]/80 font-medium">
+                    <CheckCircle size={18} className="text-[#536186]" />{" "}
+                    Duplicate removal & suppression
+                  </li>
+                  <li className="flex items-center gap-2 text-[#363636]/80 font-medium">
+                    <CheckCircle size={18} className="text-[#536186]" /> Batch
+                    updates for multi-location brands
+                  </li>
+                  <li className="flex items-center gap-2 text-[#363636]/80 font-medium">
+                    <CheckCircle size={18} className="text-[#536186]" /> Ongoing
+                    accuracy checks
+                  </li>
+                </ul>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.3}>
+              <div className="bg-[#B0C4DE]/20 p-8 rounded-3xl h-full border border-[#C0C0C0]">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-[#536186] rounded-xl flex justify-center items-center">
+                    <FileText className="text-white" size={24} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-[#363636]">
+                    Content Creation
+                  </h3>
+                </div>
+                <p className="text-[#363636]/80 mb-6 font-medium">
+                  Optimized content is the key to turning clicks into customers.
+                  We optimize and create content for our clients.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-2 text-[#363636]/80 font-medium">
+                    <CheckCircle size={18} className="text-[#536186]" />{" "}
+                    High-intent business descriptions
+                  </li>
+                  <li className="flex items-center gap-2 text-[#363636]/80 font-medium">
+                    <CheckCircle size={18} className="text-[#536186]" /> Image
+                    optimization (cover/alt text)
+                  </li>
+                  <li className="flex items-center gap-2 text-[#363636]/80 font-medium">
+                    <CheckCircle size={18} className="text-[#536186]" /> Service
+                    category optimization
+                  </li>
+                  <li className="flex items-center gap-2 text-[#363636]/80 font-medium">
+                    <CheckCircle size={18} className="text-[#536186]" />{" "}
+                    Localized content for city pages
+                  </li>
+                </ul>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.4}>
+              <div className="bg-[#B0C4DE]/20 p-8 rounded-3xl h-full border border-[#C0C0C0]">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-[#536186] rounded-xl flex justify-center items-center">
+                    <BarChart2 className="text-white" size={24} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-[#363636]">
+                    Analytics & Reporting
+                  </h3>
+                </div>
+                <p className="text-[#363636]/80 mb-6 font-medium">
+                  Measure what matters. Transparent dashboards and monthly
+                  reports provide visibility, clicks, calls, and ranking
+                  improvements.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-2 text-[#363636]/80 font-medium">
+                    <CheckCircle size={18} className="text-[#536186]" />{" "}
+                    Visibility & ranking reports
+                  </li>
+                  <li className="flex items-center gap-2 text-[#363636]/80 font-medium">
+                    <CheckCircle size={18} className="text-[#536186]" /> Listing
+                    health scorecard
+                  </li>
+                  <li className="flex items-center gap-2 text-[#363636]/80 font-medium">
+                    <CheckCircle size={18} className="text-[#536186]" /> Call /
+                    direction / click tracking
+                  </li>
+                  <li className="flex items-center gap-2 text-[#363636]/80 font-medium">
+                    <CheckCircle size={18} className="text-[#536186]" /> Review
+                    sentiment tracking
+                  </li>
+                </ul>
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
     );
+  };
 
-    const FAQSection = () => {
-        const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-        const faqs = [
-            { q: "Is PLO the same as SEO?", a: "No. PLO (Platform Listing Optimization) is SEO specialized for e-commerce marketplaces (Amazon, Flipkart). The algorithm rules and keyword priorities are different from Google's." },
-            { q: "What marketplaces do you cover?", a: "We specialize in the major Indian marketplaces: Amazon India, Flipkart, and Meesho, focusing on their specific regional and algorithmic requirements." },
-            { q: "How quickly can I see ranking changes?", a: "Initial visibility improvements can be seen within 7-14 days after implementation, but significant rank shifts usually take 30-60 days of consistent optimization." },
-            { q: "What is A+ Content, and do you handle it?", a: "A+ Content (or Enhanced Brand Content) is premium media on the product page. Yes, we design, write, and implement A+ content that drastically increases conversion rates." },
-        ];
+  const PlatformsSection = () => {
+    return (
+      <section className="py-16 sm:py-24 bg-[#D3D3D3]/50 border-b border-[#C0C0C0]">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+          <div className="text-center mb-16">
+            <AnimatedSection>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                Platforms We Work With
+              </h2>
+              <p className="text-lg text-[#363636]/70 leading-relaxed font-medium">
+                We list and manage your presence across the channels that matter
+                most to your business:
+              </p>
+            </AnimatedSection>
+          </div>
 
-        return (
-            <section className="py-20 bg-black">
-                <div className="container mx-auto px-4 max-w-3xl">
-                    <AnimatedSection>
-                        <h2 className="text-3xl font-bold text-center mb-12 text-white">Marketplace Optimization FAQs</h2>
-                    </AnimatedSection>
-                    <div className="space-y-4">
-                        {faqs.map((faq, index) => (
-                            <AnimatedSection key={index} delay={index * 0.1}>
-                                <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
-                                    <button 
-                                        type="button"
-                                        onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
-                                        className="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-slate-800 transition"
-                                    >
-                                        <span className="font-semibold text-slate-200">{faq.q}</span>
-                                        {openFAQ === index ? <ChevronUp size={20} color={accentColor} /> : <ChevronDown size={20} color={accentColor} />}
-                                    </button>
-                                    <AnimatePresence>
-                                        {openFAQ === index && (
-                                            <motion.div 
-                                                initial={{ height: 0, opacity: 0 }} 
-                                                animate={{ height: 'auto', opacity: 1 }} 
-                                                exit={{ height: 0, opacity: 0 }}
-                                                className="px-6 pb-4"
-                                            >
-                                                <p className="text-slate-400 pt-2 border-t border-slate-800">{faq.a}</p>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </div>
-                            </AnimatedSection>
-                        ))}
-                    </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {[
+              "Google Business Profile & Maps",
+              "Instagram",
+              "Facebook Pages & Places",
+              "LinkedIn Company Pages",
+              "Twitter Profiles & location tags",
+              "YouTube Channel location & business info",
+            ].map((platform, idx) => (
+              <AnimatedSection key={idx} delay={idx * 0.1}>
+                <div className="bg-white p-6 rounded-2xl border border-[#C0C0C0] shadow-sm flex items-center gap-4 hover:border-[#536186] transition-colors h-full">
+                  <CheckCircle
+                    className="text-[#536186] flex-shrink-0"
+                    size={24}
+                  />
+                  <span className="font-bold text-[#363636] text-lg">
+                    {platform}
+                  </span>
                 </div>
-            </section>
-        );
-    };
+              </AnimatedSection>
+            ))}
+          </div>
 
-    const ContactSection = () => (
-        <section id="contact" className="py-20 bg-slate-950 relative overflow-hidden">
-            <div className="container mx-auto px-4 max-w-6xl relative z-10">
-                <div className="grid lg:grid-cols-2 gap-16">
-                    <AnimatedSection>
-                        <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
-                            Stop Being Invisible. Start Winning.
-                        </h2>
-                        <p className="text-lg text-slate-400 mb-8">
-                            Fill out the form to get a **Free 5-Point Marketplace Listing Audit** for one of your best-selling SKUs. We’ll pinpoint the silent gaps that are killing your conversions.
-                        </p>
-                        <div className="bg-black p-6 rounded-xl border border-slate-800">
-                            <h4 className="text-white font-bold mb-2">Why Optimize Now?</h4>
-                            <ul className="space-y-2 text-slate-400 text-sm">
-                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-teal-500" /> **90%** of traffic goes to the first page.</li>
-                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-teal-500" /> Optimized listings cut Ad ACOS by driving organic sales.</li>
-                                <li className="flex items-center gap-2"><CheckCircle size={16} className="text-teal-500" /> Our strategies are built for the Indian consumer.</li>
-                            </ul>
-                        </div>
-                    </AnimatedSection>
-
-                    <AnimatedSection delay={0.2}>
-                        <form onSubmit={handleSubmit} className="bg-black shadow-2xl rounded-2xl p-8 border border-slate-800">
-                            <h3 className="text-2xl font-bold mb-6 text-white">Request Your Free Audit</h3>
-                            <div className="grid grid-cols-2 gap-4 mb-4">
-                                <div>
-                                    <label className="block text-sm font-medium text-slate-400 mb-1">Name</label>
-                                    <input required name="name" onChange={handleInputChange} className="w-full px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition" placeholder="Your Name" />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-slate-400 mb-1">Email</label>
-                                    <input required name="email" type="email" onChange={handleInputChange} className="w-full px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition" placeholder="business@seller.com" />
-                                </div>
-                            </div>
-                            <div className="mb-4">
-                                <label className="block text-sm font-medium text-slate-400 mb-1">Primary Marketplace</label>
-                                <select required name="marketplace" onChange={handleInputChange} className="w-full px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition">
-                                    <option value="">Select Platform</option>
-                                    <option value="Amazon">Amazon India</option>
-                                    <option value="Flipkart">Flipkart</option>
-                                    <option value="Meesho">Meesho</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                            <div className="mb-6">
-                                <label className="block text-sm font-medium text-slate-400 mb-1">Number of SKUs</label>
-                                <select required name="skuCount" onChange={handleInputChange} className="w-full px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition">
-                                    <option value="">Select Range</option>
-                                    <option value="1-50">1 - 50</option>
-                                    <option value="50-200">50 - 200</option>
-                                    <option value="200+">200+</option>
-                                </select>
-                            </div>
-                            <button type="submit" className="w-full py-4 rounded-lg text-black font-bold text-lg shadow-lg shadow-teal-900/20 hover:shadow-teal-900/40 transition transform hover:-translate-y-1 flex items-center justify-center gap-2" style={{ backgroundColor: accentColor }}>
-                                <span>Get My Free Audit & Strategy</span>
-                                <Send size={20} />
-                            </button>
-                        </form>
-                    </AnimatedSection>
-                </div>
+          <AnimatedSection delay={0.4}>
+            <div className="bg-[#363636] text-white p-8 rounded-2xl text-center max-w-3xl mx-auto shadow-xl">
+              <p className="text-[#D3D3D3]/90 font-medium leading-relaxed">
+                Additionally, we list you in niche directories and
+                industry-specific websites that generate qualified leads (Yelp,
+                Zomato, Justdial, local chambers of commerce, and others).
+              </p>
             </div>
-        </section>
+          </AnimatedSection>
+        </div>
+      </section>
     );
+  };
 
-    const Footer = () => (
-        <footer className="bg-slate-950 text-slate-500 py-12 border-t border-slate-900">
-            <div className="container mx-auto px-4 text-center">
-                <h2 className="text-white text-2xl font-bold mb-4">{agencyName}</h2>
-                <p className="mb-8">Visibility is the new currency of E-commerce.</p>
-                <div className="text-sm">
-                    © {new Date().getFullYear()} {agencyName}. All rights reserved.
-                </div>
-            </div>
-        </footer>
-    );
-
-    // ============================================================================
-    // MAIN RENDER
-    // ============================================================================
+  const ProcessSection = () => {
+    const processSteps = [
+      {
+        t: "Discovery & Audit",
+        d: "Full Local Footprint Audit, Competitor Analysis, and Priority Map.",
+      },
+      {
+        t: "Record Cleanup",
+        d: "De-duplicate data, clean existing records, and standardize NAP.",
+      },
+      {
+        t: "Claim & Verify",
+        d: "Claim business profiles and complete verification.",
+      },
+      {
+        t: "Optimize Profiles",
+        d: "Add keyword-rich descriptions, images, categories, and services.",
+      },
+      {
+        t: "Publish & Distribute",
+        d: "Publish accurate data to primary sources and secondary sources.",
+      },
+      {
+        t: "Monitor & Maintain",
+        d: "Regular checks and reviews; update listings as necessary.",
+      },
+      {
+        t: "Report & Improve",
+        d: "Monthly reporting and constant optimization.",
+      },
+    ];
 
     return (
-        <div className="font-sans bg-black text-slate-100 min-h-screen">
-            <HeroSection />
-            <ProblemSection />
-            <CoreElementsSection />
-            <ProcessSection />
-            <CaseStudySnippet />
-            <FAQSection />
-            {/* <ContactSection />
-            <Footer /> */}
+      <section className="py-16 sm:py-24 bg-[#B0C4DE]/15">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+          <div className="text-center mb-16">
+            <AnimatedSection>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                Our Process
+              </h2>
+              <p className="text-lg text-[#363636]/70 leading-relaxed font-medium">
+                We have a transparent and repeatable process that is designed
+                for scale and accuracy.
+              </p>
+            </AnimatedSection>
+          </div>
+
+          <div className="space-y-6">
+            {processSteps.map((step, idx) => (
+              <AnimatedSection key={idx} delay={idx * 0.1}>
+                <div className="bg-white rounded-2xl p-6 border border-[#C0C0C0] flex items-center gap-6 shadow-sm hover:border-[#536186] transition-colors">
+                  <div className="w-12 h-12 bg-[#D3D3D3]/50 rounded-full flex items-center justify-center font-bold text-[#536186]">
+                    {idx + 1}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-[#363636] mb-1">
+                      {step.t}
+                    </h3>
+                    <p className="text-[#363636]/80 font-medium">{step.d}</p>
+                  </div>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link
+              to="/contact"
+              className="inline-flex justify-center items-center py-4 px-8 text-white font-bold bg-[#536186] rounded-xl shadow-lg hover:bg-[#363636] transition-colors"
+            >
+              15-Minute Technical Consultation
+            </Link>
+          </div>
         </div>
+      </section>
     );
+  };
+
+  const AdditionalInfoSection = () => {
+    return (
+      <section className="py-16 sm:py-24 bg-white border-b border-[#C0C0C0]">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 mb-24">
+            <AnimatedSection>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                Benefits of Choosing Our Platform Listing Optimization Agency
+              </h2>
+              <p className="text-lg text-[#363636]/80 font-medium mb-6">
+                Working with us means working with reliability, authority, and
+                quantified success.
+              </p>
+              <div className="space-y-4 mb-6">
+                <div className="bg-[#363636] text-white p-4 rounded-xl shadow-md border border-[#363636]/20 flex gap-4 items-center">
+                  <Star size={24} className="text-[#B0C4DE] shrink-0" />
+                  <span className="font-semibold">
+                    Proven Expertise across SMBs and enterprises.
+                  </span>
+                </div>
+                <div className="bg-[#363636] text-white p-4 rounded-xl shadow-md border border-[#363636]/20 flex gap-4 items-center">
+                  <TrendingUp size={24} className="text-[#B0C4DE] shrink-0" />
+                  <span className="font-semibold">
+                    Higher Local Rankings in map pack and organic results.
+                  </span>
+                </div>
+                <div className="bg-[#363636] text-white p-4 rounded-xl shadow-md border border-[#363636]/20 flex gap-4 items-center">
+                  <MapPin size={24} className="text-[#B0C4DE] shrink-0" />
+                  <span className="font-semibold">
+                    More Foot Traffic & Calls converting more searchers.
+                  </span>
+                </div>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.2}>
+              <div className="bg-[#B0C4DE]/15 rounded-3xl p-8 sm:p-10 border border-[#C0C0C0] h-full">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                  Why Choose Us
+                </h2>
+                <ul className="space-y-6 mb-8">
+                  <li className="flex gap-4 items-start">
+                    <div className="bg-white rounded-full p-2 border border-[#C0C0C0] shadow-sm">
+                      <CheckCircle className="text-[#536186]" size={20} />
+                    </div>
+                    <div>
+                      <strong className="text-xl text-[#363636]">
+                        Experienced Team:
+                      </strong>
+                      <p className="text-[#363636]/70 mt-1 font-medium">
+                        Local SEO experts, content writers, and listing
+                        specialists.
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex gap-4 items-start">
+                    <div className="bg-white rounded-full p-2 border border-[#C0C0C0] shadow-sm">
+                      <CheckCircle className="text-[#536186]" size={20} />
+                    </div>
+                    <div>
+                      <strong className="text-xl text-[#363636]">
+                        Data-Driven:
+                      </strong>
+                      <p className="text-[#363636]/70 mt-1 font-medium">
+                        We make decisions based on audits, tracking, and A/B
+                        testing.
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex gap-4 items-start">
+                    <div className="bg-white rounded-full p-2 border border-[#C0C0C0] shadow-sm">
+                      <CheckCircle className="text-[#536186]" size={20} />
+                    </div>
+                    <div>
+                      <strong className="text-xl text-[#363636]">
+                        White-Glove Support:
+                      </strong>
+                      <p className="text-[#363636]/70 mt-1 font-medium">
+                        Dedicated account manager and rapid response times.
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </AnimatedSection>
+          </div>
+
+          <div className="text-center mb-16">
+            <Link
+              to="/contact"
+              className="inline-flex justify-center items-center py-4 px-8 text-white font-bold bg-[#536186] rounded-xl shadow-lg hover:bg-[#363636] transition-colors"
+            >
+              Get Free Audit
+            </Link>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-24 max-w-6xl mx-auto">
+            <AnimatedSection delay={0.1}>
+              <div className="bg-[#D3D3D3]/30 p-8 rounded-2xl text-center h-full border border-[#C0C0C0]">
+                <Star className="text-[#536186] mx-auto mb-4" size={32} />
+                <p className="text-2xl font-bold text-[#363636] mb-2">
+                  Avg. 42%
+                </p>
+                <p className="text-[#363636]/80 font-medium">
+                  increase in map pack visibility in 3 months
+                </p>
+              </div>
+            </AnimatedSection>
+            <AnimatedSection delay={0.2}>
+              <div className="bg-[#D3D3D3]/30 p-8 rounded-2xl text-center h-full border border-[#C0C0C0]">
+                <TrendingUp className="text-[#536186] mx-auto mb-4" size={32} />
+                <p className="text-2xl font-bold text-[#363636] mb-2">
+                  3x More
+                </p>
+                <p className="text-[#363636]/80 font-medium">
+                  organic calls & directions to storefronts
+                </p>
+              </div>
+            </AnimatedSection>
+            <AnimatedSection delay={0.3}>
+              <div className="bg-[#D3D3D3]/30 p-8 rounded-2xl text-center h-full border border-[#C0C0C0]">
+                <MapPin className="text-[#536186] mx-auto mb-4" size={32} />
+                <p className="text-2xl font-bold text-[#363636] mb-2">100%</p>
+                <p className="text-[#363636]/80 font-medium">
+                  resolution rate for duplicate listings
+                </p>
+              </div>
+            </AnimatedSection>
+          </div>
+
+          <div className="text-center max-w-4xl mx-auto mb-12">
+            <AnimatedSection>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                Industries We Serve
+              </h2>
+            </AnimatedSection>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 max-w-6xl mx-auto">
+            {[
+              "Retail stores and boutiques",
+              "Food services, restaurants, cafes, and bars",
+              "Health services and clinics",
+              "Home services, such as plumbers, electricians, and cleaners",
+              "Legal and professional services",
+              "Hotel and accommodation services",
+            ].map((item, idx) => (
+              <AnimatedSection key={idx} delay={idx * 0.1}>
+                <div className="bg-[#D3D3D3]/20 p-6 rounded-2xl border border-[#C0C0C0] flex items-center justify-center text-center">
+                  <h3 className="text-lg font-bold text-[#363636]">{item}</h3>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+          <div className="text-center text-[#536186] font-bold">
+            And many other types of businesses serving local communities,
+            cities, or regions.
+          </div>
+        </div>
+      </section>
+    );
+  };
+
+  const FAQSection = () => {
+    const faqs = [
+      {
+        q: "What is a local business listing service and how does it help my business?",
+        a: "A local business listing service creates and manages your profiles across directories, ensures NAP consistency, and optimizes listings for local search visibility — driving calls, visits, and bookings.",
+      },
+      {
+        q: "Do you provide Google local listing services and verification?",
+        a: "Yes — we handle claiming, verifying, and optimizing your Google Business Profile to improve map pack rankings and conversions.",
+      },
+      {
+        q: "How long before I see results from platform listing optimization?",
+        a: "Many businesses see improved visibility within 4–8 weeks; full benefits accrue as listings propagate and review/social signals build.",
+      },
+      {
+        q: "Will you remove duplicate or incorrect listings on my behalf?",
+        a: "Absolutely. We identify duplicates, reconcile conflicting records, and suppress incorrect entries across major directories.",
+      },
+      {
+        q: "Can you manage multiple locations and franchises?",
+        a: "Yes — we specialize in multi-location rollouts, bulk verification, and centralized reporting for consistent brand presence.",
+      },
+    ];
+    const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+    return (
+      <section className="py-16 sm:py-24 bg-[#D3D3D3]/50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+          <AnimatedSection>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
+                FAQs
+              </h2>
+            </div>
+          </AnimatedSection>
+
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <AnimatedSection key={index} delay={index * 0.1}>
+                <div className="bg-white rounded-2xl shadow-sm border border-[#C0C0C0] overflow-hidden">
+                  <button
+                    className="w-full px-6 py-5 text-left flex justify-between items-center bg-white hover:bg-[#D3D3D3]/20 transition-colors"
+                    onClick={() =>
+                      setOpenIndex(openIndex === index ? null : index)
+                    }
+                  >
+                    <span className="font-bold text-[#363636] pr-8">
+                      {faq.q}
+                    </span>
+                    {openIndex === index ? (
+                      <ChevronUp className="text-[#536186] flex-shrink-0" />
+                    ) : (
+                      <ChevronDown className="text-[#536186] flex-shrink-0" />
+                    )}
+                  </button>
+                  <AnimatePresence>
+                    {openIndex === index && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="px-6 pb-5 pt-2 text-[#363636]/80 font-medium border-t border-[#C0C0C0]/50">
+                          {faq.a}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  };
+
+  const CTASection = () => (
+    <section className="py-20 sm:py-32 relative overflow-hidden bg-[#536186]">
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/graphy.png')] opacity-10"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#363636]/30 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div className="container mx-auto px-4 relative z-10 text-center max-w-4xl">
+        <AnimatedSection>
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-white mb-8 leading-tight">
+            Ready to Be Found Locally?
+          </h2>
+          <p className="text-xl text-[#D3D3D3] mb-8 font-medium leading-relaxed max-w-3xl mx-auto">
+            Don’t lose customers to outdated or inconsistent listings. Our local
+            business listing service provides you with accurate and optimized
+            business profiles and access to a constant flow of local customers.
+          </p>
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center">
+            <Link
+              to="/contact"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-[#363636] bg-[#D3D3D3] hover:bg-white transform transition hover:scale-105 shadow-xl shadow-[#363636]/20"
+            >
+              Get Your Free Local Listing Audit Today
+            </Link>
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+
+  return (
+    <>
+      <Helmet>
+        <title>Local Business Listing Service | Improve Local Visibility</title>
+        <meta
+          name="description"
+          content="Boost local visibility with our expert local business listing service — accurate listings,  and local SEO that drive customers to your door."
+        />
+      </Helmet>
+
+      <div className="font-sans min-h-screen text-[#363636] bg-[#D3D3D3]">
+        <HeroSection />
+        <WhatIsSection />
+        <WhySection />
+        <ServicesSection />
+        <PlatformsSection />
+        <ProcessSection />
+        <AdditionalInfoSection />
+        <FAQSection />
+        <CTASection />
+      </div>
+    </>
+  );
 };
 
 export default PLO;

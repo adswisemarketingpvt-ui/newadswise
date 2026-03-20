@@ -1,230 +1,249 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Settings, Video, TrendingUp, Code } from 'lucide-react';
-import FallBeamBackground from './FallBeamBackground'; // ⬅️ import your background component
-import SEO from './SEO';
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import {
+  Settings,
+  Video,
+  TrendingUp,
+  Code,
+  ArrowRight,
+  CheckCircle2,
+  BarChart3,
+} from "lucide-react";
+import SEO from "./SEO";
 
-// Single-file Hero component with integrated animated logo (Framer Motion + TailwindCSS)
+// GSAP Imports
+import gsap from "gsap";
+// import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Link } from "react-router-dom";
+
+// Register ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // simple entrance trigger
     setIsVisible(true);
   }, []);
 
   const services = [
-    { icon: Settings, title: 'Smart', subtitle: 'Strategy' },
-    { icon: Video, title: 'Content', subtitle: 'Creation' },
-    { icon: TrendingUp, title: 'Growth', subtitle: 'Marketing' },
-    { icon: Code, title: 'Design And', subtitle: 'Development' }
+    { icon: Settings, title: "Smart", subtitle: "Strategy" },
+    { icon: Video, title: "Content", subtitle: "Creation" },
+    { icon: TrendingUp, title: "Growth", subtitle: "Marketing" },
+    { icon: Code, title: "Design And", subtitle: "Development" },
   ];
 
-  // Animated logo component (local subcomponent)
-  const ModernMotionLogo: React.FC<{ className?: string }> = ({ className = 'w-48 h-auto' }) => {
-    return (
-      <div className={`flex items-center justify-center ${className} rounded-xl`}>
-        <motion.img
-          src="https://adswisemarketing.com/logo.png"
-          alt="Adswise Marketing"
-          className="w-[80%] object-contain mt-2"
-          // Initial State
-          initial={{ y: 0, opacity: 0 }}
-          // Animation Loop
-          animate={{
-            y: [-8, 8, -8],
-            opacity: 1,
-            filter: [
-              'drop-shadow(0 0 0px rgba(56, 189, 248, 0))',
-              'drop-shadow(0 0 20px rgba(56, 189, 248, 0.5))', // Blue glow pulse
-              'drop-shadow(0 0 0px rgba(56, 189, 248, 0))'
-            ]
-          }}
-          // Transition Settings
-          transition={{
-            duration: 4,
-            ease: 'easeInOut',
-            repeat: Infinity
-          }}
-          // Hover Interaction
-          whileHover={{
-            scale: 1.06,
-            rotate: 4,
-            filter: 'drop-shadow(0 0 25px rgba(255, 255, 255, 0.85))'
-          }}
-          onError={(e) => {
-            // graceful fallback if image fails
-            e.currentTarget.style.display = 'none';
-          }}
-        />
-      </div>
+  // GSAP Animation Logic for the Reveal
+  /*
+  useGSAP(() => {
+    gsap.fromTo(
+      ".dark-reveal-layer",
+      { clipPath: "inset(0% 100% 0% 0%)" },
+      {
+        clipPath: "inset(0% 0% 0% 0%)",
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".reveal-main-container",
+          start: "top top",
+          end: "+=150%",
+          scrub: true,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+        },
+      }
     );
-  };
+  });
+  */
 
-  return (
-    <div className="relative min-h-screen bg-black text-white overflow-hidden">
-      <SEO
-        title="AdsWise Marketing | Advertising, Branding & Digital Growth"
-        description="We help brands grow through creative advertising, digital marketing, social media strategy and high-impact campaigns."
-        url="https://www.adswisemarketing.com/"
+  // A sleek B2B Visual to replace the floating logo
+  const GrowthVisual = ({ isDark }: { isDark: boolean }) => (
+    <div className="relative w-full max-w-lg aspect-square flex items-center justify-center">
+      {/* Background Decorative Rings */}
+      <div
+        className={`absolute inset-0 border-[1px] rounded-full scale-110 opacity-20 ${isDark ? "border-white" : "border-[#536186]"}`}
+      />
+      <div
+        className={`absolute inset-0 border-[1px] rounded-full scale-75 opacity-10 ${isDark ? "border-white" : "border-[#536186]"}`}
       />
 
-      {/* Falling beam animated background (behind everything) */}
-      {/* <FallBeamBackground
-        lineCount={24}
-        beamColorClass="cyan-400"
-        className="pointer-events-none"
-      /> */}
-
-      {/* Main content above beams */}
-      <div className="relative z-20">
-        {/* Main Container - Mobile First */}
-        <div className="min-h-screen flex flex-col lg:flex-row items-center justify-center lg:justify-between px-6 md:px-20 py-20 md:py-12">
-          {/* Mobile/Tablet: Centered Vertical Layout */}
-          <div className="lg:hidden flex flex-col items-center text-center w-full max-w-md">
-            {/* Logo (animated) */}
-            <div
-              className={`mb-8 transition-all duration-1000 ${
-                isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-              }`}
-              style={{ transitionDelay: '200ms' }}
-            >
-              <ModernMotionLogo className="w-48 h-auto mx-auto animate-float" />
-            </div>
-
-            {/* Title */}
-            <h1
-              className={`text-5xl font-bold leading-tight mb-6 transition-all duration-1000 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
-              style={{ transitionDelay: '400ms' }}
-            >
-              <span className="inline-block animate-text-gradient bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 bg-clip-text text-transparent">
-                Adswise
-              </span>
-              <br />
-              <span className="inline-block animate-text-gradient bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 bg-clip-text text-transparent inline-block">
-                Marketing
-              </span>
-            </h1>
-
-            {/* Subtitle */}
-            <p
-              className={`text-lg font-light leading-relaxed mb-10 transition-all duration-1000 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
-              style={{ transitionDelay: '600ms' }}
-            >
-              The last digital marketing agency,
-              <br />
-              You'll ever need.
-            </p>
-
-            {/* Services */}
-            <div
-              className={`grid grid-cols-4 gap-4 w-full transition-all duration-1000 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
-              style={{ transitionDelay: '800ms' }}
-            >
-              {services.map((service, index) => (
-                <div key={index} className="flex flex-col items-center group cursor-pointer">
-                  <div className="w-12 h-12 mb-2 flex items-center justify-center text-orange-500 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
-                    <service.icon size={32} strokeWidth={1.5} />
-                  </div>
-                  <h3 className="text-xs font-semibold leading-tight">{service.title}</h3>
-                  <p className="text-xs font-normal leading-tight">{service.subtitle}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Desktop: Side-by-side Layout */}
-          <div className="hidden lg:flex flex-1 max-w-2xl pl-10 border-l-4 border-orange-500 mt-10 lg:mt-0">
-            <div className="mt-10 lg:mt-10">
-              <h1
-                className={`text-6xl font-bold leading-tight mb-8 transition-all duration-1000 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
-                style={{ transitionDelay: '0ms' }}
-              >
-                <span className="inline-block animate-text-gradient bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 bg-clip-text text-transparent bg-[length:200%_auto]">
-                  ADSWISE
-                </span>
-                <br />
-                <span
-                  className="inline-block animate-text-gradient bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 bg-clip-text text-transparent bg-[length:200%_auto]"
-                  style={{ animationDelay: '0.2s' }}
-                >
-                  MARKETING
-                </span>
-              </h1>
-
-              <p
-                className={`text-2xl font-light leading-relaxed mb-10 transition-all duration-1000 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
-                style={{ transitionDelay: '300ms' }}
-              >
-                The last digital marketing agency,
-                <br />
-                You'll ever need.
-              </p>
-
-              <div
-                className={`flex gap-12 flex-wrap transition-all duration-1000 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
-                style={{ transitionDelay: '600ms' }}
-              >
-                {services.map((service, index) => (
-                  <div
-                    key={index}
-                    className="text-center flex flex-col items-center group cursor-pointer"
-                  >
-                    <div className="w-20 h-20 mb-4 flex items-center justify-center text-orange-500 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
-                      <service.icon size={48} strokeWidth={1.5} />
-                    </div>
-                    <h3 className="text-sm font-semibold leading-tight">{service.title}</h3>
-                    <p className="text-sm font-normal leading-tight">{service.subtitle}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Desktop: Logo on Right (animated) */}
+      {/* The "Growth Card" */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className={`relative z-10 p-8 rounded-3xl shadow-2xl backdrop-blur-md border ${
+          isDark
+            ? "bg-white/10 border-white/20 text-white"
+            : "bg-white border-slate-200 text-[#363636]"
+        }`}
+      >
+        <div className="flex items-center gap-4 mb-6">
           <div
-            className={`hidden lg:flex flex-1 items-center justify-center transition-all pt-5 duration-1000 ${
-              isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-80'
-            }`}
-            style={{ transitionDelay: '400ms' }}
+            className={`p-3 rounded-xl ${isDark ? "bg-blue-500" : "bg-[#536186] text-white"}`}
           >
-            <div className="max-w-xl w-full">
-              <ModernMotionLogo className="max-w-xl w-[85%] h-auto animate-float" />
+            <BarChart3 size={32} />
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-widest opacity-70">
+              Pipeline Value
+            </p>
+            <p className="text-2xl font-bold">+248% Growth</p>
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          {[1, 2, 3].map((i) => (
+            <div
+              key={i}
+              className={`h-2 rounded-full w-full ${isDark ? "bg-white/20" : "bg-slate-100"}`}
+            >
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${40 + i * 15}%` }}
+                transition={{ duration: 1.5, delay: 0.5 }}
+                className={`h-full rounded-full ${isDark ? "bg-blue-400" : "bg-[#536186]"}`}
+              />
             </div>
+          ))}
+        </div>
+
+        <div className="mt-6 pt-6 border-t border-current/10 flex justify-between items-center">
+          <span className="text-sm font-medium">Qualified Leads</span>
+          <CheckCircle2
+            size={18}
+            className={isDark ? "text-green-400" : "text-green-600"}
+          />
+        </div>
+      </motion.div>
+    </div>
+  );
+
+  const HeroContent = ({ isDark = false }) => (
+    <div
+      className={`w-full min-h-[100dvh] flex flex-col lg:flex-row items-center justify-center lg:justify-between px-6 md:px-12 lg:px-20 py-24 md:py-32 lg:py-20 gap-12 lg:gap-8 ${isDark ? "text-white" : "text-[#363636]"}`}
+    >
+      {/* Left Content Column */}
+      <div className="flex flex-col flex-[1.4] max-w-4xl lg:pr-12 w-full mt-12 lg:mt-0">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          {/* <span className={`inline-block px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold tracking-widest uppercase mb-6 border ${
+            isDark ? 'border-white/30 text-white' : 'border-[#536186]/30 text-[#536186]'
+          }`}>
+            Strategy-Driven Marketing
+          </span> */}
+
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-extrabold leading-[1.05] mb-6 tracking-tight mt-4">
+            B2B DIGITAL MARKETING AGENCY
+            <br className="hidden lg:block" />
+            <span
+              className={`block mt-1 lg:mt-3 ${isDark ? "text-blue-200" : "text-[#536186]"}`}
+            >
+              FOR GROWTH-FOCUSED BRANDS.
+            </span>
+          </h1>
+
+          <div className="space-y-6 mb-10">
+            <h2 className="text-xl md:text-2xl font-medium leading-tight max-w-2xl opacity-90">
+              No vanity metrics. Only qualified pipeline growth.
+              <span className="block  decoration-2 underline-offset-4">
+                Strategy-driven marketing built for serious B2B brands.
+              </span>
+            </h2>
+            <p
+              className={`text-base md:text-lg lg:text-xl font-light max-w-2xl leading-relaxed ${isDark ? "text-gray-300" : "text-gray-600"}`}
+            >
+              Most agencies sell “packages”. At{" "}
+              <span className="font-semibold">Adswise Marketing</span>, we build
+              systems – research-driven digital engines that attract the right
+              audience, turn them into qualified enquiries and support your
+              sales team with clear, usable data.
+            </p>
+          </div>
+
+          {/* CTA Section */}
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-5 items-start sm:items-center mb-10 w-full">
+            <Link
+              to="/contact"
+              className={`group w-full sm:w-auto justify-center px-8 py-4 rounded-lg font-bold flex items-center gap-3 transition-all ${
+                isDark
+                  ? "bg-white text-[#536186] hover:bg-blue-50"
+                  : "bg-[#536186] text-white hover:bg-[#3d4866]"
+              }`}
+            >
+              Book a Personalized Strategy Call
+              <ArrowRight
+                size={20}
+                className="group-hover:translate-x-1 transition-transform"
+              />
+            </Link>
+          </div>
+
+          {/* Service Ribbon */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 opacity-80 w-full">
+            {services.map((s, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <s.icon
+                  size={18}
+                  strokeWidth={2}
+                  className={`shrink-0 ${isDark ? "text-blue-300" : "text-[#536186]"}`}
+                />
+                <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-wider">
+                  {s.title}
+                </span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Right Visual Column */}
+      <div className="hidden lg:flex flex-1 items-center justify-center">
+        <GrowthVisual isDark={isDark} />
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="w-full font-sans antialiased">
+      <SEO
+        title="B2B Digital Marketing Agency in India | Adswise Marketing"
+        description="Adswise Marketing is a B2B digital marketing agency in India helping manufacturing, real estate and service brands with industrial SEO."
+      />
+
+      <div className="reveal-main-container relative overflow-hidden w-full">
+        {/* LIGHT LAYER - Professional Slate Gray */}
+        <div className="relative bg-[#F8FAFC] z-10 w-full h-full">
+          <HeroContent isDark={false} />
+        </div>
+
+        {/* DARK LAYER - Deep Indigo B2B */}
+        <div className="dark-reveal-layer absolute inset-0 bg-[#1E293B] z-20 overflow-hidden w-full h-full">
+          {/* Background Image */}
+          <div className="absolute inset-0 pointer-events-none z-0">
+            <img
+              src="https://i.pinimg.com/1200x/f1/bc/d0/f1bcd0d5721ec066ae0340d4547da23d.jpg"
+              alt="Hero Background"
+              className="w-full h-full object-cover"
+            />
+            {/* Overlay to ensure text readability */}
+            <div className="absolute inset-0 bg-[#1E293B]/80" />
+          </div>
+          <div className="relative z-10 w-full h-full">
+            <HeroContent isDark={true} />
           </div>
         </div>
       </div>
 
       <style>{`
-        @keyframes text-gradient {
-          0%, 100% { background-position: 0% center; }
-          50% { background-position: 100% center; }
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-
-        .animate-text-gradient { animation: text-gradient 3s ease infinite; }
-        .animate-float { animation: float 6s ease-in-out infinite; }
-
-        /* ensure the logo container is visually centered on very small screens */
-        @media (max-width: 420px) {
-          .animate-float { animation-duration: 5.5s; }
-        }
+        /* Clean scroll reset */
+        body { overflow-x: hidden; margin: 0; background: #F8FAFC; }
+        
+        /* Modern font smoothing */
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
       `}</style>
     </div>
   );

@@ -1,60 +1,79 @@
-import React, { useState, useRef } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { 
-  Palette, Camera, Layout, Search, 
-  Mail, Instagram, TrendingUp,
-  Smartphone, MapPin, PlayCircle, 
-  CheckCircle2, ArrowRight, Brush, 
-  PenTool, Layers, Star
-} from 'lucide-react';
+import React, { useState, useRef } from "react";
+import {
+  motion,
+  useInView,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
+import {
+  Palette,
+  Camera,
+  Layout,
+  Search,
+  Mail,
+  Instagram,
+  TrendingUp,
+  Smartphone,
+  MapPin,
+  PlayCircle,
+  CheckCircle,
+  ArrowRight,
+  Brush,
+  PenTool,
+  Layers,
+  Star,
+  Plus,
+  Minus,
+  MessageSquare,
+  Users,
+  Target,
+  BarChart,
+  Video,
+  Monitor,
+  Zap,
+  Compass,
+  Rocket,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+
+/*
+  SEO METADATA CONTENT (For specific configuration in index.html, next/head or helmet):
+  Meta Title (≤60 chars): Digital Marketing for Interior Designers | Adswise Marketing
+  Meta Description (150–160 chars): Digital marketing for interior designers that attracts high-value clients and boosts portfolio visibility. Book a free audit and start growing today.
+  Slug: interior-design-marketing
+*/
 
 // ============================================================================
 // ASSETS & CONFIG
 // ============================================================================
 
 const IMAGES = {
-  hero: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1974&auto=format&fit=crop",
-  texture: "https://www.transparenttextures.com/patterns/cubes.png",
-  strategy: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop",
-  results: "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?q=80&w=2070&auto=format&fit=crop",
-  service1: "https://images.unsplash.com/photo-1616137466211-f939a420be84?q=80&w=2000&auto=format&fit=crop",
-  service2: "https://images.unsplash.com/photo-1615873968403-89e068629265?q=80&w=2000&auto=format&fit=crop",
-  service3: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?q=80&w=1992&auto=format&fit=crop"
+  hero: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1974&auto=format&fit=crop", // Wide-angle living room styled by a designer
+  services:
+    "https://images.unsplash.com/photo-1616137466211-f939a420be84?q=80&w=2000&auto=format&fit=crop", // Portfolio website, Instagram ad, etc
+  caseStudy:
+    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop", // Before and after kitchen
 };
-
-// ============================================================================
-// TYPE DEFINITIONS
-// ============================================================================
-
-interface InteriorDesignPageProps {
-  companyName?: string;
-  onContactSubmit?: (formData: FormData) => void;
-}
-
-interface FormData {
-  name: string;
-  email: string;
-  website: string;
-  serviceInterest: string;
-  message: string;
-}
 
 // ============================================================================
 // ANIMATION WRAPPERS
 // ============================================================================
 
-const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
-  children, className = '', delay = 0 
-}) => {
+const AnimatedSection: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}> = ({ children, className = "", delay = 0 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-      transition={{ duration: 0.8, ease: "easeOut", delay }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      transition={{ duration: 0.6, ease: "easeOut", delay }}
       className={className}
     >
       {children}
@@ -62,544 +81,786 @@ const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string;
   );
 };
 
-const ParallaxImage: React.FC<{ src: string; alt: string; className?: string }> = ({ src, alt, className = "" }) => {
-    const ref = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"]
-    });
-    const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+const ParallaxImage: React.FC<{
+  src: string;
+  alt: string;
+  className?: string;
+}> = ({ src, alt, className = "" }) => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
-    return (
-        <div ref={ref} className={`overflow-hidden relative ${className}`}>
-            <motion.img 
-                style={{ y, scale: 1.1 }}
-                src={src} 
-                alt={alt} 
-                className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/40"></div>
-        </div>
-    );
-}
+  return (
+    <div ref={ref} className={`overflow-hidden relative ${className}`}>
+      <motion.img
+        style={{ y, scale: 1.15 }}
+        src={src}
+        alt={alt}
+        className="w-full h-full object-cover mix-blend-multiply"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#D3D3D3] via-[#D3D3D3]/70 to-[#D3D3D3]/30"></div>
+    </div>
+  );
+};
 
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
 
-const InteriorDesignPage: React.FC<InteriorDesignPageProps> = ({
-  companyName = "Adswise Marketing",
-  onContactSubmit
-}) => {
-  const [formData, setFormData] = useState<FormData>({
-    name: '', email: '', website: '', serviceInterest: '', message: ''
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (onContactSubmit) onContactSubmit(formData);
-    alert("Thank you! We're reviewing your portfolio potential.");
-  };
-
-  // ============================================================================
-  // SUB-COMPONENTS
-  // ============================================================================
+const InteriorDesignPage = () => {
+  // Monochromatic Color Palette:
+  // #536186 - Stone Gray (Primary Accent)
+  // #D3D3D3 - Fog Gray (Light Background)
+  // #363636 - Charcoal Gray (Text/Dark Background)
+  // #C0C0C0 - Silver (Borders/Secondary Accent)
+  // #B0C4DE - Ash Gray (Highlighting)
 
   const HeroSection = () => {
-    const { scrollY } = useScroll();
-    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
-
     return (
-        <header className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden bg-black text-white">
-          {/* Background Image with Parallax */}
-          <motion.div style={{ y: y1 }} className="absolute inset-0 z-0">
-             <div className="absolute inset-0 bg-black/60 z-10"></div>
-             <img src={IMAGES.hero} alt="Luxury Interior" className="w-full h-full object-cover opacity-80" />
+      <header className="relative min-h-[95vh] flex items-center justify-center overflow-hidden bg-[#D3D3D3] text-[#363636] pt-20">
+        {/* Parallax Background */}
+        <div className="absolute inset-0 z-0 opacity-50">
+          <ParallaxImage
+            src={IMAGES.hero}
+            alt="Stylish living room designed by an interior designer with a mood board on a table."
+            className="w-full h-full grayscale-[50%]"
+          />
+          {/* Subtle Grid Overlay */}
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage:
+                "linear-gradient(#536186 1px, transparent 1px), linear-gradient(90deg, #536186 1px, transparent 1px)",
+              backgroundSize: "60px 60px",
+            }}
+          ></div>
+        </div>
+
+        <div className="relative z-20 container mx-auto px-4 text-center max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-white/60 backdrop-blur-md text-[#536186] border border-[#C0C0C0]/50 text-xs md:text-sm font-bold tracking-widest uppercase mb-4 mt-8 shadow-sm">
+              <Brush size={16} /> Digital Marketing for Design Studios
+            </span>
           </motion.div>
-          
-          <div className="container mx-auto px-4 relative z-20 pt-20">
-            <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1 }}
-                className="mb-6 md:mb-8"
-              >
-                <div className="inline-flex items-center gap-2 px-6 py-2 border border-yellow-500/30 rounded-full bg-black/50 backdrop-blur-md text-yellow-500 uppercase tracking-widest text-[10px] md:text-xs font-bold shadow-2xl">
-                   <Brush size={12} /> Digital Aesthetics
-                </div>
-              </motion.div>
 
-              <motion.h1 
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-4xl sm:text-6xl md:text-7xl font-light mb-6 md:mb-8 leading-tight font-serif"
-              >
-                Design needs to be <br />
-                <span className="italic font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-500 to-yellow-600">
-                  Seen to be Sold.
-                </span>
-              </motion.h1>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight text-[#363636] capitalize font-serif"
+          >
+            Digital Marketing for <br className="hidden md:block" />
+            <span className="text-[#536186]">Interior Designers.</span>
+          </motion.h1>
 
-              <motion.p 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-lg md:text-xl text-slate-300 mb-8 md:mb-12 max-w-xl font-light leading-relaxed"
-              >
-                We curate digital experiences for Interior Designers & Architects. Transform your online portfolio into a client-generating masterpiece.
-              </motion.p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="max-w-3xl mx-auto"
+          >
+            <h2 className="text-xl md:text-2xl text-[#363636]/90 mb-6 font-bold">
+              Transform gorgeous interiors into developed projects.
+            </h2>
+            <p className="text-lg text-[#363636]/80 mb-10 leading-relaxed font-medium bg-white/40 p-6 rounded-2xl backdrop-blur-sm border border-white/50">
+              Through its performance-oriented brand from marketing -- Adswise
+              Marketing -- we develop customized programs that will help your
+              studio connect with high-value clients. The Adswise Marketing
+              approach to design digital marketing for interior designers
+              integrates visual storytelling, targeted ads, and localized search
+              engine optimization (SEO) to help you achieve your goal of
+              generating the correct leads rather than simply producing
+              additional web traffic.
+            </p>
+          </motion.div>
 
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="flex flex-col w-full sm:w-auto sm:flex-row gap-4 sm:gap-6"
-              >
-                 <button className="px-8 py-4 bg-white text-black font-bold text-sm md:text-base hover:bg-yellow-50 transition-colors flex items-center justify-center gap-2 w-full sm:w-auto">
-                    View Strategies <ArrowRight size={18} />
-                 </button>
-                 <button className="px-8 py-4 border border-white/20 bg-white/5 backdrop-blur-sm text-white font-light text-sm md:text-base hover:border-yellow-500 hover:text-yellow-500 transition-all w-full sm:w-auto">
-                    Book Free Audit
-                 </button>
-              </motion.div>
-            </div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="flex flex-col items-center justify-center gap-4"
+          >
+            <Link
+              to="/contact"
+              className="px-10 py-5 rounded-lg bg-[#536186] text-white font-bold text-lg hover:bg-[#363636] transition transform hover:-translate-y-1 shadow-xl flex items-center justify-center gap-2 w-full sm:w-auto"
+            >
+              Book my free design audit <ArrowRight size={20} />
+            </Link>
+            <p className="text-sm font-bold text-[#536186] tracking-wide uppercase mt-2">
+              No long contracts • Month-to-month options • Dedicated creative
+              strategist
+            </p>
+          </motion.div>
+        </div>
 
-          {/* Hero Footer Stats - Hidden on very small screens, visible on md+ */}
-          <div className="absolute bottom-0 left-0 w-full border-t border-white/10 bg-black/80 backdrop-blur-md py-6 z-20">
-            <div className="container mx-auto px-4 flex flex-wrap justify-center gap-8 md:gap-16 text-center">
-                {[
-                    { label: "Designers Scaled", val: "50+" },
-                    { label: "Lead Increase", val: "40%" },
-                    { label: "Portfolio Views", val: "1.2M+" }
-                ].map((stat, i) => (
-                    <div key={i} className="flex flex-col items-center">
-                        <div className="text-xl md:text-2xl font-serif text-yellow-500">{stat.val}</div>
-                        <div className="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest">{stat.label}</div>
-                    </div>
-                ))}
-            </div>
-          </div>
-        </header>
+        {/* Subtle Bottom Fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#D3D3D3] to-transparent z-10"></div>
+      </header>
     );
   };
 
-  const TrendsSection = () => (
-    <section className="py-20 md:py-24 bg-black relative">
-        <div className="absolute inset-0 opacity-10 bg-repeat" style={{ backgroundImage: `url(${IMAGES.texture})` }}></div>
-        <div className="container mx-auto px-4 relative z-10">
-            <AnimatedSection>
-                <h2 className="text-3xl md:text-4xl font-serif text-center mb-12 md:mb-16 text-white">
-                    Why Digital Matters in 2025
-                </h2>
-            </AnimatedSection>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                {[
-                    { icon: Smartphone, title: "Mobile Discovery", desc: "Affluent homeowners use Pinterest & Instagram on mobile to find inspiration." },
-                    { icon: MapPin, title: "Local SEO", desc: "'Interior designers near me' searches have grown 300% in the last 2 years." },
-                    { icon: PlayCircle, title: "Video Tours", desc: "Before-and-after reels and walkthroughs drive higher engagement than static photos." }
-                ].map((item, idx) => (
-                    <AnimatedSection key={idx} delay={idx * 0.2}>
-                        <div className="group relative p-8 bg-zinc-900/50 border border-zinc-800 hover:border-yellow-500/50 transition-all duration-500 h-full overflow-hidden rounded-xl">
-                            {/* Hover Glow */}
-                            <div className="absolute -right-10 -top-10 w-32 h-32 bg-yellow-500/10 rounded-full blur-3xl group-hover:bg-yellow-500/20 transition-all"></div>
-                            
-                            <item.icon className="text-slate-500 group-hover:text-yellow-500 mb-6 transition-colors transform group-hover:scale-110 duration-300" size={32} />
-                            <h3 className="text-xl text-white font-serif mb-4">{item.title}</h3>
-                            <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
-                            
-                            <div className="w-8 h-1 bg-yellow-600 mt-6 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-                        </div>
-                    </AnimatedSection>
-                ))}
-            </div>
-        </div>
-    </section>
-  );
+  const TheProblemSection = () => {
+    const problems = [
+      {
+        icon: Search,
+        title: "Hidden Portfolios",
+        desc: "Your company designs incredible spaces, but your customers do not see your best work because your portfolio is buried in the search results due to being on slow-loading pages.",
+      },
+      {
+        icon: Instagram,
+        title: "Vanity Metrics",
+        desc: "Your social media posts receive likes but don’t convert views into consultation requests.",
+      },
+      {
+        icon: Target,
+        title: "Irrelevant Clicks",
+        desc: "Your paid ads drive clicks but not design leads.",
+      },
+      {
+        icon: Mail,
+        title: "Lost Connections",
+        desc: "Customers have no way to find you after discovering your business and have no route for booking a consultation.",
+      },
+    ];
 
-  const ServiceCard = ({ title, icon: Icon, desc, tags, index, image }: any) => {
     return (
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: index * 0.1 }}
-        whileHover={{ y: -5 }}
-        className="group relative bg-zinc-900 border border-zinc-800 h-full overflow-hidden rounded-xl"
-      >
-        {/* Background Image Reveal on Hover */}
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-700">
-            <img src={image} alt="" className="w-full h-full object-cover grayscale" />
-        </div>
+      <section className="py-20 sm:py-28 bg-[#D3D3D3] relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <AnimatedSection>
+            <div className="text-center max-w-4xl mx-auto mb-16">
+              <h2 className="text-3xl sm:text-5xl font-extrabold mb-6 text-[#363636] font-serif">
+                The Problem: <br />
+                <span className="text-[#536186] text-2xl sm:text-4xl">
+                  Why interior designers don’t get the clients they deserve
+                </span>
+              </h2>
+              <p className="text-[#363636]/80 text-lg font-medium bg-[#B0C4DE]/20 p-6 rounded-2xl border border-[#C0C0C0]">
+                The result is low lead conversion rates, wasted marketing
+                dollars, and lost opportunities for high-value projects. To help
+                resolve these issues, we synchronize your images and copy with
+                the correct conversion paths for your design business.
+              </p>
+            </div>
+          </AnimatedSection>
 
-        <div className="relative z-10 p-8 flex flex-col h-full">
-            <div className="mb-6 flex justify-between items-start">
-                <div className="p-3 bg-black/80 backdrop-blur border border-zinc-700 rounded-lg text-yellow-500 group-hover:text-white group-hover:bg-yellow-600 transition-colors shadow-lg">
-                    <Icon size={24} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-center">
+            {problems.map((c, idx) => (
+              <AnimatedSection key={idx} delay={idx * 0.1} className="h-full">
+                <div className="bg-white/60 backdrop-blur-md p-8 rounded-3xl border border-[#C0C0C0] hover:border-[#536186] hover:shadow-[0_8px_30px_rgba(83,97,134,0.15)] transition-all group h-full relative overflow-hidden text-center flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center bg-[#D3D3D3] text-[#536186] mb-6 shadow-sm border border-[#C0C0C0] group-hover:scale-110 transition-transform">
+                    <c.icon size={28} />
+                  </div>
+                  <h3 className="text-xl font-bold text-[#363636] mb-3 font-serif">
+                    {c.title}
+                  </h3>
+                  <p className="text-[#363636]/70 text-sm leading-relaxed">
+                    {c.desc}
+                  </p>
                 </div>
-                <span className="text-xs font-mono text-zinc-600">0{index + 1}</span>
-            </div>
-            
-            <h3 className="text-2xl font-serif text-white mb-4 group-hover:translate-x-1 transition-transform">{title}</h3>
-            <p className="text-slate-400 text-sm mb-8 leading-relaxed flex-grow group-hover:text-slate-300 transition-colors">
-                {desc}
-            </p>
-
-            <div className="flex flex-wrap gap-2 mt-auto">
-                {tags.map((tag: string, i: number) => (
-                    <span key={i} className="text-[10px] uppercase tracking-wider px-2 py-1 bg-black/50 border border-zinc-700 text-zinc-400 rounded-sm">
-                        {tag}
-                    </span>
-                ))}
-            </div>
+              </AnimatedSection>
+            ))}
+          </div>
         </div>
-      </motion.div>
+      </section>
     );
   };
 
   const ServicesSection = () => {
-    const services = [
-        { 
-            title: "Visual SEO", 
-            icon: Search, 
-            image: IMAGES.service1,
-            desc: "Optimizing your images for Google Images & Pinterest search. We target keywords like 'Modern Living Room Design'.",
-            tags: ["Google Images", "Alt Tags", "Local SEO"]
-        },
-        { 
-            title: "Social Aesthetics", 
-            icon: Instagram, 
-            image: IMAGES.service2,
-            desc: "Curating your Instagram feed to look like a high-end magazine. Reels, Stories, and engagement management.",
-            tags: ["Reels", "Content", "Growth"]
-        },
-        { 
-            title: "High-Intent Ads", 
-            icon: TrendingUp, 
-            image: IMAGES.service3,
-            desc: "Stop boosting random posts. We run targeted campaigns finding homeowners actively looking for renovation.",
-            tags: ["Google Ads", "Meta Ads", "Retargeting"]
-        },
-        { 
-            title: "Portfolio Web Design", 
-            icon: Layout, 
-            image: IMAGES.hero,
-            desc: "Sleek, minimalistic websites that let your work speak. Fast loading and built to convert visitors.",
-            tags: ["UX/UI", "Speed", "Conversion"]
-        },
-        { 
-            title: "Content Marketing", 
-            icon: PenTool, 
-            image: IMAGES.strategy,
-            desc: "Establish authority with blogs about '2025 Trends' or 'Sustainable Materials'. Be the expert they trust.",
-            tags: ["Blogs", "Guides", "Authority"]
-        },
-        { 
-            title: "Lead Nurturing", 
-            icon: Mail, 
-            image: IMAGES.results,
-            desc: "Automated email sequences that warm up leads who downloaded your brochure but haven't booked yet.",
-            tags: ["Automation", "CRM", "Booking"]
-        }
-    ];
-
     return (
-        <section className="py-24 bg-black relative">
-            <div className="container mx-auto px-4">
-                <div className="mb-16 md:mb-20 max-w-2xl">
-                    <span className="text-yellow-500 font-bold tracking-widest text-xs uppercase mb-2 block pl-1">Our Palette of Services</span>
-                    <h2 className="text-4xl md:text-5xl font-serif text-white leading-tight">Crafting Your <br/>Digital Identity</h2>
-                </div>
+      <section className="py-24 bg-white border-y border-[#C0C0C0] relative overflow-hidden">
+        {/* Abstract background blobs */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#B0C4DE] rounded-full blur-[100px] opacity-20"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#D3D3D3] rounded-full blur-[120px] opacity-50"></div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {services.map((s, i) => (
-                        <ServiceCard key={i} index={i} {...s} />
-                    ))}
-                </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <AnimatedSection>
+            <div className="mb-16 text-center max-w-4xl mx-auto">
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-[#363636] mb-6 font-serif">
+                Tailored Services for{" "}
+                <span className="text-[#536186]">Interior Studios</span>
+              </h2>
+              <p className="text-[#363636]/80 text-lg font-medium">
+                Our concentration involves activities which improve how
+                designers work creatively from both the standpoints of best
+                practice and boutique studios. Services are packaged according
+                to solo designers, small groups, or studios that consist of
+                multiple designers.
+              </p>
             </div>
-        </section>
+          </AnimatedSection>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Service 1 */}
+            <AnimatedSection delay={0.1}>
+              <div className="bg-[#D3D3D3]/30 rounded-3xl p-8 lg:p-10 border border-[#C0C0C0] h-full hover:border-[#536186] hover:bg-white transition-all duration-300 shadow-sm hover:shadow-xl group">
+                <div className="flex items-center gap-4 mb-6 border-b border-[#C0C0C0] group-hover:border-[#536186] pb-4 transition-colors">
+                  <Layout className="text-[#536186]" size={36} />
+                  <h3 className="text-2xl font-bold text-[#363636] font-serif">
+                    Portfolio / Web Optimization
+                  </h3>
+                </div>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3 text-[#363636]/80">
+                    <CheckCircle
+                      className="text-[#B0C4DE] shrink-0 mt-1"
+                      size={20}
+                    />
+                    <span>
+                      Quick loading image galleries; separate filtered
+                      subs/galleries of your work according to category;
+                      portfolio project listing.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3 text-[#363636]/80">
+                    <CheckCircle
+                      className="text-[#B0C4DE] shrink-0 mt-1"
+                      size={20}
+                    />
+                    <span>
+                      SEO - Service Pages for Your Design Services (example =
+                      "modern kitchen designer") and Targeting Area Where you
+                      Work as well.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </AnimatedSection>
+
+            {/* Service 2 */}
+            <AnimatedSection delay={0.2}>
+              <div className="bg-[#D3D3D3]/30 rounded-3xl p-8 lg:p-10 border border-[#C0C0C0] h-full hover:border-[#536186] hover:bg-white transition-all duration-300 shadow-sm hover:shadow-xl group">
+                <div className="flex items-center gap-4 mb-6 border-b border-[#C0C0C0] group-hover:border-[#536186] pb-4 transition-colors">
+                  <TrendingUp className="text-[#536186]" size={36} />
+                  <h3 className="text-2xl font-bold text-[#363636] font-serif">
+                    Paid Social & Search
+                  </h3>
+                </div>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3 text-[#363636]/80">
+                    <CheckCircle
+                      className="text-[#B0C4DE] shrink-0 mt-1"
+                      size={20}
+                    />
+                    <span>
+                      Instagram and Pinterest campaigns focused on visual
+                      product discovery.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3 text-[#363636]/80">
+                    <CheckCircle
+                      className="text-[#B0C4DE] shrink-0 mt-1"
+                      size={20}
+                    />
+                    <span>
+                      Search Ads in Google for Search Terms Reflecting Serious
+                      Intent (e.g. "Designer Near Me" or by Room Specific).
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </AnimatedSection>
+
+            {/* Service 3 */}
+            <AnimatedSection delay={0.3}>
+              <div className="bg-[#D3D3D3]/30 rounded-3xl p-8 lg:p-10 border border-[#C0C0C0] h-full hover:border-[#536186] hover:bg-white transition-all duration-300 shadow-sm hover:shadow-xl group">
+                <div className="flex items-center gap-4 mb-6 border-b border-[#C0C0C0] group-hover:border-[#536186] pb-4 transition-colors">
+                  <Camera className="text-[#536186]" size={36} />
+                  <h3 className="text-2xl font-bold text-[#363636] font-serif">
+                    Content & Visual Storytelling
+                  </h3>
+                </div>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3 text-[#363636]/80">
+                    <CheckCircle
+                      className="text-[#B0C4DE] shrink-0 mt-1"
+                      size={20}
+                    />
+                    <span>
+                      We utilize our website to house story pages of our
+                      studios, process videos and before/after galleries.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3 text-[#363636]/80">
+                    <CheckCircle
+                      className="text-[#B0C4DE] shrink-0 mt-1"
+                      size={20}
+                    />
+                    <span>
+                      All blog articles will be written to answer common
+                      questions of both our customers and potential customers
+                      (budget, timelines, materials).
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </AnimatedSection>
+
+            {/* Service 4 */}
+            <AnimatedSection delay={0.4}>
+              <div className="bg-[#D3D3D3]/30 rounded-3xl p-8 lg:p-10 border border-[#C0C0C0] h-full hover:border-[#536186] hover:bg-white transition-all duration-300 shadow-sm hover:shadow-xl group">
+                <div className="flex items-center gap-4 mb-6 border-b border-[#C0C0C0] group-hover:border-[#536186] pb-4 transition-colors">
+                  <Mail className="text-[#536186]" size={36} />
+                  <h3 className="text-2xl font-bold text-[#363636] font-serif">
+                    Capturing & Nurturing Leads
+                  </h3>
+                </div>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3 text-[#363636]/80">
+                    <CheckCircle
+                      className="text-[#B0C4DE] shrink-0 mt-1"
+                      size={20}
+                    />
+                    <span>
+                      Through contact forms for conversion purposes, as well as,
+                      through automated follow-up emails after every
+                      consultation or contact by an individual.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3 text-[#363636]/80">
+                    <CheckCircle
+                      className="text-[#B0C4DE] shrink-0 mt-1"
+                      size={20}
+                    />
+                    <span>
+                      Utilizing WhatsApp and emails to turn leads into
+                      consultations.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </AnimatedSection>
+
+            {/* Full Width Service 5 Row */}
+            <AnimatedSection delay={0.5} className="md:col-span-2">
+              <div className="bg-[#363636] rounded-3xl p-8 lg:p-10 border border-[#536186] h-full shadow-xl flex flex-col md:flex-row gap-8 items-center overflow-hidden relative">
+                {/* Subtle decoration inside dark card */}
+                <div className="absolute top-0 right-0 w-40 h-40 bg-[#536186] rounded-full blur-[80px] opacity-30"></div>
+
+                <div className="flex-1 z-10">
+                  <div className="flex items-center gap-4 mb-6 border-b border-[#536186] pb-4">
+                    <MapPin className="text-[#B0C4DE]" size={32} />
+                    <h3 className="text-2xl font-bold text-white font-serif">
+                      Local Advertising & Reputation
+                    </h3>
+                  </div>
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3 text-[#D3D3D3]">
+                      <CheckCircle
+                        className="text-[#B0C4DE] shrink-0 mt-1"
+                        size={20}
+                      />
+                      <span>
+                        Optimization of Google Business Profile, generation of
+                        reviews, and citations in local databases.
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3 text-[#D3D3D3]">
+                      <CheckCircle
+                        className="text-[#B0C4DE] shrink-0 mt-1"
+                        size={20}
+                      />
+                      <span>
+                        Targeted marketing efforts toward major neighborhoods or
+                        new development ventures.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex-1 z-10 w-full">
+                  <div className="flex items-center gap-4 mb-6 border-b border-[#536186] pb-4">
+                    <BarChart className="text-[#B0C4DE]" size={32} />
+                    <h3 className="text-2xl font-bold text-white font-serif">
+                      Analytics & Growth
+                    </h3>
+                  </div>
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3 text-[#D3D3D3]">
+                      <CheckCircle
+                        className="text-[#B0C4DE] shrink-0 mt-1"
+                        size={20}
+                      />
+                      <span>
+                        Monthly dashboard monitors ROI and experimentation of
+                        conversion rates from inquiry to hire.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
     );
   };
 
-  const StrategySection = () => (
-    <section className="py-20 md:py-24 bg-zinc-950 border-y border-zinc-900 overflow-hidden">
-        <div className="container mx-auto px-4">
-            <AnimatedSection>
-                <h2 className="text-3xl md:text-4xl font-serif text-center mb-16 text-white">The Adswise Design Process</h2>
-            </AnimatedSection>
-            
-            <div className="relative">
-                {/* Connecting Line - Vertical on Mobile, Horizontal on Desktop */}
-                <div className="absolute left-8 top-0 h-full w-px bg-zinc-800 md:hidden"></div>
-                <div className="hidden md:block absolute top-12 left-0 w-full h-px bg-gradient-to-r from-transparent via-yellow-900 to-transparent"></div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
-                    {[
-                        { title: "Audit & Trends", step: "01", desc: "Analyzing competitors & design trends." },
-                        { title: "Persona Build", step: "02", desc: "Identifying your ideal high-ticket client." },
-                        { title: "Content Creation", step: "03", desc: "Filming sites & curating feeds." },
-                        { title: "Optimization", step: "04", desc: "Refining ads based on data." }
-                    ].map((item, i) => (
-                        <AnimatedSection key={i} delay={i * 0.2}>
-                            <div className="relative z-10 flex md:flex-col items-start md:items-center text-left md:text-center pl-20 md:pl-0">
-                                {/* Number Circle */}
-                                <div className="absolute left-0 top-0 md:relative md:top-auto md:left-auto w-16 h-16 rounded-full bg-zinc-950 border border-yellow-500/30 flex items-center justify-center text-yellow-500 font-serif text-xl mb-4 shadow-[0_0_20px_rgba(212,175,55,0.1)]">
-                                    {item.step}
-                                </div>
-                                <div>
-                                    <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                                    <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
-                                </div>
-                            </div>
-                        </AnimatedSection>
-                    ))}
-                </div>
+  const HowWeWorkSection = () => {
+    return (
+      <section className="py-24 bg-[#D3D3D3] relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <AnimatedSection>
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-[#363636] mb-6 font-serif">
+                How We Work
+              </h2>
+              <p className="text-[#363636]/80 text-lg font-medium">
+                Each stage has clearly defined deliverables as well as a
+                timeline on when to expect results.
+              </p>
             </div>
-        </div>
-    </section>
-  );
+          </AnimatedSection>
 
-  const ResultsSection = () => {
-     return (
-        <section className="bg-black flex flex-col md:flex-row min-h-[600px]">
-            <div className="md:w-1/2 px-6 py-16 md:p-20 flex flex-col justify-center bg-zinc-950">
-                <AnimatedSection>
-                    <div className="inline-block p-2 bg-yellow-900/10 rounded mb-4">
-                        <Star className="text-yellow-500 fill-yellow-500" size={20} />
-                    </div>
-                    <h2 className="text-3xl md:text-5xl font-serif text-white mb-6">Measurable <span className="text-yellow-500">Elegance</span></h2>
-                    <p className="text-slate-400 mb-10 leading-relaxed text-lg">
-                        Design is subjective. Results are not. We track every click, every portfolio view, and every consultation request to ensure your ROI.
-                    </p>
-                    <div className="space-y-8 max-w-md">
-                        {[
-                            { label: "Website Traffic Growth", val: "60%" },
-                            { label: "Social Engagement", val: "50%" },
-                            { label: "Qualified Leads", val: "40%" }
-                        ].map((stat, i) => (
-                            <div key={i}>
-                                <div className="flex justify-between text-sm text-slate-300 mb-2 font-medium">
-                                    <span>{stat.label}</span>
-                                    <span className="text-yellow-500">{stat.val}</span>
-                                </div>
-                                <div className="h-1 w-full bg-zinc-800 rounded-full overflow-hidden">
-                                    <motion.div 
-                                        initial={{ width: 0 }}
-                                        whileInView={{ width: stat.val }}
-                                        transition={{ duration: 1.5, delay: i * 0.2 }}
-                                        className="h-full bg-gradient-to-r from-yellow-600 to-yellow-400"
-                                    ></motion.div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </AnimatedSection>
-            </div>
-            
-            {/* Image Side with Floating Cards */}
-            <div className="md:w-1/2 relative min-h-[400px] md:min-h-auto">
-                <ParallaxImage src={IMAGES.results} alt="Interior Design Results" className="w-full h-full absolute inset-0" />
-                
-                <div className="absolute inset-0 flex items-center justify-center p-8 bg-black/20">
-                    <div className="grid grid-cols-2 gap-4 w-full max-w-sm">
-                        <motion.div 
-                            whileHover={{ scale: 1.05 }}
-                            className="aspect-square bg-black/80 backdrop-blur-xl border border-zinc-700 p-6 flex flex-col justify-between rounded-2xl shadow-2xl"
-                        >
-                            <TrendingUp className="text-green-500" size={32} />
-                            <div>
-                                <div className="text-3xl text-white font-serif mb-1">25+</div>
-                                <div className="text-[10px] text-slate-400 uppercase tracking-widest">Projects Booked</div>
-                            </div>
-                        </motion.div>
-                        <motion.div 
-                            whileHover={{ scale: 1.05 }}
-                            className="aspect-square bg-yellow-500/90 backdrop-blur-xl p-6 flex flex-col justify-between rounded-2xl shadow-2xl mt-8"
-                        >
-                            <Layers className="text-black" size={32} />
-                            <div>
-                                <div className="text-3xl text-black font-serif mb-1">Top 3</div>
-                                <div className="text-[10px] text-black/70 uppercase tracking-widest font-bold">Local Ranking</div>
-                            </div>
-                        </motion.div>
-                    </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Discovery & Strategy",
+                icon: <Compass size={40} />,
+                desc: "We analyze your portfolio of keywords and referral sources to determine your ideal client and map their journey to your service.",
+              },
+              {
+                title: "Creation & Launch",
+                icon: <Rocket size={40} />,
+                desc: "We create high-impact visuals, optimized landing pages and targeted ad campaigns that sync to your booking schedule.",
+              },
+              {
+                title: "Refinement & Scaling",
+                icon: <TrendingUp size={40} />,
+                desc: "Each week we synthesize our test results into new creative and scale your most successful jobs, with complete reporting each month.",
+              },
+            ].map((step, idx) => (
+              <AnimatedSection key={idx} delay={idx * 0.1}>
+                <div className="bg-white/70 backdrop-blur-md border border-[#C0C0C0] p-8 lg:p-10 rounded-3xl h-full flex flex-col items-center text-center shadow-lg hover:border-[#536186] hover:-translate-y-2 transition-all group">
+                  <div className="w-20 h-20 bg-[#D3D3D3] border border-[#C0C0C0] rounded-full flex items-center justify-center text-[#536186] mb-6 shadow-sm group-hover:scale-110 group-hover:bg-[#536186] group-hover:text-white transition-all duration-300">
+                    <span className="font-serif font-bold text-2xl">
+                      0{idx + 1}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-bold text-[#363636] mb-4 font-serif">
+                    {step.title}
+                  </h3>
+                  <p className="text-[#363636]/70 font-medium leading-relaxed">
+                    {step.desc}
+                  </p>
                 </div>
-            </div>
-        </section>
-     );
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
   };
 
-  const ChecklistSection = () => (
-      <section className="py-20 md:py-28 bg-zinc-950">
-          <div className="container mx-auto px-4 max-w-5xl">
-              <AnimatedSection>
-                  <div className="bg-black border border-zinc-800 p-8 md:p-16 rounded-3xl relative overflow-hidden shadow-2xl">
-                      {/* Decorative Background Elements */}
-                      <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-500/5 rounded-full blur-[80px]"></div>
-                      <div className="absolute bottom-0 left-0 w-64 h-64 bg-yellow-900/10 rounded-full blur-[80px]"></div>
-                      
-                      <div className="relative z-10 text-center mb-12">
-                         <h3 className="text-3xl md:text-4xl font-serif text-white mb-4">SEO Checklist for Designers</h3>
-                         <p className="text-slate-400">Essential elements we implement to get your portfolio found.</p>
-                      </div>
-                      
-                      <div className="grid md:grid-cols-2 gap-6 relative z-10">
-                          {[
-                              "Alt text on all portfolio images",
-                              "Schema markup for local business",
-                              "Fast mobile page loads",
-                              "Educational design blog content",
-                              "Google Business Profile optimization",
-                              "Backlinks from suppliers & directories"
-                          ].map((item, i) => (
-                              <motion.div 
-                                whileHover={{ x: 5 }}
-                                key={i} 
-                                className="flex items-center gap-4 text-slate-300 p-4 bg-zinc-900/50 rounded-xl border border-zinc-800/50"
-                              >
-                                  <div className="w-8 h-8 rounded-full bg-yellow-500/10 flex items-center justify-center shrink-0">
-                                     <CheckCircle2 size={16} className="text-yellow-500" />
-                                  </div>
-                                  <span className="text-sm font-medium">{item}</span>
-                              </motion.div>
-                          ))}
-                      </div>
-                  </div>
-              </AnimatedSection>
-          </div>
-      </section>
-  );
+  // Compass and Rocket defined locally for How We Work Section as they weren't in initial import list, using alternatives if needed but adding to import list is cleaner.
+  // We'll use alternatives from the imported lucide-react list to avoid import errors since we are writing to file.
+  // Relinking to Search and Zap respectively.
 
-  const ContactSection = () => (
-    <section className="py-20 md:py-24 bg-black relative">
-        <div className="container mx-auto px-4 max-w-6xl">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                <AnimatedSection>
-                    <h2 className="text-4xl md:text-6xl font-serif text-white mb-8 leading-tight">
-                        Ready to Showcase <br/> Your <span className="text-yellow-500 italic">Vision?</span>
-                    </h2>
-                    <p className="text-lg text-slate-400 mb-10 font-light leading-relaxed">
-                        We help you find clients who appreciate your style and budget. Let's build a brand that matches the quality of your interiors.
-                    </p>
-                    
-                    <div className="space-y-8">
-                        <div className="flex items-center gap-6 group cursor-pointer">
-                            <div className="w-14 h-14 bg-zinc-900 border border-zinc-800 rounded-2xl flex items-center justify-center text-yellow-500 group-hover:bg-yellow-500 group-hover:text-black transition-all shadow-lg">
-                                <Palette size={24} />
-                            </div>
-                            <div>
-                                <h4 className="text-white font-bold text-lg">Tailored Strategy</h4>
-                                <p className="text-sm text-slate-500 group-hover:text-yellow-500/80 transition-colors">Custom marketing plans for your unique style.</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-6 group cursor-pointer">
-                            <div className="w-14 h-14 bg-zinc-900 border border-zinc-800 rounded-2xl flex items-center justify-center text-yellow-500 group-hover:bg-yellow-500 group-hover:text-black transition-all shadow-lg">
-                                <Camera size={24} />
-                            </div>
-                            <div>
-                                <h4 className="text-white font-bold text-lg">In-House Production</h4>
-                                <p className="text-sm text-slate-500 group-hover:text-yellow-500/80 transition-colors">We create the content. You do the design.</p>
-                            </div>
-                        </div>
-                    </div>
-                </AnimatedSection>
-
-                <AnimatedSection delay={0.2}>
-                    <form onSubmit={handleSubmit} className="bg-zinc-900 p-8 md:p-12 border border-zinc-800 shadow-2xl relative rounded-3xl overflow-hidden">
-                        {/* Decorative Corner */}
-                        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-yellow-500/20 to-transparent rounded-bl-full"></div>
-                        
-                        <h3 className="text-2xl font-serif text-white mb-8">Request Portfolio Audit</h3>
-                        
-                        <div className="space-y-5">
-                            <input 
-                                required 
-                                name="name" 
-                                onChange={handleInputChange} 
-                                className="w-full bg-black border border-zinc-800 rounded-lg p-4 text-white placeholder-zinc-600 focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all" 
-                                placeholder="Your Name" 
-                            />
-                            <input 
-                                required 
-                                name="email" 
-                                type="email" 
-                                onChange={handleInputChange} 
-                                className="w-full bg-black border border-zinc-800 rounded-lg p-4 text-white placeholder-zinc-600 focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all" 
-                                placeholder="Email Address" 
-                            />
-                            <input 
-                                name="website" 
-                                onChange={handleInputChange} 
-                                className="w-full bg-black border border-zinc-800 rounded-lg p-4 text-white placeholder-zinc-600 focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all" 
-                                placeholder="Website / Instagram Link" 
-                            />
-                            <select 
-                                name="serviceInterest" 
-                                onChange={handleInputChange} 
-                                className="w-full bg-black border border-zinc-800 rounded-lg p-4 text-white placeholder-zinc-600 focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all appearance-none"
-                            >
-                                <option value="" className="text-zinc-500">Interested In...</option>
-                                <option value="Social Media">Social Media Management</option>
-                                <option value="SEO">Local SEO</option>
-                                <option value="Ads">Lead Generation Ads</option>
-                                <option value="Full Package">Full Branding Package</option>
-                            </select>
-                            <textarea 
-                                name="message" 
-                                rows={3} 
-                                onChange={handleInputChange} 
-                                className="w-full bg-black border border-zinc-800 rounded-lg p-4 text-white placeholder-zinc-600 focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all" 
-                                placeholder="Tell us about your design firm..." 
-                            />
-                        </div>
-
-                        <motion.button 
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            type="submit" 
-                            className="mt-8 w-full py-5 bg-gradient-to-r from-yellow-600 to-yellow-500 text-black font-bold text-lg rounded-xl hover:shadow-lg hover:shadow-yellow-500/20 transition-all flex items-center justify-center gap-2"
-                        >
-                            Get My Audit <ArrowRight size={20} />
-                        </motion.button>
-                    </form>
-                </AnimatedSection>
+  const HowWeWorkSectionSafe = () => {
+    return (
+      <section className="py-24 bg-[#D3D3D3] relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <AnimatedSection>
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-[#363636] mb-6 font-serif">
+                How We Work
+              </h2>
+              <p className="text-[#363636]/80 text-lg font-medium">
+                Each stage has clearly defined deliverables as well as a
+                timeline on when to expect results.
+              </p>
             </div>
+          </AnimatedSection>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Discovery & Strategy",
+                icon: <Search size={32} />,
+                desc: "We analyze your portfolio of keywords and referral sources to determine your ideal client and map their journey to your service.",
+              },
+              {
+                title: "Creation & Launch",
+                icon: <Zap size={32} />,
+                desc: "We create high-impact visuals, optimized landing pages and targeted ad campaigns that sync to your booking schedule.",
+              },
+              {
+                title: "Refinement & Scaling",
+                icon: <TrendingUp size={32} />,
+                desc: "Each week we synthesize our test results into new creative and scale your most successful jobs, with complete reporting each month.",
+              },
+            ].map((step, idx) => (
+              <AnimatedSection key={idx} delay={idx * 0.1}>
+                <div className="bg-white/70 backdrop-blur-md border border-[#C0C0C0] p-8 lg:p-10 rounded-3xl h-full flex flex-col items-center text-center shadow-lg hover:border-[#536186] hover:-translate-y-2 transition-all group">
+                  <div className="w-16 h-16 bg-[#D3D3D3] border border-[#C0C0C0] rounded-2xl flex items-center justify-center text-[#536186] mb-6 shadow-sm group-hover:rotate-12 group-hover:bg-[#536186] group-hover:text-white transition-all duration-300">
+                    {step.icon}
+                  </div>
+                  <div className="uppercase tracking-widest text-[#B0C4DE] font-bold text-xs mb-2">
+                    Phase 0{idx + 1}
+                  </div>
+                  <h3 className="text-xl font-bold text-[#363636] mb-4 font-serif">
+                    {step.title}
+                  </h3>
+                  <p className="text-[#363636]/70 text-sm font-medium leading-relaxed">
+                    {step.desc}
+                  </p>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
         </div>
+      </section>
+    );
+  };
+
+  const SplitFeaturesSection = () => {
+    return (
+      <section className="py-24 bg-white border-y border-[#C0C0C0] relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Benefits */}
+            <AnimatedSection>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-8 font-serif">
+                Benefits & Measurable Outcomes
+              </h2>
+              <div className="bg-[#536186] rounded-3xl p-8 lg:p-10 relative overflow-hidden shadow-2xl">
+                <div className="absolute right-0 bottom-0 opacity-10 transform translate-x-1/4 translate-y-1/4">
+                  <Brush size={250} className="text-white" />
+                </div>
+
+                <ul className="space-y-6 relative z-10">
+                  {[
+                    "Numerous qualified consultations derived from high-intent traffic.",
+                    "Shorter decision cycle through transparent processes.",
+                    "More high-value projects due to their clients understanding design expenditures.",
+                    "Increased local market presence for repeat and referral business.",
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex gap-4 items-start">
+                      <CheckCircle
+                        className="text-white shrink-0 mt-1"
+                        size={24}
+                      />
+                      <span className="text-[#D3D3D3] text-lg font-medium leading-relaxed">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </AnimatedSection>
+
+            {/* KPIs */}
+            <AnimatedSection delay={0.2}>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-8 font-serif">
+                KPIs We Track
+              </h2>
+              <p className="text-[#363636]/80 text-lg font-medium mb-6">
+                KPI’s to be established in the first month and measured by
+                future revenue performance.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  {
+                    t: "Consult Requests",
+                    d: "Channel & project-based statistics",
+                  },
+                  {
+                    t: "Cost Metrics",
+                    d: "Cost per lead & Cost per consultation",
+                  },
+                  {
+                    t: "Web Engagement",
+                    d: "Portfolio conversion rate & session duration",
+                  },
+                  { t: "Ad Performance", d: "Impressions, CTR, CPL and ROAS" },
+                  {
+                    t: "Local Footprint",
+                    d: "GBP views, directions, reviews growth",
+                  },
+                  {
+                    t: "Revenue ROI",
+                    d: "Lead-to-booking rate & revenue from leads",
+                  },
+                ].map((kpi, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-[#D3D3D3]/50 p-5 rounded-xl border border-[#C0C0C0] hover:bg-white transition-colors shadow-sm"
+                  >
+                    <h4 className="font-bold text-[#536186] text-lg mb-1">
+                      {kpi.t}
+                    </h4>
+                    <p className="text-[#363636]/70 text-sm leading-snug font-medium">
+                      {kpi.d}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+    );
+  };
+
+  const FAQSection = () => {
+    const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+
+    const faqs = [
+      {
+        q: "How fast will I see consultations?",
+        a: "Paid campaigns can generate consultation requests within 7–14 days. SEO and content gains typically appear over 2–4 months.",
+      },
+      {
+        q: "Do you produce visual content (photos/video)?",
+        a: "Yes — we coordinate shoots or repurpose your existing assets into ads and case studies.",
+      },
+      {
+        q: "Can you target high-value local clients?",
+        a: "Yes. We run hyper-local ad sets and GBP optimization to attract clients in your service areas.",
+      },
+      {
+        q: "Will you work with my existing CMS/booking tool?",
+        a: "Absolutely. We integrate with common CMS platforms and booking systems to streamline inquiries.",
+      },
+      {
+        q: "Are there long contracts?",
+        a: "No long contracts — month-to-month options available.",
+      },
+    ];
+
+    return (
+      <section className="py-20 sm:py-24 bg-[#D3D3D3]/50">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <AnimatedSection>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-4 font-serif">
+                FAQs — Short & Clear Answers
+              </h2>
+            </div>
+          </AnimatedSection>
+
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <AnimatedSection key={index} delay={index * 0.1}>
+                <div className="bg-white rounded-2xl border border-[#C0C0C0] overflow-hidden shadow-sm transition-all hover:border-[#536186] hover:shadow-md">
+                  <button
+                    type="button"
+                    onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
+                    className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none hover:bg-[#B0C4DE]/10 transition-colors"
+                  >
+                    <span className="font-bold text-[#363636] text-base md:text-lg pr-4 font-serif">
+                      {faq.q}
+                    </span>
+                    {openFAQ === index ? (
+                      <Minus
+                        size={24}
+                        className="flex-shrink-0 text-[#536186]"
+                      />
+                    ) : (
+                      <Plus
+                        size={24}
+                        className="flex-shrink-0 text-[#536186]"
+                      />
+                    )}
+                  </button>
+                  <AnimatePresence>
+                    {openFAQ === index && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="px-6 pb-5"
+                      >
+                        <p className="text-[#363636]/80 text-base font-medium pt-4 border-t border-[#C0C0C0]/50">
+                          {faq.a}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  };
+
+  const CTASection = () => (
+    <section className="py-24 sm:py-32 relative overflow-hidden bg-[#363636]">
+      {/* Decorative Elements */}
+      <div
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: `url('https://www.transparenttextures.com/patterns/graphy.png')`,
+        }}
+      ></div>
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#536186] rounded-full blur-[150px] opacity-40 pointer-events-none"></div>
+
+      <div className="container mx-auto px-4 relative z-10 text-center max-w-4xl">
+        <AnimatedSection>
+          <span className="inline-block p-4 bg-white/10 rounded-full mb-8 backdrop-blur-sm border border-white/20">
+            <Star className="text-white fill-[#C0C0C0]" size={32} />
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-white mb-8 leading-tight font-serif">
+            Ready to turn your portfolio <br className="hidden md:block" />
+            <span className="text-[#C0C0C0] italic">into booked projects?</span>
+          </h2>
+          <p className="text-xl text-[#D3D3D3] mb-12 font-medium leading-relaxed max-w-2xl mx-auto">
+            Book a free design-marketing audit and receive a tailored 90-day
+            plan.
+          </p>
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center">
+            <Link
+              to="/contact"
+              className="w-full sm:w-auto px-10 py-5 rounded-xl font-bold text-[#363636] bg-[#D3D3D3] hover:bg-white transform transition hover:scale-105 shadow-xl shadow-black/30 flex items-center justify-center gap-2"
+            >
+              Book my free design audit <ArrowRight size={20} />
+            </Link>
+            <Link
+              to="/services"
+              className="w-full sm:w-auto px-10 py-5 rounded-xl font-bold text-[#D3D3D3] bg-transparent border-2 border-[#536186] hover:bg-[#536186] hover:text-white transform transition flex items-center justify-center gap-2"
+            >
+              Our Services
+            </Link>
+          </div>
+
+          <div className="mt-12 flex flex-wrap justify-center gap-4 md:gap-8 text-sm font-bold text-[#B0C4DE] tracking-wide uppercase">
+            <span>No long contracts</span>
+            <span className="hidden md:inline">•</span>
+            <span>Month-to-month options</span>
+            <span className="hidden md:inline">•</span>
+            <span>Dedicated creative strategist</span>
+          </div>
+
+          <div className="mt-10">
+            <Link
+              to="/portfolio"
+              className="text-[#D3D3D3] hover:text-white underline underline-offset-4 transition text-sm font-bold uppercase tracking-wider"
+            >
+              View our Portfolio
+            </Link>
+          </div>
+        </AnimatedSection>
+      </div>
     </section>
   );
 
-  const Footer = () => (
-      <footer className="bg-black text-zinc-600 py-12 border-t border-zinc-900 text-center text-sm">
-          <div className="mb-4 text-white font-serif text-xl tracking-wider">Adswise Marketing</div>
-          <p className="mb-4">Interior Design Digital Specialists</p>
-          <div className="flex justify-center gap-4 text-xs uppercase tracking-widest text-zinc-700">
-             <span>Instagram</span>
-             <span>LinkedIn</span>
-             <span>Pinterest</span>
-          </div>
-      </footer>
-  );
-
-  // ============================================================================
-  // MAIN RENDER
-  // ============================================================================
-
   return (
-    <div className="font-sans bg-black text-slate-100 min-h-screen selection:bg-yellow-500 selection:text-black overflow-x-hidden">
+    <div className="font-sans bg-[#D3D3D3] text-[#363636] min-h-screen selection:bg-[#536186] selection:text-white">
       <HeroSection />
-      <TrendsSection />
+      <TheProblemSection />
       <ServicesSection />
-      <StrategySection />
-      <ResultsSection />
-      <ChecklistSection />
-      <ContactSection />
-      <Footer />
+      <HowWeWorkSectionSafe />
+      <SplitFeaturesSection />
+      <FAQSection />
+      <CTASection />
     </div>
   );
 };

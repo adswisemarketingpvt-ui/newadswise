@@ -9,7 +9,7 @@ import HealthcarePage from "./HealthcarePage";
 import EducationPage from "./EducationPage";
 // Simple Not Found Component (rendered if the slug doesn't match)
 const NotFoundIndustry = () => (
-  <div className="min-h-screen flex items-center justify-center bg-slate-900 text-white font-sans">
+  <div className="min-h-screen flex items-center justify-center bg-slate-900 text-[#0A192F] font-sans">
     <div className="text-center p-8">
       <h2 className="text-5xl font-bold mb-4 text-yellow-500">404</h2>
       <p className="text-xl mb-6">Industry Not Found</p>

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import {
   BarChart3,
@@ -41,7 +40,7 @@ export default function ServicesPage(): JSX.Element {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const index = cardRefs.current.indexOf(
-              entry.target as HTMLDivElement
+              entry.target as HTMLDivElement,
             );
             if (index !== -1) {
               setVisibleCards((prev) => new Set([...prev, index]));
@@ -49,7 +48,7 @@ export default function ServicesPage(): JSX.Element {
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.12 },
     );
 
     cardRefs.current.forEach((ref) => {
@@ -64,7 +63,7 @@ export default function ServicesPage(): JSX.Element {
       icon: BarChart3,
       title: "Strategy & Consulting",
       description: "Expert business strategies and consulting to drive success",
-      color: "#C7843B",
+      color: "#536186",
       slug: "strategy-consulting",
     },
     {
@@ -72,14 +71,14 @@ export default function ServicesPage(): JSX.Element {
       title: "Social Media Marketing",
       description:
         "Boost brand engagement with powerful social media campaigns",
-      color: "#F3BD68",
+      color: "#B0C4DE",
       slug: "social-media-marketing",
     },
     {
       icon: Palette,
       title: "Graphics Designing",
       description: "Creative graphic designs that strengthen brand identity",
-      color: "#C7843B",
+      color: "#536186",
       slug: "graphics-designing",
     },
     {
@@ -87,28 +86,28 @@ export default function ServicesPage(): JSX.Element {
       title: "Video Production",
       description:
         "Professional video production telling your brand's unique story",
-      color: "#F3BD68",
+      color: "#B0C4DE",
       slug: "video-production",
     },
     {
       icon: TrendingUp,
       title: "Performance Marketing",
       description: "Targeted campaigns that deliver measurable business growth",
-      color: "#C7843B",
+      color: "#536186",
       slug: "performance-marketing",
     },
     {
       icon: Globe,
       title: "Website Development",
       description: "Responsive websites built to match business objectives",
-      color: "#F3BD68",
+      color: "#B0C4DE",
       slug: "website-development",
     },
     {
       icon: ShoppingCart,
       title: "E-Commerce Development",
       description: "Seamless e-commerce solutions helping brands sell online",
-      color: "#C7843B",
+      color: "#536186",
       slug: "ecommerce-development",
     },
     {
@@ -116,23 +115,23 @@ export default function ServicesPage(): JSX.Element {
       title: "Search Engine Optimization",
       description:
         "Boost online presence with expert SEO optimization services",
-      color: "#F3BD68",
+      color: "#B0C4DE",
       slug: "search-engine-optimization",
     },
     {
       icon: Bot,
-      title: "Answer Engine Optimization",
+      title: "Mobile App Development",
       description:
-        "Get found in AI answers. Be the one AI tools trust and pick.",
-      color: "#C7843B",
-      slug: "answer-engine-optimization",
+        "Expert mobile app development services for iOS and Android platforms.",
+      color: "#536186",
+      slug: "mobile-app-development",
     },
     {
       icon: PackageSearch,
       title: "Platform Listing Optimization",
       description:
         "Optimize your product listings to boost visibility and sales.",
-      color: "#F3BD68",
+      color: "#B0C4DE",
       slug: "Platform-Listing-Optimization",
     },
     {
@@ -140,7 +139,7 @@ export default function ServicesPage(): JSX.Element {
       title: "Media Buying & Planning",
       description:
         "Strategic media buying and planning to maximize ad spend efficiency.",
-      color: "#C7843B",
+      color: "#536186",
       slug: "media-buying-planning",
     },
     {
@@ -148,11 +147,9 @@ export default function ServicesPage(): JSX.Element {
       title: "Email & Whatsapp Marketing",
       description:
         "Engage customers with targeted email and WhatsApp marketing campaigns.",
-      color: "#C7843B",
+      color: "#B0C4DE",
       slug: "email-whatsapp-marketing",
     },
-
-
   ];
 
   const openFeatured = (index: number) => {
@@ -173,13 +170,12 @@ export default function ServicesPage(): JSX.Element {
   };
 
   return (
-    <div className="min-h-screen bg-black from-[#4D6473] via-[#2C4657] to-[#172531] py-20 px-6 md:px-12 relative">
-
+    <div className="min-h-screen bg-[#D3D3D3] py-20 px-6 md:px-12 relative">
       <SEO
-  title="Our Services | AdsWise Marketing"
-  description="AdsWise Marketing offers branding, ad films, digital marketing, social media management and performance campaigns."
-  url="https://www.adswisemarketing.com/services"
-/>
+        title="Our Services | AdsWise Marketing"
+        description="AdsWise Marketing offers branding, ad films, digital marketing, social media management and performance campaigns."
+        url="https://www.adswisemarketing.com/services"
+      />
 
       {/* ========================
           Inserted "How We Help" Section
@@ -237,7 +233,7 @@ export default function ServicesPage(): JSX.Element {
                   strokeLinejoin="round"
                 />
               </svg>
-              <h3 className="text-white font-bold text-xl mt-5">
+              <h3 className="text-[#363636] font-bold text-xl mt-5">
                 24/7 dedicated support
               </h3>
             </article>
@@ -270,7 +266,7 @@ export default function ServicesPage(): JSX.Element {
                   strokeLinecap="round"
                 />
               </svg>
-              <h3 className="text-white font-bold text-xl mt-5">
+              <h3 className="text-[#363636] font-bold text-xl mt-5">
                 Make More Sales
               </h3>
             </article>
@@ -311,7 +307,7 @@ export default function ServicesPage(): JSX.Element {
                   strokeLinejoin="round"
                 />
               </svg>
-              <h3 className="text-white font-bold text-xl mt-5">
+              <h3 className="text-[#363636] font-bold text-xl mt-5">
                 Build Brand Awareness
               </h3>
             </article>
@@ -350,7 +346,7 @@ export default function ServicesPage(): JSX.Element {
                   strokeLinecap="round"
                 />
               </svg>
-              <h3 className="text-white font-bold text-xl mt-5">
+              <h3 className="text-[#363636] font-bold text-xl mt-5">
                 Upskill Your Team
               </h3>
             </article>
@@ -366,7 +362,7 @@ export default function ServicesPage(): JSX.Element {
           .hw-card { transition: .3s ease; }
           .hw-card:hover { transform: translateY(-8px); background: rgba(255,255,255,0.06); }
           .hw-card h3 { margin-top: 20px; font-size: 20px; font-weight: 700; color: #fff; }
-          .hw-icon { width: 72px; height: 72px; color: #f7931a; transition: .4s; }
+          .hw-icon { width: 72px; height: 72px; color: #536186; transition: .4s; }
           .hw-card:hover .hw-icon { transform: translateY(-6px) scale(1.1); }
           @media (max-width: 1000px) { .hw-grid { grid-template-columns: repeat(2, 1fr); } }
           @media (max-width: 520px) { .hw-grid { grid-template-columns: 1fr; } #how-we-help { padding: 28px 14px; } }
@@ -377,17 +373,23 @@ export default function ServicesPage(): JSX.Element {
           Original ServicesPage content
          ======================== */}
       <div className="max-w-7xl mx-auto relative z-10">
-       
-
-         <div className="text-center mb-4 md:mb-5 animate-fadeIn" style={{ animationDelay: '0s' }}>
-          <h1 className="text-4xl md:text-6xl lg:text-4xl font-bold text-white mb-4">
-            Our <span className="text-yellow-500">Services</span>
+        <div
+          className="text-center mb-4 md:mb-5 animate-fadeIn"
+          style={{ animationDelay: "0s" }}
+        >
+          <h1 className="text-4xl md:text-6xl lg:text-4xl font-bold text-[#363636] mb-4">
+            B2B DIGITAL MARKETING AGENCY
+            <span className="text-[#536186]">FOR GROWTH-FOCUSED BRANDS.</span>
           </h1>
-          <p className="text-gray-500 text-sm md:text-lg">
-            We understand that the digital landscape is constantly evolving and
-            we are here to guide you through it. With our comprehensive range of
-            digital marketing services, we can assist you in achieving your
-            online goals and growing your business.
+          <h2 className="text-[#363636]/80 text-sm md:text-lg">
+            No vanity metrics. Only qualified pipeline growth. Strategy-driven
+            marketing built for serious B2B brands.
+          </h2>
+          <p className="text-[#363636]/80 text-sm md:text-lg">
+            Most agencies sell “packages”. At Adswise Marketing, we build
+            systems – research-driven digital engines that attract the right
+            audience, turn them into qualified enquiries and support your sales
+            team with clear, usable data.​
           </p>
         </div>
 
@@ -426,10 +428,10 @@ export default function ServicesPage(): JSX.Element {
                   className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transform transition-transform duration-300 hover:scale-110 hover:rotate-6"
                   style={{ backgroundColor: service.color }}
                 >
-                  <Icon size={32} className="text-white" strokeWidth={2} />
+                  <Icon size={32} className="text-[#363636]" strokeWidth={2} />
                 </div>
 
-                <h3 className="text-xl font-bold text-[#172531] mb-3 leading-tight">
+                <h3 className="text-xl font-bold text-[#363636] mb-3 leading-tight">
                   {service.title}
                 </h3>
 
@@ -438,11 +440,11 @@ export default function ServicesPage(): JSX.Element {
                   style={{ backgroundColor: service.color }}
                 />
 
-                <p className="text-[#4D6473] leading-relaxed mb-6">
+                <p className="text-[#536186] leading-relaxed mb-6">
                   {service.description}
                 </p>
 
-                <div className="flex items-center gap-2 text-[#172531] font-semibold hover:text-[#C7843B] transition-colors duration-300 group">
+                <div className="flex items-center gap-2 text-[#363636] font-semibold hover:text-[#536186] transition-colors duration-300 group">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -467,15 +469,15 @@ export default function ServicesPage(): JSX.Element {
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div
           className="absolute top-20 left-10 w-64 h-64 rounded-full opacity-5 blur-3xl animate-float"
-          style={{ backgroundColor: "#C7843B" }}
+          style={{ backgroundColor: "#536186" }}
         />
         <div
           className="absolute bottom-20 right-10 w-96 h-96 rounded-full opacity-5 blur-3xl animate-float-delayed"
-          style={{ backgroundColor: "#F3BD68" }}
+          style={{ backgroundColor: "#B0C4DE" }}
         />
         <div
           className="absolute top-1/2 left-1/2 w-80 h-80 rounded-full opacity-5 blur-3xl animate-float-slow"
-          style={{ backgroundColor: "#4D6473" }}
+          style={{ backgroundColor: "#363636" }}
         />
       </div>
 
@@ -486,12 +488,12 @@ export default function ServicesPage(): JSX.Element {
           role="dialog"
           onClick={closeFeatured}
         >
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-white/40 backdrop-blur-sm" />
           <div
             className="relative z-60 max-w-3xl w-[92%] md:w-2/3 lg:w-1/2 rounded-3xl p-10 shadow-2xl transform transition-all duration-500 featured-zoom"
             onClick={(e) => e.stopPropagation()}
             style={{
-              background: `linear-gradient(180deg, ${services[activeIndex].color}, #F3BD68)`,
+              background: `linear-gradient(180deg, ${services[activeIndex].color}, #C0C0C0)`,
             }}
           >
             <button
@@ -509,12 +511,12 @@ export default function ServicesPage(): JSX.Element {
               >
                 {React.createElement(services[activeIndex].icon, {
                   size: 44,
-                  className: "text-white",
+                  className: "text-[#363636]",
                   strokeWidth: 2,
                 })}
               </div>
 
-              <div className="flex-1 text-white">
+              <div className="flex-1 text-[#363636]">
                 <h2 className="text-2xl md:text-3xl font-extrabold leading-tight mb-2">
                   {services[activeIndex].title}
                 </h2>
@@ -522,21 +524,21 @@ export default function ServicesPage(): JSX.Element {
                   className="w-20 h-1 mb-4"
                   style={{ backgroundColor: "rgba(0,0,0,0.12)" }}
                 />
-                <p className="mb-6 text-white/90">
+                <p className="mb-6 text-[#363636]/90">
                   {services[activeIndex].description}
                 </p>
 
                 <div className="flex gap-3">
                   <button
                     onClick={() => goToService(services[activeIndex])}
-                    className="bg-black/90 text-white px-6 py-3 rounded-full font-semibold shadow-md hover:translate-y-[-2px] transition-transform"
+                    className="bg-white/90 text-[#363636] px-6 py-3 rounded-full font-semibold shadow-md hover:translate-y-[-2px] transition-transform"
                   >
                     Learn More
                   </button>
 
                   <button
                     onClick={closeFeatured}
-                    className="bg-white/20 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/30 transition-colors"
+                    className="bg-white/20 text-[#363636] px-6 py-3 rounded-full font-semibold hover:bg-white/30 transition-colors"
                   >
                     Close
                   </button>
