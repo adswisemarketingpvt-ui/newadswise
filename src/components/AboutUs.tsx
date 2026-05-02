@@ -24,6 +24,7 @@ import {
 
 import { Link } from "react-router-dom";
 import SEO from "./SEO";
+import Team from "../homepages/Team";
 
 export default function AboutUs() {
   const [scrollY, setScrollY] = useState(0);
@@ -240,7 +241,10 @@ export default function AboutUs() {
             playsInline
             className="w-full h-full object-cover"
           >
-            <source src="https://v1.pinimg.com/videos/mc/720p/19/29/af/1929afadfcbc1d3ad6c819471afabe94.mp4" type="video/mp4" />
+            <source
+              src="https://v1.pinimg.com/videos/mc/720p/19/29/af/1929afadfcbc1d3ad6c819471afabe94.mp4"
+              type="video/mp4"
+            />
           </video>
           {/* Overlay to ensure text readability */}
           <div className="absolute inset-0 bg-[#536186]/80" />
@@ -304,6 +308,11 @@ export default function AboutUs() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* --- TEAM --- */}
+      <section className="bg-[#D3D3D3]/20">
+        <Team />
       </section>
 
       {/* --- PHILOSOPHY --- */}

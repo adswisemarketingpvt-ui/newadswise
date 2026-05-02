@@ -222,11 +222,14 @@ export default function Hero() {
 
         {/* DARK LAYER - Deep Indigo B2B */}
         <div className="dark-reveal-layer absolute inset-0 bg-[#1E293B] z-20 overflow-hidden w-full h-full">
-          {/* Background Image */}
+          {/* Background Video */}
           <div className="absolute inset-0 pointer-events-none z-0">
-            <img
-              src="https://i.pinimg.com/1200x/f1/bc/d0/f1bcd0d5721ec066ae0340d4547da23d.jpg"
-              alt="Hero Background"
+            <video
+              src="https://v1.pinimg.com/videos/mc/720p/9a/7b/6d/9a7b6d89796e0a4dcf41459432312fda.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
               className="w-full h-full object-cover"
             />
             {/* Overlay to ensure text readability */}

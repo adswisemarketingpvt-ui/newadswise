@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-
 /*
   SEO METADATA CONTENT (For specific configuration in index.html, next/head or helmet):
   Meta Title (≤60 chars): Search Engine Optimization Agency in Pune | Top SEO Agency
@@ -675,7 +674,7 @@ const SEOService = () => {
         <div className="container mx-auto px-4 max-w-4xl">
           <AnimatedSection>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] text-center mb-12">
-              FAQs (SEO-Optimized)
+              FAQs
             </h2>
           </AnimatedSection>
 

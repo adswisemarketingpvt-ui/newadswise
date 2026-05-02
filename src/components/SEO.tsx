@@ -23,14 +23,29 @@ const SEO = ({
   const location = useLocation();
   const currentPath = location.pathname;
 
+  // let finalCanonical = canonical || currentPath;
+  // if (finalCanonical.startsWith("/")) {
+  //   finalCanonical = `${baseDomain}${finalCanonical}`;
+  // }
+
+  // let finalUrl = url || currentPath;
+  // if (finalUrl.startsWith("/")) {
+  //   finalUrl = `${baseDomain}${finalUrl}`;
+  // }
+
+  // Ensure finalCanonical doesn't just point to the root domain
   let finalCanonical = canonical || currentPath;
+
   if (finalCanonical.startsWith("/")) {
-    finalCanonical = `${baseDomain}${finalCanonical}`;
+    // If it's just "/", it becomes "https://www.adswisemarketing.com/"
+    // If it's "/about-us", it becomes "https://www.adswisemarketing.com/about-us"
+    finalCanonical = `${baseDomain}${finalCanonical === "/" ? "" : finalCanonical}`;
   }
 
+  // Apply the same logic to finalUrl for Open Graph
   let finalUrl = url || currentPath;
   if (finalUrl.startsWith("/")) {
-    finalUrl = `${baseDomain}${finalUrl}`;
+    finalUrl = `${baseDomain}${finalUrl === "/" ? "" : finalUrl}`;
   }
 
   return (

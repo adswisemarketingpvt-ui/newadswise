@@ -32,6 +32,7 @@ function InteriordesignCaseStudy() {
       <SEO
         title="Interior Design Marketing Case Study | Adswise Marketing"
         description="How Adswise Marketing doubled leads for a Pune interior design studio with SEO, ads, and local marketing strategies."
+        canonical="https://adswisemarketing.com/case-studies/interior-design"
       />
 
       {/* 

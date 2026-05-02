@@ -5,26 +5,53 @@ const Team = () => {
 
   const teamMembers = [
     {
-      name: "Gaurav Jagtap",
-      role: "CEO",
-      image: "https://adswisemarketing.com/ceo.jpg?w=400&h=400&fit=crop",
-    },
-    {
       name: "Shalmali Shinde",
       role: "CONSULTING HEAD",
       image:
         "https://i.pinimg.com/736x/32/4f/a4/324fa4d50eab63a93f12dc9fee6720cc.jpg?w=400&h=400&fit=crop",
     },
     {
-      name: "Niraj Bhumkar",
-      role: "CO-FOUNDER",
-      // Added https://i.pinimg.com prefix to fix the broken link you had
-      image: "heab63a93f12dc9fee6720cc.jpg?w=400&h=400&fit=crop",
-    },
-    {
       name: "Nikhil M",
       role: "WEB DEVELOPER",
-      image: "https://adswisemarketing.com//website.jpg?w=400&h=400&fit=crop",
+      image:
+        "https://adswisemarketing.com/public/team/nikhil.jpeg?w=400&h=400&fit=crop",
+    },
+    {
+      name: "Rohit Kanse",
+      role: "Video Editor",
+      image:
+        "https://adswisemarketing.com//public/team/rohitkanase.jpeg?w=400&h=400&fit=crop",
+    },
+    {
+      name: "Saniya Pathan",
+      role: "Digital Marketer",
+      // Added https://i.pinimg.com prefix to fix the broken link you had
+      image: "https://adswisemarketing.com/public/team/saniyapathan.png",
+    },
+    {
+      name: "Pooja Shete",
+      role: "Graphic Designer",
+      // Added https://i.pinimg.com prefix to fix the broken link you had
+      image: "https://adswisemarketing.com/public/team/pooja.jpeg",
+    },
+    {
+      name: "Pradnya Apune",
+      role: "Jr. Digital Marketer",
+      // Added https://i.pinimg.com prefix to fix the broken link you had
+      image: "https://adswisemarketing.com/public/team/pradnya.jpeg",
+    },
+    {
+      name: "Pratiksha Desai",
+      role: "Jr. Digital Marketer",
+      // Added https://i.pinimg.com prefix to fix the broken link you had
+      image: "https://adswisemarketing.com/public/team/pratikashdesai.jpeg",
+    },
+    {
+      name: "Vaibhav Parade",
+      role: "Video Editor",
+      // Added https://i.pinimg.com prefix to fix the broken link you had
+      image:
+        "https://i.pinimg.com/736x/49/e9/1e/49e91eee07e896b227617f0629b6530a.jpg",
     },
   ];
 
@@ -37,19 +64,13 @@ const Team = () => {
           style={{ animationDelay: "0s" }}
         >
           <h1 className="text-4xl md:text-5xl font-bold text-black mb-12 text-center">
-            Our Team
+            Meet The Minds Behind Adswise
           </h1>
           <p className="text-gray-500 text-sm md:text-lg">
-            We’re a focused group of strategists, marketers, designers, and
-            developers working together to deliver complete digital solutions.
-            Each team member brings specialised expertise and stays aligned with
-            evolving industry standards. <b>Gaurav Jagtap</b> — Founder & Growth
-            Strategy Gaurav works closely with business owners to translate
-            goals, numbers, and market realities into digital strategies that
-            can be executed, measured, and scaled.
-          </p>
-          <p className="text-gray-500 text-sm md:text-lg">
-            Meet the passionate minds driving our success.
+            Every great campaign has a team that is devoted to strategy,
+            innovation, and results. At Adswise Marketing, our strategists
+            collaborate to create meaningful digital journeys, sustainable
+            strategies, and scalable growth for all of our clients.
           </p>
         </div>
 
@@ -101,6 +122,10 @@ const Team = () => {
             </div>
           ))}
         </div>
+        <p className="text-center text-gray-500 text-sm md:text-lg mt-12 text-xl">
+          Together, we unite strategy, imagination, and innovation to generate
+          digital success with bottom-line results.
+        </p>
       </div>
 
       {/* Animations */}

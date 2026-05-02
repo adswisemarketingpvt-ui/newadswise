@@ -918,7 +918,7 @@ const BrandDevelopmentServices = () => {
           <AnimatedSection>
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-[#363636] mb-6">
-                FAQs (SEO-optimized)
+                FAQs
               </h2>
             </div>
           </AnimatedSection>

@@ -32,6 +32,7 @@ function FootwearCaseStudy() {
       <SEO
         title="E-commerce Growth Strategy for Footwear | Adswise Marketing"
         description="Adswise Marketing grew a handcrafted footwear brand: +250% organic traffic, 180% revenue, 3.2x ROAS. Learn how."
+        canonical="https://adswisemarketing.com/case-studies/footwear"
       />
 
       {/* 
@@ -48,7 +49,7 @@ function FootwearCaseStudy() {
         <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
             <img
-              src="/images/case-studies/footwear/hero-banner.png"
+              src="https://www.dtkfootwear.com//logo.png"
               alt="250% increase in organic traffic, 180% revenue growth, 3.2x ROAS."
               className="w-full h-full object-cover"
             />
@@ -178,7 +179,7 @@ function FootwearCaseStudy() {
               >
                 <div className="bg-white p-2 shadow-lg relative overflow-hidden group">
                   <img
-                    src="/images/case-studies/footwear/client-overview.png"
+                    src="https://adswisemarketing.com//public/casestudy/gmb-5.png"
                     alt="Handcrafted leather shoes product showcase."
                     className="w-full h-80 object-contain rounded-xl transition-transform duration-500 group-hover:scale-105 bg-white"
                   />
@@ -421,7 +422,7 @@ function FootwearCaseStudy() {
                 </div>
                 <div className="mt-6 flex flex-col space-y-2">
                   <img
-                    src="/images/case-studies/footwear/product-page-before-after.png"
+                    src="https://adswisemarketing.com//public/casestudy/client-overview.png"
                     alt="Before and after product page optimization for handcrafted shoes."
                     className="rounded-lg shadow-md max-h-[500px] object-contain w-full"
                   />
@@ -590,11 +591,31 @@ function FootwearCaseStudy() {
               </div>
               <div className="h-full bg-[#f8f9fa] flex flex-col justify-center items-center p-8 border-l border-[#D3D3D3]/50">
                 <div className="grid grid-cols-2 gap-2 w-full mb-4 overflow-hidden rounded-lg shadow-md bg-white p-2">
-                  <img src="/images/case-studies/footwear/gmb-1.jpg" alt="GMB performance" className="w-full h-auto object-contain col-span-2" />
-                  <img src="/images/case-studies/footwear/gmb-2.jpg" alt="GMB ranking" className="w-full h-24 object-contain" />
-                  <img src="/images/case-studies/footwear/gmb-3.jpg" alt="GMB reviews" className="w-full h-24 object-contain" />
-                  <img src="/images/case-studies/footwear/gmb-4.png" alt="GMB traffic" className="w-full h-24 object-contain" />
-                  <img src="/images/case-studies/footwear/gmb-5.png" alt="GMB visibility" className="w-full h-24 object-contain" />
+                  <img
+                    src="https://adswisemarketing.com//public/casestudy/gmb-1.jpg"
+                    alt="GMB performance"
+                    className="w-full h-auto object-contain col-span-2"
+                  />
+                  <img
+                    src="https://adswisemarketing.com//public/casestudy/gmb-2.jpg"
+                    alt="GMB ranking"
+                    className="w-full h-24 object-contain"
+                  />
+                  <img
+                    src="https://adswisemarketing.com//public/casestudy/gmb-3.jpg"
+                    alt="GMB reviews"
+                    className="w-full h-24 object-contain"
+                  />
+                  <img
+                    src="https://adswisemarketing.com//public/casestudy/gmb-4.png"
+                    alt="GMB traffic"
+                    className="w-full h-24 object-contain"
+                  />
+                  <img
+                    src="https://adswisemarketing.com//public/casestudy/gmb-5.png"
+                    alt="GMB visibility"
+                    className="w-full h-24 object-contain"
+                  />
                 </div>
                 <span className="text-sm font-medium text-gray-500 italic">
                   Local visibility improved via GMB optimization.

@@ -860,7 +860,7 @@ const GraphicsDesigning: React.FC<GraphicsDesigningProps> = ({
           <AnimatedSection>
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl font-bold text-[#363636] mb-4">
-                FAQs <span className="text-[#536186]">(SEO-Optimized)</span>
+                FAQs
               </h2>
               <p className="text-[#363636]/70">
                 Common questions about our graphic design and branding services.

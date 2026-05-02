@@ -19,7 +19,7 @@ function CaseStudiesPage() {
         { metric: "3.2x", label: "ROAS improvement" },
       ],
       image:
-        "https://adswisemarketing.com//public/dtk.png?w=400&h=300&fit=crop",
+        "https://i.pinimg.com/736x/b1/55/af/b155af78b8a4fe1a5361d8332e548296.jpg?w=400&h=300&fit=crop",
       link: "/case-study-footwear-growth",
     },
     {
@@ -35,8 +35,34 @@ function CaseStudiesPage() {
         { metric: "3.2x", label: "ROAS improvement" },
       ],
       image:
-        "https://adswisemarketing.com//public/spacethemupp.png?auto=compress&cs=tinysrgb&w=800",
+        "https://i.pinimg.com/736x/b7/fe/e1/b7fee1852875ef497056d36438eb99c9.jpg",
       link: "/interior-design-marketing-case-study",
+    },
+    {
+      title: "Real Estate Growth Strategy",
+      client: "Bhumkar Realty (Builders & Developers in Pune)",
+      industry: "Real Estate",
+      challenge:
+        "High construction quality with low digital visibility, which restricts the reach of the business to high-intent home buyers in Pune, Wakad, and Chinchwad who are looking to purchase residential property. ",
+      solution:
+        "Create a high-performance mobile-optimized website for the real estate industry, along with SEO and paid advertising campaigns to generate more leads and build trust.",
+      results: [
+        {
+          metric: "180%",
+          label: "Growth in revenue driven by qualified leads",
+        },
+        {
+          metric: "400+",
+          label: "Qualified leads generated across Pune projects",
+        },
+        {
+          metric: "3.2x",
+          label: "RImprovement in ROAS from performance marketing campaigns",
+        },
+      ],
+      image:
+        "https://i.pinimg.com/736x/b7/3c/e7/b73ce744ae0415c6047293af62fac60f.jpg?w=400&h=300&fit=crop",
+      link: "/real-estate-case-study",
     },
     // {
     //   title: "Restaurant Chain Expansion",

@@ -7,6 +7,7 @@ import ClientsSection from "../homepages/ClientsSection";
 // import StatsSection from "../homepages/StatsSection";
 import Reviews from "../homepages/Reviews";
 import Project from "../homepages/Project";
+// import OurGraphics from "../homepages/OurGraphics";
 
 function Home() {
   return (
@@ -18,6 +19,7 @@ function Home() {
       <Services />
       <ClientsSection />
       <Project />
+      {/* <OurGraphics /> */}
       <Reviews />
       {/* <CaseStudies /> */}
     </>

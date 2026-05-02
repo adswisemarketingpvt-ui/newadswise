@@ -11,9 +11,12 @@ import Home from "./pages/Home";
 // import PricingPage from './pages/PricingPage';
 import CaseStudiesPage from "./pages/CaseStudiesPage";
 import BlogPage from "./pages/BlogPage";
+import BlogDetailPage from "./pages/BlogDetailPage";
 import ContactPage from "./pages/ContactPage";
 import FootwearCaseStudy from "./pages/case-study/FootwearCaseStudy";
 import InteriorDesignPage from "./pages/industry/InteriorDesignPage";
+import RealEstate from "./pages/case-study/RealEstate";
+import CarrierPage from "./pages/CarrierPage";
 import SEO from "./components/SEO";
 import AboutUs from "./components/AboutUs";
 import ServicesPage from "./pages/ServicesPage";
@@ -64,6 +67,7 @@ function App() {
 
             {/* <Route path="/pricing" element={<PricingPage />} /> */}
             <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/career" element={<CarrierPage />} />
             <Route path="/case-studies" element={<CaseStudiesPage />} />
             <Route
               path="/case-study-footwear-growth"
@@ -73,7 +77,9 @@ function App() {
               path="interior-design-marketing-case-study"
               element={<InteriordesignCaseStudy />}
             />
+            <Route path="real-estate-case-study" element={<RealEstate />} />
             <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogDetailPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             {/* <Route path="/campaign" element={<Campaign />} /> */}
